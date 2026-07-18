@@ -123,7 +123,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Navbar Center */}
+      {/* Navbar Center */} 
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal gap-2">
           {navLinks.map((route) => (
