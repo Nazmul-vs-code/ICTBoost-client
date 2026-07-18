@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || "https://ict-boost-server.vercel.app";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -7,10 +7,6 @@ export const serverFetch = async <T>(
     method: HttpMethod,
     body?: T
 ) => {
-
-
-    
-
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         method,
         headers: {
@@ -18,7 +14,6 @@ export const serverFetch = async <T>(
         },
         body: body ? JSON.stringify(body) : undefined,
     });
-
 
     const result = await response.json();
 

@@ -1,10 +1,10 @@
-const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "https://ict-boost-server.vercel.app";
 
 export const GetApiFunction = async (endpoint: string) => {
   const response = await fetch(`${baseUrl}${endpoint}`);
 
   if (!response.ok) {
-    throw new Error("Something went wrong.");
+    throw new Error(`Request failed with status ${response.status}`);
   }
 
   return await response.json();
@@ -18,7 +18,7 @@ export const GetApiFunctionWithParams = async (
   const response = await fetch(`${baseUrl}${endpoint}?${query}`);
 
   if (!response.ok) {
-    throw new Error("Something went wrong.");
+    throw new Error(`Request failed with status ${response.status}`);
   }
 
   return await response.json();
@@ -28,7 +28,7 @@ export const GetApiFunctionById = async (endpoint: string, id: string) => {
   const response = await fetch(`${baseUrl}${endpoint}/${id}`);
 
   if (!response.ok) {
-    throw new Error("Something went wrong.");
+    throw new Error(`Request failed with status ${response.status}`);
   }
 
   return await response.json();

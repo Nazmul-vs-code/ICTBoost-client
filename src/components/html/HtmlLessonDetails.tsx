@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toggleLike } from "@/lib/actions/like";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 import {
   FaHeart,
   FaRegHeart,
@@ -36,7 +39,6 @@ const difficultyBadge = (level: string) => {
   }
 };
 
-// Extract YouTube video ID from various URL formats
 const getYouTubeId = (url: string): string | null => {
   if (!url) return null;
 
@@ -59,16 +61,68 @@ const HtmlLessonDetails = ({ lesson }: { lesson: HtmlLesson }) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [videoError, setVideoError] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const currentUserEmail = session?.user?.email;
 
   const videoId = getYouTubeId(lesson.videoUrl);
 
-  const handleLike = () => {
-    if (liked) {
-      setLikeCount((prev) => prev - 1);
-    } else {
-      setLikeCount((prev) => prev + 1);
+  // Fetch like count and user's like status on mount
+  useEffect(() => {
+    if (!lesson._id) return;
+
+    const fetchLikes = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+        const params = new URLSearchParams({ lessonId: lesson._id });
+
+        if (currentUserEmail) {
+          params.set("likedByEmail", currentUserEmail);
+        }
+
+        const res = await fetch(`${baseUrl}/lesson/html/like/${lesson._id}?${params}`);
+        const data = await res.json();
+
+        if (data.success) {
+          setLikeCount(data.likeCount);
+          setLiked(data.liked);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchLikes();
+  }, [lesson._id, currentUserEmail]);
+
+  const handleLike = async () => {
+    if (!currentUserEmail) {
+      toast.error("Please login to like this lesson.");
+      return;
     }
-    setLiked(!liked);
+
+    if (likeLoading) return;
+
+    setLikeLoading(true);
+
+    try {
+      const result = await toggleLike(
+        lesson._id,
+        lesson.authorEmail,
+        currentUserEmail
+      );
+
+      setLiked(result.liked);
+      setLikeCount(result.likeCount);
+
+      toast.success(result.message);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLikeLoading(false);
+    }
   };
 
   return (
@@ -82,9 +136,9 @@ const HtmlLessonDetails = ({ lesson }: { lesson: HtmlLesson }) => {
         Back to Lessons
       </Link>
 
-      {/* Main Content — Responsive: stacked on mobile, side-by-side on desktop */}
+      {/* Main Content */}
       <div className="grid gap-8 lg:grid-cols-5">
-        {/* Left — Video (takes 3 cols on desktop) */}
+        {/* Left — Video */}
         <div className="lg:col-span-3 space-y-4">
           <div className="card bg-white shadow-xl border border-orange-100 overflow-hidden">
             {videoId && !videoError ? (
@@ -125,7 +179,7 @@ const HtmlLessonDetails = ({ lesson }: { lesson: HtmlLesson }) => {
           </div>
         </div>
 
-        {/* Right — Details (takes 2 cols on desktop) */}
+        {/* Right — Details */}
         <div className="lg:col-span-2 space-y-6">
           {/* Title + Like */}
           <div className="card bg-white shadow-xl border border-orange-100">
@@ -138,7 +192,12 @@ const HtmlLessonDetails = ({ lesson }: { lesson: HtmlLesson }) => {
                 {/* Like Button */}
                 <button
                   onClick={handleLike}
-                  className="btn btn-outline border-orange-300 hover:bg-orange-100 gap-2"
+                  disabled={likeLoading}
+                  className={`btn btn-outline gap-2 ${
+                    liked
+                      ? "border-red-300 bg-red-50 hover:bg-red-100"
+                      : "border-orange-300 hover:bg-orange-100"
+                  }`}
                 >
                   {liked ? (
                     <span className="text-red-500">
