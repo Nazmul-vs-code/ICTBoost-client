@@ -1,9 +1,9 @@
+import Hero from "@/components/home page/Hero";
+
 export default function Home() {
-  
-  return(
-    <div className="bg-base-500">
-      
-      
-    </div>
-  )
+  return (
+    <main>
+      <Hero />
+    </main>
+  );
 }
