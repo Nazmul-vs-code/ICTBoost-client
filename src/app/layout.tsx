@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/home page/Navbar";
+import Footer from "@/components/home page/Footer";
 import { Toaster } from "react-hot-toast";
 
 const lexend = Lexend({
@@ -31,6 +32,7 @@ export default function RootLayout({
         />
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
