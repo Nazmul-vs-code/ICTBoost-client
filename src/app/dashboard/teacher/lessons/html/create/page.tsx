@@ -21,7 +21,6 @@ const CreateHtmlLessonPage = () => {
     referenceUrl: "",
     description: "",
     difficulty: "Beginner",
-    authorEmail: session?.user.email || "",
   });
 
   const handleChange = (
@@ -38,21 +37,41 @@ const CreateHtmlLessonPage = () => {
   };
 
   const handleSubmit = async (
-  e: React.FormEvent<HTMLFormElement>
-) => {
-  e.preventDefault();
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
 
-  console.log(formData);
+    const lessonData = {
+      ...formData,
+      authorEmail: session?.user.email,
+    };
 
-  const result = await createHtmlLesson(formData);
+    console.log("Submitting:", lessonData);
 
-  console.log(result);
-  result ? toast.success(`${formData.title} was created successfully !`) : toast.error(`Something went wrong!`)
-};
+    try {
+      const result = await createHtmlLesson(lessonData);
+
+      console.log(result);
+
+      toast.success(
+        `${formData.title} was created successfully! 🎉`
+      );
+
+      setFormData({
+        title: "",
+        videoUrl: "",
+        referenceUrl: "",
+        description: "",
+        difficulty: "Beginner",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong!");
+    }
+  };
 
   return (
     <section className="max-w-4xl mx-auto">
-
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800">
           Create HTML Lesson
@@ -76,7 +95,9 @@ const CreateHtmlLessonPage = () => {
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
-              <FaBook className="text-orange-500" />
+              <span className="text-orange-500">
+                <FaBook />
+              </span>
 
               <input
                 type="text"
@@ -97,7 +118,9 @@ const CreateHtmlLessonPage = () => {
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
-              <FaYoutube className="text-red-500" />
+              <span className="text-red-500">
+                <FaYoutube />
+              </span>
 
               <input
                 type="url"
@@ -118,7 +141,9 @@ const CreateHtmlLessonPage = () => {
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
-              <FaGlobe className="text-blue-500" />
+              <span className="text-blue-500">
+                <FaGlobe />
+              </span>
 
               <input
                 type="url"
@@ -139,7 +164,9 @@ const CreateHtmlLessonPage = () => {
             </label>
 
             <label className="select select-bordered flex items-center gap-3">
-              <FaLayerGroup className="text-orange-500" />
+              <span className="text-orange-500">
+                <FaLayerGroup />
+              </span>
 
               <select
                 name="difficulty"
@@ -147,9 +174,9 @@ const CreateHtmlLessonPage = () => {
                 onChange={handleChange}
                 className="grow bg-transparent outline-none"
               >
-                <option className="text-yellow-500 my-1 bg-black">Beginner</option>
-                <option className="text-red-500 my-1 bg-black">Intermediate</option>
-                <option className="text-blue-500 my-1 bg-black">Advanced</option>
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
               </select>
             </label>
           </div>
@@ -161,7 +188,9 @@ const CreateHtmlLessonPage = () => {
             </label>
 
             <label className="textarea textarea-bordered flex gap-3">
-              <FaAlignLeft className="mt-1 text-orange-500" />
+              <span className="mt-1 text-orange-500">
+                <FaAlignLeft />
+              </span>
 
               <textarea
                 rows={5}
@@ -175,14 +204,6 @@ const CreateHtmlLessonPage = () => {
             </label>
           </div>
 
-          {/* Hidden Email */}
-          <input
-            type="hidden"
-            name="authorEmail"
-            value={session?.user.email || ""}
-          />
-
-          {/* Buttons */}
           <div className="flex justify-end gap-4 pt-2">
             <button
               type="reset"
@@ -201,7 +222,6 @@ const CreateHtmlLessonPage = () => {
 
         </div>
       </form>
-
     </section>
   );
 };
