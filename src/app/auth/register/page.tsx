@@ -44,7 +44,7 @@ const RegisterPage = () => {
 
     console.log("Form Data:", formData);
 
-    const { data, error } = await (authClient.signUp.email as any)({
+    const { data, error } = await (authClient.signUp.email!)({
       name: formData.name,
       email: formData.email,
       password: formData.password,

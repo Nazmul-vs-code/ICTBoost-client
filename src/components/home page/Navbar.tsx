@@ -2,7 +2,9 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { RiHomeOfficeFill } from "react-icons/ri";
 
 const navLinks = [
   {
@@ -31,14 +33,19 @@ const authRoutes = [
 ];
 
 export default function Navbar() {
-  const { data } = authClient.useSession();
+  const pathname = usePathname();
 
+  // ✅ Hide navbar on dashboard routes
+  if (pathname.startsWith("/dashboard")) {
+    return null;
+  }
+
+  const { data } = authClient.useSession();
   const [imageError, setImageError] = useState(false);
 
   const handleLogout = async () => {
     try {
       await authClient.signOut();
-
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -80,9 +87,7 @@ export default function Navbar() {
           >
             {navLinks.map((route) => (
               <li key={route.href}>
-                <Link href={route.href}>
-                  {route.label}
-                </Link>
+                <Link href={route.href}>{route.label}</Link>
               </li>
             ))}
 
@@ -91,23 +96,17 @@ export default function Navbar() {
             {!data?.user ? (
               authRoutes.map((route) => (
                 <li key={route.href}>
-                  <Link href={route.href}>
-                    {route.label}
-                  </Link>
+                  <Link href={route.href}>{route.label}</Link>
                 </li>
               ))
             ) : (
               <>
                 <li>
-                  <Link href="/profile">
-                    👤 Profile
-                  </Link>
+                  <Link href="/profile">👤 Profile</Link>
                 </li>
 
                 <li>
-                  <button onClick={handleLogout}>
-                    🚪 Logout
-                  </button>
+                  <button onClick={handleLogout}>🚪 Logout</button>
                 </li>
               </>
             )}
@@ -123,15 +122,12 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Navbar Center */} 
+      {/* Navbar Center */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal gap-2">
           {navLinks.map((route) => (
-            <li className="btn-outline"
-             key={route.href}>
-              <Link href={route.href}>
-                {route.label}
-              </Link>
+            <li key={route.href}>
+              <Link href={route.href}>{route.label}</Link>
             </li>
           ))}
         </ul>
@@ -139,18 +135,16 @@ export default function Navbar() {
 
       {/* Navbar End */}
       <div className="navbar-end">
-
         {!data?.user ? (
           <div className="hidden lg:flex gap-2">
             {authRoutes.map((route) => (
               <Link
                 key={route.href}
                 href={route.href}
-                className={`btn ${
-                  route.label === "Register"
+                className={`btn ${route.label === "Register"
                     ? "btn-warning"
                     : "btn-neutral text-warning"
-                }`}
+                  }`}
               >
                 {route.label}
               </Link>
@@ -158,14 +152,12 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="dropdown dropdown-end">
-
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost px-2"
             >
               <div className="flex items-center gap-3">
-
                 {!imageError && data.user.image ? (
                   <img
                     src={data.user.image}
@@ -182,7 +174,6 @@ export default function Navbar() {
                 <p className="hidden sm:block max-w-28 truncate font-semibold">
                   {data.user.name}
                 </p>
-
               </div>
             </div>
 
@@ -191,9 +182,11 @@ export default function Navbar() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 shadow z-[100]"
             >
               <li>
-                <Link href="/profile">
-                  👤 Profile
-                </Link>
+                <Link href="/profile">👤 Profile</Link>
+              </li>
+              <li className="font-semibold">
+                <RiHomeOfficeFill /> <Link href={`/dashboard/${data?.user?.role}`}>Dashboard</Link>
+
               </li>
 
               <li>
@@ -205,11 +198,10 @@ export default function Navbar() {
                 </button>
               </li>
             </ul>
-
           </div>
         )}
-
       </div>
+
     </div>
   );
 }
