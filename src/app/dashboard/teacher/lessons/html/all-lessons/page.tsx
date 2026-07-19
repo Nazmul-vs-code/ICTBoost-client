@@ -111,7 +111,7 @@ const AllHtmlLessonsPage = () => {
       {!loading && lessons.length === 0 && (
         <div className="card bg-white shadow-xl border border-orange-100">
           <div className="card-body flex flex-col items-center py-16 text-gray-400">
-            <FaBookOpen size={48} className="mb-4" />
+            <span className="mb-4"><FaBookOpen size={48} /></span>
             <p className="text-lg font-medium">No lessons found</p>
             <p className="text-sm mt-1">
               Create your first HTML lesson to get started.

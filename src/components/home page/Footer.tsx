@@ -25,7 +25,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <FaHtml5 className="text-orange-500" size={28} />
+              <span className="text-orange-500"><FaHtml5 size={28} /></span>
               <span className="text-2xl font-bold text-white">ICTBoost</span>
             </Link>
             <p className="text-sm leading-relaxed">
@@ -138,15 +138,15 @@ const Footer = () => {
             <h3 className="text-white font-bold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-3">
-                <FaEnvelope className="text-orange-500 shrink-0" size={14} />
+                <span className="text-orange-500 shrink-0"><FaEnvelope size={14} /></span>
                 support@ictboost.com
               </li>
               <li className="flex items-center gap-3">
-                <FaPhone className="text-orange-500 shrink-0" size={14} />
+                <span className="text-orange-500 shrink-0"><FaPhone size={14} /></span>
                 +880 123 456 789
               </li>
               <li className="flex items-start gap-3">
-                <FaMapMarkerAlt className="text-orange-500 shrink-0 mt-0.5" size={14} />
+                <span className="text-orange-500 shrink-0 mt-0.5"><FaMapMarkerAlt size={14} /></span>
                 <span>Dhaka, Bangladesh</span>
               </li>
             </ul>

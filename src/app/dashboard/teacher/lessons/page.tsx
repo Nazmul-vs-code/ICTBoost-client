@@ -50,10 +50,9 @@ const LessonsPage = () => {
               <div
                 className={`mb-5 flex h-16 w-16 items-center justify-center rounded-2xl ${subject.bg}`}
               >
-                <Icon
-                  className={`${subject.color}`}
-                  size={34}
-                />
+                <span className={subject.color}>
+                  <Icon size={34} />
+                </span>
               </div>
 
               <h2 className="text-2xl font-bold text-gray-800">
@@ -66,7 +65,7 @@ const LessonsPage = () => {
 
               <div className="mt-6 flex items-center font-semibold text-orange-500">
                 Manage Lessons
-                <FaArrowRight className="ml-2 transition group-hover:translate-x-2" />
+                <span className="ml-2 transition group-hover:translate-x-2"><FaArrowRight /></span>
               </div>
             </Link>
           );

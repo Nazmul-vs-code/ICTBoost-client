@@ -111,7 +111,7 @@ const AllCLessonsPage = () => {
       {!loading && lessons.length === 0 && (
         <div className="card bg-white shadow-xl border border-blue-100">
           <div className="card-body flex flex-col items-center py-16 text-gray-400">
-            <FaLaptopCode size={48} className="mb-4" />
+            <span className="mb-4"><FaLaptopCode size={48} /></span>
             <p className="text-lg font-medium">No lessons found</p>
             <p className="text-sm mt-1">
               Create your first C programming lesson to get started.

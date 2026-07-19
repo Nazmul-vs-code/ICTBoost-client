@@ -93,7 +93,7 @@ const CLessonDetailsPage = () => {
       <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="card bg-white shadow-xl border border-blue-100">
           <div className="card-body flex flex-col items-center py-16 text-gray-400">
-            <FaLaptopCode size={48} className="mb-4" />
+            <span className="mb-4"><FaLaptopCode size={48} /></span>
             <p className="text-lg font-medium">Lesson not found</p>
             <p className="text-sm mt-1">
               The lesson you&apos;re looking for doesn&apos;t exist or has been removed.

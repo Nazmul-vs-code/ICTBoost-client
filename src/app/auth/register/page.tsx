@@ -49,7 +49,7 @@ const RegisterPage = () => {
       email: formData.email,
       password: formData.password,
       image: formData.image,
-      role: formData.role,
+      // role: formData.role,
     //   callbackURL: "/",
     });
 

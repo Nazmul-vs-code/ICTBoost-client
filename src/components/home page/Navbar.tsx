@@ -17,7 +17,7 @@ const navLinks = [
   },
   {
     label: "C Programming",
-    href: "/c-programming",
+    href: "/c",
   },
 ];
 
@@ -185,7 +185,7 @@ export default function Navbar() {
                 <Link href="/profile">👤 Profile</Link>
               </li>
               <li className="font-semibold">
-                <RiHomeOfficeFill /> <Link href={`/dashboard/${data?.user?.role}`}>Dashboard</Link>
+                <RiHomeOfficeFill /> <Link href={`/dashboard/${(data?.user as {role?: string })?.role}`}>Dashboard</Link>
 
               </li>
 

@@ -27,37 +27,37 @@ const Hero = () => {
         {/* Floating Code Symbols */}
         <div className="absolute top-20 left-[10%] animate-float">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
-            <FaHtml5 className="text-orange-500" size={32} />
+            <FaHtml5 size={32} />
           </div>
         </div>
 
         <div className="absolute top-32 right-[15%] animate-float-delay">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
-            <FaCss3Alt className="text-blue-500" size={32} />
+            <FaCss3Alt size={32} />
           </div>
         </div>
 
         <div className="absolute bottom-32 left-[15%] animate-float-slow">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
-            <FaJs className="text-yellow-500" size={32} />
+            <FaJs size={32} />
           </div>
         </div>
 
         <div className="absolute bottom-40 right-[10%] animate-float">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
-            <FaCode className="text-orange-500" size={32} />
+            <FaCode size={32} />
           </div>
         </div>
 
         <div className="absolute top-[45%] left-[5%] animate-float-delay">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-3">
-            <FaRobot className="text-purple-500" size={24} />
+            <FaRobot size={24} />
           </div>
         </div>
 
         <div className="absolute top-[55%] right-[5%] animate-float-slow">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-3">
-            <FaGraduationCap className="text-green-500" size={24} />
+            <FaGraduationCap size={24} />
           </div>
         </div>
 

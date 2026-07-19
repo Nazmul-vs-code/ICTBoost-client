@@ -64,3 +64,26 @@
 .delay-600 { animation-delay: 0.6s; }
 .delay-700 { animation-delay: 0.7s; }
 .delay-800 { animation-delay: 0.8s; }
+
+/* Importance Section Staggered Animation */
+@keyframes importance-slide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-importance-0 { animation: importance-slide 0.4s ease-out 0ms both; }
+.animate-importance-1 { animation: importance-slide 0.4s ease-out 80ms both; }
+.animate-importance-2 { animation: importance-slide 0.4s ease-out 160ms both; }
+.animate-importance-3 { animation: importance-slide 0.4s ease-out 240ms both; }
+.animate-importance-4 { animation: importance-slide 0.4s ease-out 320ms both; }
+.animate-importance-5 { animation: importance-slide 0.4s ease-out 400ms both; }
+.animate-importance-6 { animation: importance-slide 0.4s ease-out 480ms both; }
+.animate-importance-7 { animation: importance-slide 0.4s ease-out 560ms both; }
+.animate-importance-8 { animation: importance-slide 0.4s ease-out 640ms both; }
+.animate-importance-9 { animation: importance-slide 0.4s ease-out 720ms both; }

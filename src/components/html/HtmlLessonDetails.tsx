@@ -154,7 +154,7 @@ const HtmlLessonDetails = ({ lesson }: { lesson: HtmlLesson }) => {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-gray-400 bg-gray-50">
-                <FaExclamationTriangle size={48} className="mb-4 text-orange-400" />
+                <span className="mb-4 text-orange-400"><FaExclamationTriangle size={48} /></span>
                 <p className="text-lg font-medium text-gray-600">
                   Video not available
                 </p>
