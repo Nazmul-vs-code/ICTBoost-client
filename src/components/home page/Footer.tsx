@@ -84,8 +84,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/c-programming" className="hover:text-orange-500 transition-colors">
+                <Link href="/c" className="hover:text-orange-500 transition-colors">
                   C Programming
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-orange-500 transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/agent" className="hover:text-orange-500 transition-colors">
+                  AI Tutor
                 </Link>
               </li>
               <li>

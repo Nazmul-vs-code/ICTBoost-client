@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiHomeOfficeFill } from "react-icons/ri";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   {
@@ -20,8 +21,12 @@ const navLinks = [
     href: "/c",
   },
   {
-    label: "Your chat assistant",
+    label: "AI Tutor",
     href: "/agent",
+  },
+  {
+    label: "About",
+    href: "/about",
   },
 ];
 
@@ -39,7 +44,7 @@ const authRoutes = [
 export default function Navbar() {
   const pathname = usePathname();
 
-  // ✅ Hide navbar on dashboard routes
+  // Hide navbar on dashboard routes
   if (pathname.startsWith("/dashboard")) {
     return null;
   }
@@ -57,7 +62,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="navbar bg-gray-200 shadow-sm px-4 lg:px-8 sticky top-0 z-50">
+    <div className="navbar bg-base-200 shadow-sm px-4 lg:px-8 sticky top-0 z-50">
 
       {/* Navbar Start */}
       <div className="navbar-start">
@@ -106,11 +111,11 @@ export default function Navbar() {
             ) : (
               <>
                 <li>
-                  <Link href="/profile">👤 Profile</Link>
+                  <Link href="/profile">Profile</Link>
                 </li>
 
                 <li>
-                  <button onClick={handleLogout}>🚪 Logout</button>
+                  <button onClick={handleLogout}>Logout</button>
                 </li>
               </>
             )}
@@ -131,24 +136,33 @@ export default function Navbar() {
         <ul className="menu menu-horizontal gap-2">
           {navLinks.map((route) => (
             <li key={route.href}>
-              <Link href={route.href}>{route.label}</Link>
+              <Link
+                href={route.href}
+                className={pathname === route.href ? "active" : ""}
+              >
+                {route.label}
+              </Link>
             </li>
           ))}
         </ul>
       </div>
 
       {/* Navbar End */}
-      <div className="navbar-end">
+      <div className="navbar-end gap-2">
+        {/* Theme Toggle */}
+        <ThemeToggle />
+
         {!data?.user ? (
           <div className="hidden lg:flex gap-2">
             {authRoutes.map((route) => (
               <Link
                 key={route.href}
                 href={route.href}
-                className={`btn ${route.label === "Register"
-                    ? "btn-warning"
-                    : "btn-neutral text-warning"
-                  }`}
+                className={`btn ${
+                  route.label === "Register"
+                    ? "bg-orange-500 hover:bg-orange-600 border-none text-white"
+                    : "btn-outline border-orange-300 hover:bg-orange-50 text-orange-600"
+                }`}
               >
                 {route.label}
               </Link>
@@ -186,11 +200,10 @@ export default function Navbar() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 shadow z-[100]"
             >
               <li>
-                <Link href="/profile">👤 Profile</Link>
+                <Link href="/profile">Profile</Link>
               </li>
               <li className="font-semibold">
                 <RiHomeOfficeFill /> <Link href={`/dashboard/${(data?.user as {role?: string })?.role}`}>Dashboard</Link>
-
               </li>
 
               <li>
@@ -198,7 +211,7 @@ export default function Navbar() {
                   onClick={handleLogout}
                   className="text-red-500"
                 >
-                  🚪 Logout
+                  Logout
                 </button>
               </li>
             </ul>

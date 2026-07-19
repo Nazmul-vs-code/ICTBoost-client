@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { authClient } from "@/lib/auth-client";
 import {
   FaBook,
   FaBug,
@@ -12,6 +13,8 @@ import {
   FaSpinner,
   FaEraser,
 } from "react-icons/fa";
+
+const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || "https://ict-boost-server.vercel.app";
 
 type Message = {
   role: "user" | "assistant";
@@ -58,13 +61,16 @@ const tools: Tool[] = [
 ];
 
 const AgentPage = () => {
+  const { data: session } = authClient.useSession();
   const [activeTool, setActiveTool] = useState("explain");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [historyLoading, setHistoryLoading] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const userEmail = session?.user?.email;
   const currentTool = tools.find((t) => t.id === activeTool)!;
 
   const scrollToBottom = () => {
@@ -75,14 +81,82 @@ const AgentPage = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Load chat history on mount
+  useEffect(() => {
+    console.log("[chat] Session email:", userEmail);
+
+    if (!userEmail) {
+      setHistoryLoading(false);
+      return;
+    }
+
+    const fetchHistory = async () => {
+      try {
+        console.log("[chat] Fetching history for:", userEmail);
+        const res = await fetch(`${BASE_URL}/chat/history?email=${encodeURIComponent(userEmail)}`);
+        const data = await res.json();
+        console.log("[chat] History response:", data);
+
+        if (data.success && data.data.length > 0) {
+          const loaded: Message[] = data.data.map((msg: any) => ({
+            role: msg.role,
+            content: msg.content,
+          }));
+          setMessages(loaded);
+        }
+      } catch (error) {
+        console.log("[chat] History error:", error);
+      } finally {
+        setHistoryLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, [userEmail]);
+
+  // Save a message to backend
+  const saveMessage = useCallback(
+    async (role: "user" | "assistant", content: string) => {
+      if (!userEmail) {
+        console.log("[chat] No user email, skipping save");
+        return;
+      }
+
+      console.log("[chat] Saving message:", { email: userEmail, role, content: content.substring(0, 50) });
+
+      try {
+        const res = await fetch(`${BASE_URL}/chat/save`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: userEmail,
+            role,
+            content,
+            tool: activeTool,
+          }),
+        });
+        const data = await res.json();
+        console.log("[chat] Save response:", data);
+      } catch (error) {
+        console.log("[chat] Save error:", error);
+      }
+    },
+    [userEmail, activeTool]
+  );
+
   const handleSend = async () => {
     const trimmed = input.trim();
     if (!trimmed || loading) return;
+
+    console.log("[chat] handleSend called, userEmail:", userEmail);
 
     const userMessage: Message = { role: "user", content: trimmed };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
+
+    // Save user message
+    await saveMessage("user", trimmed);
 
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -103,6 +177,9 @@ const AgentPage = () => {
 
       const assistantMessage: Message = { role: "assistant", content: data.text };
       setMessages((prev) => [...prev, assistantMessage]);
+
+      // Save assistant message
+      saveMessage("assistant", data.text);
     } catch (error) {
       console.log(error);
       const errorMessage: Message = {
@@ -110,6 +187,9 @@ const AgentPage = () => {
         content: error instanceof Error ? error.message : "Sorry, something went wrong. Please try again.",
       };
       setMessages((prev) => [...prev, errorMessage]);
+
+      // Save error message
+      saveMessage("assistant", errorMessage.content);
     } finally {
       setLoading(false);
     }
@@ -124,14 +204,23 @@ const AgentPage = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
-    // Auto-resize textarea
     e.target.style.height = "auto";
     e.target.style.height = Math.min(e.target.scrollHeight, 150) + "px";
   };
 
-  const clearChat = () => {
+  const clearChat = async () => {
     setMessages([]);
     setInput("");
+
+    if (userEmail) {
+      try {
+        await fetch(`${BASE_URL}/chat/clear?email=${encodeURIComponent(userEmail)}`, {
+          method: "DELETE",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   const switchTool = (toolId: string) => {
@@ -176,9 +265,7 @@ const AgentPage = () => {
                 <div className="flex items-center gap-3">
                   <div
                     className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
-                      isActive
-                        ? "bg-white/20"
-                        : "bg-orange-100"
+                      isActive ? "bg-white/20" : "bg-orange-100"
                     }`}
                   >
                     <span className={isActive ? "text-white" : "text-orange-500"}>
@@ -230,7 +317,16 @@ const AgentPage = () => {
 
         {/* Messages */}
         <div className="h-[450px] overflow-y-auto px-6 py-4 space-y-4">
-          {messages.length === 0 && !loading && (
+          {/* History loading */}
+          {historyLoading && (
+            <div className="flex flex-col items-center justify-center h-full text-gray-400">
+              <span className="loading loading-spinner loading-lg text-orange-500" />
+              <p className="mt-4 text-sm">Loading chat history...</p>
+            </div>
+          )}
+
+          {/* Empty state */}
+          {!historyLoading && messages.length === 0 && !loading && (
             <div className="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
                 <span className="text-orange-300">
@@ -239,21 +335,26 @@ const AgentPage = () => {
               </div>
               <div className="text-center">
                 <p className="text-lg font-medium text-gray-500">
-                  Ask me anything about {currentTool.title === "Explain Concept" ? "HTML and C Programming" : currentTool.title === "Debug Code" ? "your code" : currentTool.title === "Generate Quiz" ? "HTML and C topics" : "practice problems"}!
+                  Ask me anything about{" "}
+                  {currentTool.title === "Explain Concept"
+                    ? "HTML and C Programming"
+                    : currentTool.title === "Debug Code"
+                    ? "your code"
+                    : currentTool.title === "Generate Quiz"
+                    ? "HTML and C topics"
+                    : "practice problems"}
+                  !
                 </p>
-                <p className="text-sm text-gray-400 mt-1">
-                  {currentTool.placeholder}
-                </p>
+                <p className="text-sm text-gray-400 mt-1">{currentTool.placeholder}</p>
               </div>
             </div>
           )}
 
+          {/* Messages */}
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`flex gap-3 ${
-                msg.role === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               {msg.role === "assistant" && (
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500 mt-1">
@@ -293,7 +394,9 @@ const AgentPage = () => {
               </div>
               <div className="bg-gray-100 rounded-2xl rounded-bl-md px-5 py-4">
                 <span className="flex items-center gap-2 text-gray-400 text-sm">
-                  <span className="animate-spin"><FaSpinner size={14} /></span>
+                  <span className="animate-spin">
+                    <FaSpinner size={14} />
+                  </span>
                   Thinking...
                 </span>
               </div>
@@ -324,7 +427,8 @@ const AgentPage = () => {
             </button>
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            Press <kbd className="kbd kbd-xs">Enter</kbd> to send, <kbd className="kbd kbd-xs">Shift+Enter</kbd> for new line
+            Press <kbd className="kbd kbd-xs">Enter</kbd> to send,{" "}
+            <kbd className="kbd kbd-xs">Shift+Enter</kbd> for new line
           </p>
         </div>
       </div>

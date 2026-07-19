@@ -23,9 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      data-theme='light'
-      lang="en" className={lexend.variable}>
-      <body className="min-h-screen font-sans antialiased ">
+      lang="en"
+      className={lexend.variable}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('ictboost-theme');if(t){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen font-sans antialiased">
         <Toaster
           position="top-center"
           reverseOrder={false}
