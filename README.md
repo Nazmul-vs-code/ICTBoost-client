@@ -60,7 +60,7 @@
 ### AI Integration
 | Technology | Purpose |
 |------------|---------|
-| 🧠 Gemini AI (2.0 Flash) | LLM for chat tutor, quizzes, debugging |
+| 🧠 Gemini AI (3.5 Flash) | LLM for chat tutor, quizzes, debugging |
 
 ---
 
@@ -97,7 +97,7 @@
 ### 🔐 Authentication
 - 📧 Email & password login/registration
 - 👤 Role-based access (teacher, student, admin)
-- 🛡️ **Route protection** via Next.js middleware
+- 🛡️ **Route protection** via Next.js proxy.ts
 - 🔒 Protected dashboard routes
 
 ---
@@ -201,7 +201,7 @@ ICTBoost/
 │   │   │   └── 📁 about/        # About page
 │   │   ├── 📁 components/       # Reusable components
 │   │   ├── 📁 lib/              # Auth, API, actions
-│   │   └── middleware.ts        # Route protection
+│   │   └── proxy.ts             # Route protection (Next.js proxy)
 │   └── package.json
 │
 ├── 📁 ICTBoost-backend/         # Backend (Express.js)
