@@ -3,11 +3,17 @@ import type { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
 
 export async function middleware(request: NextRequest) {
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
-
   const { pathname } = request.nextUrl;
+
+  // Safely get session — if auth fails, treat as no session
+  let session = null;
+  try {
+    session = await auth.api.getSession({
+      headers: request.headers,
+    });
+  } catch {
+    // Auth call failed (e.g. DB unavailable) — continue without session
+  }
 
   // Redirect logged-in users away from auth pages
   if (
