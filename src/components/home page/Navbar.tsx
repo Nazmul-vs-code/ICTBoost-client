@@ -19,6 +19,10 @@ const navLinks = [
     label: "C Programming",
     href: "/c",
   },
+  {
+    label: "Your chat assistant",
+    href: "/agent",
+  },
 ];
 
 const authRoutes = [
