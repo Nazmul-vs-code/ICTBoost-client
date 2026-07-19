@@ -31,7 +31,13 @@ const difficultyColor = (level: string) => {
   }
 };
 
-const LikesAnalyticsChart = ({ data }: { data: LessonAnalytics[] }) => {
+const LikesAnalyticsChart = ({
+  data,
+  accentColor = "#f97316",
+}: {
+  data: LessonAnalytics[];
+  accentColor?: string;
+}) => {
   if (data.length === 0) return null;
 
   const chartData = data.map((lesson) => ({
@@ -47,7 +53,7 @@ const LikesAnalyticsChart = ({ data }: { data: LessonAnalytics[] }) => {
     <div className="card bg-white shadow-xl border border-orange-100">
       <div className="card-body">
         <h2 className="card-title text-gray-800">
-          <span className="text-orange-500">
+          <span style={{ color: accentColor }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -95,7 +101,7 @@ const LikesAnalyticsChart = ({ data }: { data: LessonAnalytics[] }) => {
                 dataKey="likes"
                 name="Likes"
                 radius={[6, 6, 0, 0]}
-                fill="#f97316"
+                fill={accentColor}
               />
             </BarChart>
           </ResponsiveContainer>
