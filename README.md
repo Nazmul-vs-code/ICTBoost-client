@@ -82,17 +82,18 @@
 - 💾 **Chat history** — saved per user in MongoDB
 
 ### 📊 Teacher Dashboard
-- 📈 **Analytics charts** (bar chart + radar chart)
-- 📋 **Lesson management** — create, view, delete
-- 🔍 **Search & filter** on dashboard tables
-- 📊 **Separate HTML/C sections** with color coding
-- 📱 **Fully responsive** layout
+- 📈 **Analytics charts** (bar chart + radar chart) with dark mode support
+- 📋 **Lesson management** — create, view, delete with search & filter
+- 🎨 **Dashboard sidebar** — dark mode toggle, role-based emojis, active state indicators
+- 📱 **Fully responsive** — mobile drawer + desktop sticky sidebar
 
 ### 🎨 UI/UX
-- 🌗 **Dark/Light theme toggle** (DaisyUI synthwave theme)
-- ✨ **Smooth animations** — float, slide-up, staggered reveals
+- 🌗 **Dark/Light theme toggle** (DaisyUI dark theme with system persistence)
+- 🎨 **Dashboard sidebar** with dark mode toggle, role-based emojis, and animated nav items
+- ✨ **Smooth animations** — float, slide-up, staggered reveals, sidebar slide-in
 - 🎯 **7+ home page sections** — Hero, Latest Lessons, Most Liked, Importance of HTML, Importance of C, About, Footer
-- 📱 **Mobile-first** responsive design
+- 📱 **Mobile-first** responsive design with drawer sidebar
+- 📊 **Theme-aware charts** — radar & bar charts adapt colors to dark/light mode
 
 ### 🔐 Authentication
 - 📧 Email & password login/registration

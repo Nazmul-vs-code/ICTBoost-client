@@ -68,7 +68,7 @@ const MostLikedLessons = () => {
   useEffect(() => {
     const check = () => {
       const theme = document.documentElement.getAttribute("data-theme");
-      setIsDark(theme === "synthwave");
+      setIsDark(theme === "dark");
     };
     check();
     const observer = new MutationObserver(check);
