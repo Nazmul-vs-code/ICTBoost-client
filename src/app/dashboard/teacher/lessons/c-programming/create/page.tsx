@@ -90,8 +90,8 @@ const CreateCLessonPage = () => {
 
           {/* Title */}
           <div>
-            <label className="label font-semibold">
-              Topic Name
+            <label className="label font-semibold text-base-content">
+              📝 Topic Name
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
@@ -113,8 +113,8 @@ const CreateCLessonPage = () => {
 
           {/* Video */}
           <div>
-            <label className="label font-semibold">
-              YouTube Video URL
+            <label className="label font-semibold text-base-content">
+              🎥 YouTube Video URL
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
@@ -136,8 +136,8 @@ const CreateCLessonPage = () => {
 
           {/* Programiz Reference */}
           <div>
-            <label className="label font-semibold">
-              Programiz Reference URL
+            <label className="label font-semibold text-base-content">
+              🔗 Programiz Reference URL
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
@@ -159,12 +159,12 @@ const CreateCLessonPage = () => {
 
           {/* Difficulty */}
           <div>
-            <label className="label font-semibold">
-              Difficulty
+            <label className="label font-semibold text-base-content">
+              🎯 Difficulty
             </label>
 
-            <label className="select select-bordered flex items-center gap-3">
-              <span className="text-blue-500">
+            <div className="flex items-center gap-3">
+              <span className="text-sky-500">
                 <FaLayerGroup />
               </span>
 
@@ -172,23 +172,23 @@ const CreateCLessonPage = () => {
                 name="difficulty"
                 value={formData.difficulty}
                 onChange={handleChange}
-                className="grow bg-transparent outline-none"
+                className="select select-bordered w-full"
               >
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
+                <option value="Beginner">🟢 Beginner</option>
+                <option value="Intermediate">🟡 Intermediate</option>
+                <option value="Advanced">🔴 Advanced</option>
               </select>
-            </label>
+            </div>
           </div>
 
           {/* Description */}
           <div>
-            <label className="label font-semibold">
-              Short Description
+            <label className="label font-semibold text-base-content">
+              📄 Short Description
             </label>
 
-            <label className="textarea textarea-bordered flex gap-3">
-              <span className="mt-1 text-blue-500">
+            <div className="textarea textarea-bordered flex gap-3 items-start">
+              <span className="mt-1 text-sky-500">
                 <FaAlignLeft />
               </span>
 
@@ -201,7 +201,7 @@ const CreateCLessonPage = () => {
                 className="grow resize-none outline-none"
                 required
               />
-            </label>
+            </div>
           </div>
 
           <div className="flex justify-end gap-4 pt-2">

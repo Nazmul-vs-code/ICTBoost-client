@@ -90,8 +90,8 @@ const CreateHtmlLessonPage = () => {
 
           {/* Title */}
           <div>
-            <label className="label font-semibold">
-              Topic Name
+            <label className="label font-semibold text-base-content">
+              📝 Topic Name
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
@@ -113,8 +113,8 @@ const CreateHtmlLessonPage = () => {
 
           {/* Video */}
           <div>
-            <label className="label font-semibold">
-              YouTube Video URL
+            <label className="label font-semibold text-base-content">
+              🎥 YouTube Video URL
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
@@ -136,8 +136,8 @@ const CreateHtmlLessonPage = () => {
 
           {/* W3Schools */}
           <div>
-            <label className="label font-semibold">
-              W3Schools Reference URL
+            <label className="label font-semibold text-base-content">
+              🔗 W3Schools Reference URL
             </label>
 
             <label className="input input-bordered flex items-center gap-3">
@@ -159,11 +159,11 @@ const CreateHtmlLessonPage = () => {
 
           {/* Difficulty */}
           <div>
-            <label className="label font-semibold">
-              Difficulty
+            <label className="label font-semibold text-base-content">
+              🎯 Difficulty
             </label>
 
-            <label className="select select-bordered flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <span className="text-orange-500">
                 <FaLayerGroup />
               </span>
@@ -172,22 +172,22 @@ const CreateHtmlLessonPage = () => {
                 name="difficulty"
                 value={formData.difficulty}
                 onChange={handleChange}
-                className="grow bg-transparent outline-none"
+                className="select select-bordered w-full"
               >
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
+                <option value="Beginner">🟢 Beginner</option>
+                <option value="Intermediate">🟡 Intermediate</option>
+                <option value="Advanced">🔴 Advanced</option>
               </select>
-            </label>
+            </div>
           </div>
 
           {/* Description */}
           <div>
-            <label className="label font-semibold">
-              Short Description
+            <label className="label font-semibold text-base-content">
+              📄 Short Description
             </label>
 
-            <label className="textarea textarea-bordered flex gap-3">
+            <div className="textarea textarea-bordered flex gap-3 items-start">
               <span className="mt-1 text-orange-500">
                 <FaAlignLeft />
               </span>
@@ -201,7 +201,7 @@ const CreateHtmlLessonPage = () => {
                 className="grow resize-none outline-none"
                 required
               />
-            </label>
+            </div>
           </div>
 
           <div className="flex justify-end gap-4 pt-2">
