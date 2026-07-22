@@ -56,18 +56,18 @@ const HtmlLessonDetailsPage = () => {
         <div className="h-8 bg-gray-200 rounded w-32 animate-pulse" />
         <div className="grid gap-8 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <div className="card bg-white shadow-xl border border-orange-100 animate-pulse">
+            <div className="card bg-base-100 shadow-xl border border-orange-500/15 animate-pulse">
               <div className="w-full bg-gray-200" style={{ paddingTop: "56.25%" }} />
             </div>
           </div>
           <div className="lg:col-span-2 space-y-6">
-            <div className="card bg-white shadow-xl border border-orange-100 animate-pulse">
+            <div className="card bg-base-100 shadow-xl border border-orange-500/15 animate-pulse">
               <div className="card-body space-y-4">
                 <div className="h-8 bg-gray-200 rounded w-3/4" />
                 <div className="h-6 bg-gray-200 rounded w-24" />
               </div>
             </div>
-            <div className="card bg-white shadow-xl border border-orange-100 animate-pulse">
+            <div className="card bg-base-100 shadow-xl border border-orange-500/15 animate-pulse">
               <div className="card-body space-y-3">
                 <div className="h-5 bg-gray-200 rounded w-1/3" />
                 <div className="h-4 bg-gray-200 rounded w-full" />
@@ -75,7 +75,7 @@ const HtmlLessonDetailsPage = () => {
                 <div className="h-4 bg-gray-200 rounded w-2/3" />
               </div>
             </div>
-            <div className="card bg-white shadow-xl border border-orange-100 animate-pulse">
+            <div className="card bg-base-100 shadow-xl border border-orange-500/15 animate-pulse">
               <div className="card-body space-y-3">
                 <div className="h-5 bg-gray-200 rounded w-1/3" />
                 <div className="h-4 bg-gray-200 rounded w-1/2" />
@@ -91,7 +91,7 @@ const HtmlLessonDetailsPage = () => {
   if (notFound || !lesson) {
     return (
       <section className="max-w-6xl mx-auto px-4 py-10">
-        <div className="card bg-white shadow-xl border border-orange-100">
+        <div className="card bg-base-100 shadow-xl border border-orange-500/15">
           <div className="card-body flex flex-col items-center py-16 text-gray-400">
             <span className="mb-4"><FaBookOpen size={48} /></span>
             <p className="text-lg font-medium">Lesson not found</p>

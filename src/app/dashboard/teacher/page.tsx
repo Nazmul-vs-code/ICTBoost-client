@@ -31,15 +31,10 @@ const TeacherDashboardHomePage = () => {
 
   const fetchAnalytics = useCallback(async () => {
     if (!userEmail) return;
-
     try {
       const [htmlResult, cResult] = await Promise.all([
-        GetApiFunctionWithParams("/lesson/html/analytics", {
-          authorEmail: userEmail,
-        }),
-        GetApiFunctionWithParams("/lesson/c/analytics", {
-          authorEmail: userEmail,
-        }),
+        GetApiFunctionWithParams("/lesson/html/analytics", { authorEmail: userEmail }),
+        GetApiFunctionWithParams("/lesson/c/analytics", { authorEmail: userEmail }),
       ]);
       setHtmlLessons(htmlResult.data);
       setCLessons(cResult.data);
@@ -51,22 +46,14 @@ const TeacherDashboardHomePage = () => {
     }
   }, [userEmail]);
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, [fetchAnalytics]);
+  useEffect(() => { fetchAnalytics(); }, [fetchAnalytics]);
 
-  const handleHtmlDelete = (id: string) => {
-    setHtmlLessons((prev) => prev.filter((l) => l._id !== id));
-  };
-
-  const handleCDelete = (id: string) => {
-    setCLessons((prev) => prev.filter((l) => l._id !== id));
-  };
+  const handleHtmlDelete = (id: string) => setHtmlLessons((prev) => prev.filter((l) => l._id !== id));
+  const handleCDelete = (id: string) => setCLessons((prev) => prev.filter((l) => l._id !== id));
 
   const totalHtmlLessons = htmlLessons.length;
   const totalCLessons = cLessons.length;
   const totalLessons = totalHtmlLessons + totalCLessons;
-
   const totalHtmlLikes = htmlLessons.reduce((sum, l) => sum + l.likeCount, 0);
   const totalCLikes = cLessons.reduce((sum, l) => sum + l.likeCount, 0);
   const totalLikes = totalHtmlLikes + totalCLikes;
@@ -74,26 +61,26 @@ const TeacherDashboardHomePage = () => {
   return (
     <section className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-800">
-          Welcome back, {session?.user?.name || "Teacher"}
+      <div className="animate-stat-0">
+        <h1 className="text-2xl md:text-3xl font-bold text-base-content">
+          Welcome back, {session?.user?.name || "Teacher"} 👋
         </h1>
-        <p className="text-gray-500 mt-1">
-          Here&apos;s an overview of your lessons and engagement.
+        <p className="text-base-content/50 mt-1 text-sm md:text-base">
+          Here&apos;s an overview of your lessons and engagement. 📊
         </p>
       </div>
 
       {/* Skeleton Loader */}
       {loading && (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="card bg-white shadow-xl border border-orange-100 animate-pulse"
+              className="card bg-base-100 shadow-md border border-base-300 animate-pulse"
             >
               <div className="card-body space-y-3">
-                <div className="h-5 bg-gray-200 rounded w-1/2" />
-                <div className="h-8 bg-gray-200 rounded w-1/3" />
+                <div className="h-5 bg-base-300 rounded w-1/2" />
+                <div className="h-8 bg-base-300 rounded w-1/3" />
               </div>
             </div>
           ))}
@@ -103,61 +90,48 @@ const TeacherDashboardHomePage = () => {
       {/* Stats Cards */}
       {!loading && (
         <>
-          {/* Overall Stats */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Total Lessons */}
-            <div className="card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body">
+            <div className="card bg-base-100 shadow-md border border-base-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 animate-stat-1">
+              <div className="card-body p-5">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-50">
-                    <span className="text-orange-500">
-                      <FaBookOpen size={24} />
-                    </span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <FaBookOpen size={22} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Total Lessons</p>
-                    <p className="text-3xl font-bold text-gray-800">
-                      {totalLessons}
-                    </p>
+                    <p className="text-xs font-medium text-base-content/50 uppercase tracking-wide">Total Lessons</p>
+                    <p className="text-2xl font-bold text-base-content">{totalLessons} 📚</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Total Likes */}
-            <div className="card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body">
+            <div className="card bg-base-100 shadow-md border border-base-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 animate-stat-2">
+              <div className="card-body p-5">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50">
-                    <span className="text-red-500">
-                      <FaHeart size={24} />
-                    </span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-error/10 text-error">
+                    <FaHeart size={22} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Total Likes</p>
-                    <p className="text-3xl font-bold text-gray-800">
-                      {totalLikes}
-                    </p>
+                    <p className="text-xs font-medium text-base-content/50 uppercase tracking-wide">Total Likes</p>
+                    <p className="text-2xl font-bold text-base-content">{totalLikes} ❤️</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Avg Likes */}
-            <div className="card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body">
+            <div className="card bg-base-100 shadow-md border border-base-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 animate-stat-3">
+              <div className="card-body p-5">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50">
-                    <span className="text-blue-500">
-                      <FaChartBar size={24} />
-                    </span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-info/10 text-info">
+                    <FaChartBar size={22} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Avg. Likes</p>
-                    <p className="text-3xl font-bold text-gray-800">
-                      {totalLessons > 0
-                        ? (totalLikes / totalLessons).toFixed(1)
-                        : "0"}
+                    <p className="text-xs font-medium text-base-content/50 uppercase tracking-wide">Avg. Likes</p>
+                    <p className="text-2xl font-bold text-base-content">
+                      {totalLessons > 0 ? (totalLikes / totalLessons).toFixed(1) : "0"} ⭐
                     </p>
                   </div>
                 </div>
@@ -165,24 +139,20 @@ const TeacherDashboardHomePage = () => {
             </div>
           </div>
 
-          {/* Subject Breakdown Cards */}
-          <div className="grid gap-6 md:grid-cols-2">
+          {/* Subject Breakdown */}
+          <div className="grid gap-4 md:gap-6 md:grid-cols-2">
             {/* HTML Stats */}
-            <div className="card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body">
+            <div className="card bg-base-100 shadow-md border border-base-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 animate-stat-4">
+              <div className="card-body p-5">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-50">
-                    <span className="text-orange-500">
-                      <FaHtml5 size={28} />
-                    </span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+                    <FaHtml5 size={26} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">HTML Lessons</p>
-                    <p className="text-3xl font-bold text-gray-800">
-                      {totalHtmlLessons}
-                    </p>
-                    <p className="text-xs text-gray-400 flex items-center gap-1 mt-1">
-                      <span className="text-red-400"><FaHeart size={10} /></span>
+                    <p className="text-xs font-medium text-base-content/50 uppercase tracking-wide">HTML Lessons</p>
+                    <p className="text-2xl font-bold text-base-content">{totalHtmlLessons}</p>
+                    <p className="text-xs text-base-content/40 flex items-center gap-1 mt-1">
+                      <FaHeart size={9} className="text-error" />
                       {totalHtmlLikes} likes
                     </p>
                   </div>
@@ -191,21 +161,17 @@ const TeacherDashboardHomePage = () => {
             </div>
 
             {/* C Stats */}
-            <div className="card bg-white shadow-xl border border-blue-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body">
+            <div className="card bg-base-100 shadow-md border border-base-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 animate-stat-4">
+              <div className="card-body p-5">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50">
-                    <span className="text-blue-500">
-                      <FaCode size={28} />
-                    </span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-500/10 text-sky-500">
+                    <FaCode size={26} />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">C Programming Lessons</p>
-                    <p className="text-3xl font-bold text-gray-800">
-                      {totalCLessons}
-                    </p>
-                    <p className="text-xs text-gray-400 flex items-center gap-1 mt-1">
-                      <span className="text-red-400"><FaHeart size={10} /></span>
+                    <p className="text-xs font-medium text-base-content/50 uppercase tracking-wide">C Programming Lessons</p>
+                    <p className="text-2xl font-bold text-base-content">{totalCLessons}</p>
+                    <p className="text-xs text-base-content/40 flex items-center gap-1 mt-1">
+                      <FaHeart size={9} className="text-error" />
                       {totalCLikes} likes
                     </p>
                   </div>
@@ -218,14 +184,12 @@ const TeacherDashboardHomePage = () => {
 
       {/* Empty State */}
       {!loading && htmlLessons.length === 0 && cLessons.length === 0 && (
-        <div className="card bg-white shadow-xl border border-orange-100">
-          <div className="card-body flex flex-col items-center py-16 text-gray-400">
-            <span className="mb-4">
-              <FaBookOpen size={48} />
-            </span>
-            <p className="text-lg font-medium">No lessons yet</p>
-            <p className="text-sm mt-1">
-              Create your first lesson to get started.
+        <div className="card bg-base-100 shadow-md border border-base-300">
+          <div className="card-body flex flex-col items-center py-16 text-base-content/40">
+            <span className="text-5xl mb-4">📭</span>
+            <p className="text-lg font-medium text-base-content/60">No lessons yet</p>
+            <p className="text-sm mt-1 text-base-content/40">
+              Create your first lesson to get started! ✨
             </p>
           </div>
         </div>
@@ -233,37 +197,25 @@ const TeacherDashboardHomePage = () => {
 
       {/* HTML Section */}
       {!loading && htmlLessons.length > 0 && (
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <span className="text-orange-500">
-              <FaHtml5 size={22} />
-            </span>
-            <h2 className="text-xl font-bold text-gray-800">HTML Lessons</h2>
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <FaHtml5 size={20} className="text-orange-500" />
+            <h2 className="text-lg font-bold text-base-content">HTML Lessons 📚</h2>
           </div>
           <LikesAnalyticsChart data={htmlLessons} accentColor="#f97316" />
-          <TeacherLessonsList
-            lessons={htmlLessons}
-            subject="html"
-            onDelete={handleHtmlDelete}
-          />
+          <TeacherLessonsList lessons={htmlLessons} subject="html" onDelete={handleHtmlDelete} />
         </div>
       )}
 
       {/* C Section */}
       {!loading && cLessons.length > 0 && (
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <span className="text-blue-500">
-              <FaCode size={22} />
-            </span>
-            <h2 className="text-xl font-bold text-gray-800">C Programming Lessons</h2>
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <FaCode size={20} className="text-sky-500" />
+            <h2 className="text-lg font-bold text-base-content">C Programming Lessons 💻</h2>
           </div>
-          <LikesAnalyticsChart data={cLessons} accentColor="#3b82f6" />
-          <TeacherLessonsList
-            lessons={cLessons}
-            subject="c"
-            onDelete={handleCDelete}
-          />
+          <LikesAnalyticsChart data={cLessons} accentColor="#0ea5e9" />
+          <TeacherLessonsList lessons={cLessons} subject="c" onDelete={handleCDelete} />
         </div>
       )}
     </section>

@@ -73,18 +73,18 @@ const CreateHtmlLessonPage = () => {
   return (
     <section className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Create HTML Lesson
+        <h1 className="text-2xl md:text-3xl font-bold text-base-content">
+          🌐 Create HTML Lesson
         </h1>
 
-        <p className="text-gray-500 mt-2">
-          Add a new HTML lesson for your students.
+        <p className="text-base-content/50 mt-2 text-sm md:text-base">
+          Add a new HTML lesson for your students. ✏️
         </p>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="card bg-white shadow-xl border border-orange-100"
+        className="card bg-base-100 shadow-xl border border-orange-500/15"
       >
         <div className="card-body space-y-6">
 

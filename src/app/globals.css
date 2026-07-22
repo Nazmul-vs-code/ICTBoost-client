@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, synthwave;
+  themes: light --default, dark;
 };
 
 /* Hero Float Animations */
@@ -89,3 +89,318 @@
 .animate-importance-7 { animation: importance-slide 0.4s ease-out 560ms both; }
 .animate-importance-8 { animation: importance-slide 0.4s ease-out 640ms both; }
 .animate-importance-9 { animation: importance-slide 0.4s ease-out 720ms both; }
+
+/* ============================================
+   ICTBoost Logo Animations
+   ============================================ */
+
+/* Icon entrance — elastic scale-in */
+@keyframes logo-icon-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-15deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+  70% {
+    transform: scale(0.96) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Bracket draw-in via stroke-dashoffset */
+@keyframes bracket-draw-in {
+  from {
+    stroke-dashoffset: 60;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Rocket / arrow slide up */
+@keyframes rocket-launch {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Flame flicker */
+@keyframes flame-flicker {
+  0%, 100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  30% {
+    opacity: 0.7;
+    transform: scaleY(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scaleY(1.15);
+  }
+}
+
+/* Text slide-in from right */
+@keyframes logo-text-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hover float-up on icon */
+@keyframes logo-hover-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Glow ring pulse */
+@keyframes glow-ring {
+  0% {
+    opacity: 0.6;
+    stroke-width: 2;
+  }
+  100% {
+    opacity: 0;
+    stroke-width: 6;
+  }
+}
+
+/* ---- Logo Animation Classes ---- */
+
+.logo-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon-animate {
+  animation: logo-icon-enter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.logo-icon-hover {
+  filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.35));
+}
+
+.logo-icon-hover polygon,
+.logo-icon-hover polyline {
+  transition: transform 0.3s ease;
+}
+
+.logo-icon-hover polygon:first-of-type {
+  transform: translateY(-1.5px);
+}
+
+/* Bracket draw animation */
+.bracket-draw {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: bracket-draw-in 0.6s ease-out 0.3s forwards;
+}
+
+.bracket-left {
+  animation-delay: 0.3s;
+}
+
+.bracket-right {
+  animation-delay: 0.5s;
+}
+
+/* Rocket launch animation */
+.rocket-group {
+  animation: rocket-launch 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s both;
+  transform-origin: center 32px;
+}
+
+/* Flame flicker */
+.flame {
+  animation: flame-flicker 1.2s ease-in-out 1s infinite;
+  transform-origin: center top;
+}
+
+/* Text animation */
+.logo-text-animate {
+  animation: logo-text-enter 0.5s ease-out 0.6s both;
+}
+
+/* Hover effects */
+.logo-icon-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.logo-icon-wrapper:hover .logo-icon-animate {
+  animation: logo-hover-float 2s ease-in-out infinite;
+}
+
+.logo-glow-ring {
+  animation: glow-ring 1s ease-out forwards;
+}
+
+/* Square app icon variant — no text */
+.logo-square .logo-text {
+  display: none;
+}
+
+
+/* ==========================================================
+   HTML Lesson Card Effects
+   ========================================================== */
+
+.card-glow {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 1.5rem;
+  transition: all .45s ease;
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    135deg,
+    rgba(249, 115, 22, .75),
+    rgba(59, 130, 246, .45),
+    rgba(255,255,255,.08)
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-glow::after {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  z-index: 0;
+
+  background:
+    radial-gradient(circle at top right,
+      rgba(249,115,22,.28),
+      transparent 42%),
+    radial-gradient(circle at bottom left,
+      rgba(59,130,246,.22),
+      transparent 42%);
+
+  filter: blur(70px);
+
+  opacity: 0;
+
+  transition: opacity .45s ease;
+}
+
+.card-glow:hover::after {
+  opacity: 1;
+}
+
+.card-glow:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    0 25px 60px rgba(249,115,22,.22),
+    0 10px 25px rgba(0,0,0,.18);
+}
+
+.card-glow .card-icon {
+  transition: all .35s ease;
+}
+
+.card-glow:hover .card-icon {
+  transform: rotate(8deg) scale(1.12);
+}
+
+.card-glow .card-button {
+  transition: all .35s ease;
+}
+
+.card-glow:hover .card-button {
+  transform: translateY(-2px);
+}
+
+.card-glow .card-link {
+  transition: all .25s ease;
+}
+
+.card-glow .card-link:hover {
+  transform: translateX(6px);
+}
+
+/* ============================================
+   Dashboard Dark Mode & Sidebar Animations
+   ============================================ */
+
+@keyframes sidebar-slide-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes nav-item-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes theme-toggle-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes stat-card-enter {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-sidebar-slide { animation: sidebar-slide-in 0.3s ease-out both; }
+.animate-nav-pop:active { animation: nav-item-pop 0.2s ease-out; }
+.animate-theme-spin { animation: theme-toggle-spin 0.5s ease-in-out; }
+.animate-stat-0 { animation: stat-card-enter 0.4s ease-out 0ms both; }
+.animate-stat-1 { animation: stat-card-enter 0.4s ease-out 80ms both; }
+.animate-stat-2 { animation: stat-card-enter 0.4s ease-out 160ms both; }
+.animate-stat-3 { animation: stat-card-enter 0.4s ease-out 240ms both; }
+.animate-stat-4 { animation: stat-card-enter 0.4s ease-out 320ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sidebar-slide,
+  .animate-nav-pop,
+  .animate-theme-spin,
+  .animate-stat-0, .animate-stat-1, .animate-stat-2,
+  .animate-stat-3, .animate-stat-4 {
+    animation: none !important;
+  }
+}
+

@@ -233,14 +233,14 @@ const AgentPage = () => {
     <section className="max-w-5xl mx-auto px-4 py-10 space-y-8">
       {/* Header */}
       <div className="text-center space-y-3">
-        <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
+        <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
           <FaRobot size={14} />
           AI Powered
         </span>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
+        <h1 className="text-3xl sm:text-4xl font-bold text-base-content">
           ICTBoost AI Tutor
         </h1>
-        <p className="text-gray-500 max-w-xl mx-auto">
+        <p className="text-base-content/60 max-w-xl mx-auto">
           Learn HTML and C Programming with your AI learning assistant.
         </p>
       </div>
@@ -258,25 +258,25 @@ const AgentPage = () => {
               className={`card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer text-left ${
                 isActive
                   ? "bg-orange-500 text-white shadow-xl border border-orange-500"
-                  : "bg-white shadow-lg border border-orange-100 hover:border-orange-300"
+                  : "bg-base-100 shadow-lg border border-base-300/50 hover:border-orange-300/50"
               }`}
             >
               <div className="card-body py-5 px-5 space-y-2">
                 <div className="flex items-center gap-3">
                   <div
                     className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
-                      isActive ? "bg-white/20" : "bg-orange-100"
+                      isActive ? "bg-white/20" : "bg-orange-500/10"
                     }`}
                   >
                     <span className={isActive ? "text-white" : "text-orange-500"}>
                       <Icon size={18} />
                     </span>
                   </div>
-                  <h3 className={`font-bold text-sm ${isActive ? "text-white" : "text-gray-800"}`}>
+                  <h3 className={`font-bold text-sm ${isActive ? "text-white" : "text-base-content"}`}>
                     {tool.title}
                   </h3>
                 </div>
-                <p className={`text-xs ${isActive ? "text-white/80" : "text-gray-500"}`}>
+                <p className={`text-xs ${isActive ? "text-white/80" : "text-base-content/60"}`}>
                   {tool.description}
                 </p>
               </div>
@@ -286,9 +286,9 @@ const AgentPage = () => {
       </div>
 
       {/* Chat Section */}
-      <div className="card bg-white shadow-xl border border-orange-100">
+      <div className="bg-base-100 shadow-xl border border-base-300/50 rounded-2xl">
         {/* Chat Header */}
-        <div className="card-body border-b border-orange-100 py-4 px-6">
+        <div className="border-b border-base-300/50 py-4 px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500">
@@ -297,8 +297,8 @@ const AgentPage = () => {
                 </span>
               </div>
               <div>
-                <h3 className="font-bold text-gray-800">Chat with AI Tutor</h3>
-                <p className="text-xs text-gray-400">
+                <h3 className="font-bold text-base-content">Chat with AI Tutor</h3>
+                <p className="text-xs text-base-content/50">
                   Currently in: <span className="text-orange-500 font-semibold">{currentTool.title}</span> mode
                 </p>
               </div>
@@ -306,7 +306,7 @@ const AgentPage = () => {
             {messages.length > 0 && (
               <button
                 onClick={clearChat}
-                className="btn btn-sm btn-ghost text-gray-400 hover:text-red-500 gap-2"
+                className="btn btn-sm btn-ghost text-base-content/40 hover:text-red-500 gap-2"
               >
                 <FaEraser size={14} />
                 Clear
@@ -319,7 +319,7 @@ const AgentPage = () => {
         <div className="h-[450px] overflow-y-auto px-6 py-4 space-y-4">
           {/* History loading */}
           {historyLoading && (
-            <div className="flex flex-col items-center justify-center h-full text-gray-400">
+            <div className="flex flex-col items-center justify-center h-full text-base-content/40">
               <span className="loading loading-spinner loading-lg text-orange-500" />
               <p className="mt-4 text-sm">Loading chat history...</p>
             </div>
@@ -327,14 +327,14 @@ const AgentPage = () => {
 
           {/* Empty state */}
           {!historyLoading && messages.length === 0 && !loading && (
-            <div className="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
-                <span className="text-orange-300">
+            <div className="flex flex-col items-center justify-center h-full text-base-content/40 space-y-4">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-500/10">
+                <span className="text-orange-400">
                   <FaRobot size={40} />
                 </span>
               </div>
               <div className="text-center">
-                <p className="text-lg font-medium text-gray-500">
+                <p className="text-lg font-medium text-base-content/60">
                   Ask me anything about{" "}
                   {currentTool.title === "Explain Concept"
                     ? "HTML and C Programming"
@@ -345,7 +345,7 @@ const AgentPage = () => {
                     : "practice problems"}
                   !
                 </p>
-                <p className="text-sm text-gray-400 mt-1">{currentTool.placeholder}</p>
+                <p className="text-sm text-base-content/40 mt-1">{currentTool.placeholder}</p>
               </div>
             </div>
           )}
@@ -368,15 +368,15 @@ const AgentPage = () => {
                 className={`max-w-[75%] rounded-2xl px-5 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
                   msg.role === "user"
                     ? "bg-orange-500 text-white rounded-br-md"
-                    : "bg-gray-100 text-gray-700 rounded-bl-md"
+                    : "bg-base-200 text-base-content rounded-bl-md"
                 }`}
               >
                 {msg.content}
               </div>
 
               {msg.role === "user" && (
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-200 mt-1">
-                  <span className="text-gray-500">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-base-300 mt-1">
+                  <span className="text-base-content/60">
                     <FaUser size={14} />
                   </span>
                 </div>
@@ -392,8 +392,8 @@ const AgentPage = () => {
                   <FaRobot size={14} />
                 </span>
               </div>
-              <div className="bg-gray-100 rounded-2xl rounded-bl-md px-5 py-4">
-                <span className="flex items-center gap-2 text-gray-400 text-sm">
+              <div className="bg-base-200 rounded-2xl rounded-bl-md px-5 py-4">
+                <span className="flex items-center gap-2 text-base-content/50 text-sm">
                   <span className="animate-spin">
                     <FaSpinner size={14} />
                   </span>
@@ -407,7 +407,7 @@ const AgentPage = () => {
         </div>
 
         {/* Input Section */}
-        <div className="border-t border-orange-100 px-6 py-4">
+        <div className="border-t border-base-300/50 px-6 py-4">
           <div className="flex items-end gap-3">
             <textarea
               ref={textareaRef}
@@ -426,7 +426,7 @@ const AgentPage = () => {
               <FaPaperPlane size={16} />
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-2">
+          <p className="text-xs text-base-content/40 mt-2">
             Press <kbd className="kbd kbd-xs">Enter</kbd> to send,{" "}
             <kbd className="kbd kbd-xs">Shift+Enter</kbd> for new line
           </p>

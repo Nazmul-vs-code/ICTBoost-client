@@ -5,7 +5,6 @@ import Link from "next/link";
 import { deleteLesson } from "@/lib/actions/delete-lesson";
 import toast from "react-hot-toast";
 import {
-  FaBookOpen,
   FaHeart,
   FaPlus,
   FaLaptopCode,
@@ -51,18 +50,17 @@ const TeacherLessonsList = ({
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const isHtml = subject === "html";
-  const accentBorder = isHtml ? "border-orange-100" : "border-blue-100";
-  const accentText = isHtml ? "text-orange-500" : "text-blue-500";
-  const accentBg = isHtml ? "bg-orange-500 hover:bg-orange-600" : "bg-blue-500 hover:bg-blue-600";
-  const accentHead = isHtml ? "bg-orange-100" : "bg-blue-100";
-  const accentRowHover = isHtml ? "hover:bg-orange-50" : "hover:bg-blue-50";
-  const accentBtnBorder = isHtml ? "border-orange-300 hover:bg-orange-100" : "border-blue-300 hover:bg-blue-100";
-  const accentFocus = isHtml ? "focus:outline-orange-400" : "focus:outline-blue-400";
+  const accentBorder = isHtml ? "border-orange-500/15" : "border-sky-500/15";
+  const accentText = isHtml ? "text-orange-500" : "text-sky-500";
+  const accentBg = isHtml ? "bg-orange-500 hover:bg-orange-600" : "bg-sky-500 hover:bg-sky-600";
+  const accentHead = isHtml ? "bg-orange-500/5" : "bg-sky-500/5";
+  const accentRowHover = isHtml ? "hover:bg-orange-500/5" : "hover:bg-sky-500/5";
+  const accentBtnBorder = isHtml ? "border-orange-300 hover:bg-orange-500/10" : "border-sky-300 hover:bg-sky-500/10";
+  const accentFocus = isHtml ? "focus:outline-orange-400" : "focus:outline-sky-400";
   const createHref = isHtml
     ? "/dashboard/teacher/lessons/html/create"
     : "/dashboard/teacher/lessons/c-programming/create";
   const viewHref = (id: string) => (isHtml ? `/html/${id}` : `/c/${id}`);
-  const Icon = isHtml ? FaBookOpen : FaLaptopCode;
 
   const filtered = useMemo(() => {
     return lessons.filter((lesson) => {
@@ -91,12 +89,10 @@ const TeacherLessonsList = ({
 
   if (lessons.length === 0) {
     return (
-      <div className={`card bg-white shadow-xl ${accentBorder}`}>
-        <div className="card-body flex flex-col items-center py-16 text-gray-400">
-          <span className="mb-4">
-            <Icon size={48} />
-          </span>
-          <p className="text-lg font-medium">No {isHtml ? "HTML" : "C"} lessons yet</p>
+      <div className={`card bg-base-100 shadow-xl ${accentBorder}`}>
+        <div className="card-body flex flex-col items-center py-16 text-base-content/40">
+          <span className="text-5xl mb-4">📭</span>
+          <p className="text-lg font-medium text-base-content/60">No {isHtml ? "HTML" : "C"} lessons yet</p>
           <p className="text-sm mt-1">
             Create your first {isHtml ? "HTML" : "C Programming"} lesson to get started.
           </p>
@@ -113,15 +109,12 @@ const TeacherLessonsList = ({
   }
 
   return (
-    <div className={`card bg-white shadow-xl ${accentBorder}`}>
+    <div className={`card bg-base-100 shadow-xl ${accentBorder}`}>
       <div className="card-body">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="card-title text-gray-800">
-            <span className={accentText}>
-              <Icon />
-            </span>
-            {isHtml ? "HTML" : "C Programming"} Lessons ({filtered.length})
+          <h2 className="card-title text-base-content">
+            {isHtml ? "📚 HTML" : "💻 C Programming"} Lessons ({filtered.length})
           </h2>
           <Link
             href={createHref}
@@ -135,7 +128,7 @@ const TeacherLessonsList = ({
         {/* Search + Filter */}
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/30">
               <FaSearch />
             </span>
             <input
@@ -168,7 +161,7 @@ const TeacherLessonsList = ({
         <div className="overflow-x-auto">
           <table className="table w-full">
             <thead>
-              <tr className={`${accentHead} text-gray-700`}>
+              <tr className={`${accentHead} text-base-content/70`}>
                 <th>#</th>
                 <th>Topic</th>
                 <th>Difficulty</th>
@@ -179,7 +172,7 @@ const TeacherLessonsList = ({
             <tbody>
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="text-center py-8 text-gray-400">
+                  <td colSpan={5} className="text-center py-8 text-base-content/40">
                     No lessons match your search or filter.
                   </td>
                 </tr>
@@ -190,7 +183,7 @@ const TeacherLessonsList = ({
                   className={`${accentRowHover} transition-all`}
                 >
                   <td className="font-medium">{index + 1}</td>
-                  <td className="font-semibold text-gray-800">
+                  <td className="font-semibold text-base-content">
                     {lesson.title}
                   </td>
                   <td>

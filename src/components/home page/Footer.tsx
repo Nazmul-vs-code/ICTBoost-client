@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  FaHtml5,
   FaGithub,
   FaFacebook,
   FaTwitter,
@@ -12,6 +11,7 @@ import {
   FaPhone,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import ICTBoostLogo from "@/components/ICTBoostLogo";
 
 const Footer = () => {
   const pathname = usePathname();
@@ -24,10 +24,7 @@ const Footer = () => {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-orange-500"><FaHtml5 size={28} /></span>
-              <span className="text-2xl font-bold text-white">ICTBoost</span>
-            </Link>
+            <ICTBoostLogo variant="horizontal" size={32} animate={false} />
             <p className="text-sm leading-relaxed">
               Your AI-powered platform to master HTML and C Programming.
               Learn at your own pace with expert-created content and

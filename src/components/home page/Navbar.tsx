@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiHomeOfficeFill } from "react-icons/ri";
 import ThemeToggle from "./ThemeToggle";
+import ICTBoostLogo from "@/components/ICTBoostLogo";
 
 const navLinks = [
   {
@@ -123,12 +124,7 @@ export default function Navbar() {
         </div>
 
         {/* Logo */}
-        <Link
-          href="/"
-          className="btn btn-ghost text-2xl font-bold text-orange-500"
-        >
-          ICTBoost
-        </Link>
+        <ICTBoostLogo variant="horizontal" size={36} animate={true} />
       </div>
 
       {/* Navbar Center */}

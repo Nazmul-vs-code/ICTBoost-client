@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -18,16 +19,16 @@ type LessonAnalytics = {
   likeCount: number;
 };
 
-const difficultyColor = (level: string) => {
+const difficultyEmoji = (level: string) => {
   switch (level) {
     case "Beginner":
-      return "#f59e0b";
+      return "🟢";
     case "Intermediate":
-      return "#3b82f6";
+      return "🟡";
     case "Advanced":
-      return "#ef4444";
+      return "🔴";
     default:
-      return "#f59e0b";
+      return "🟢";
   }
 };
 
@@ -38,6 +39,19 @@ const LikesAnalyticsChart = ({
   data: LessonAnalytics[];
   accentColor?: string;
 }) => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      setIsDark(theme === "synthwave");
+    };
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => observer.disconnect();
+  }, []);
+
   if (data.length === 0) return null;
 
   const chartData = data.map((lesson) => ({
@@ -46,29 +60,19 @@ const LikesAnalyticsChart = ({
         ? lesson.title.slice(0, 18) + "..."
         : lesson.title,
     likes: lesson.likeCount,
-    fill: difficultyColor(lesson.difficulty),
   }));
 
+  const gridColor = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
+  const axisColor = isDark ? "rgba(255,255,255,0.4)" : "#9ca3af";
+  const tooltipBg = isDark ? "#1a1a2e" : "#ffffff";
+  const tooltipBorder = isDark ? "rgba(255,255,255,0.1)" : "rgba(253,230,138,0.5)";
+  const tooltipText = isDark ? "#e2e8f0" : "#1e293b";
+
   return (
-    <div className="card bg-white shadow-xl border border-orange-100">
-      <div className="card-body">
-        <h2 className="card-title text-gray-800">
-          <span style={{ color: accentColor }}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            </svg>
-          </span>
+    <div className="rounded-2xl bg-base-100 shadow-xl border border-base-300/50">
+      <div className="p-6">
+        <h2 className="text-lg font-bold text-base-content flex items-center gap-2.5">
+          <span className="text-xl">📊</span>
           Likes per Lesson
         </h2>
 
@@ -78,25 +82,29 @@ const LikesAnalyticsChart = ({
               data={chartData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
               <XAxis
                 dataKey="name"
-                stroke="#9ca3af"
-                tick={{ fontSize: 12 }}
+                stroke={axisColor}
+                tick={{ fontSize: 12, fill: axisColor }}
                 interval={0}
                 angle={-30}
                 textAnchor="end"
                 height={60}
               />
-              <YAxis stroke="#9ca3af" allowDecimals={false} />
+              <YAxis stroke={axisColor} allowDecimals={false} tick={{ fill: axisColor }} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #fde68a",
+                  backgroundColor: tooltipBg,
+                  border: `1px solid ${tooltipBorder}`,
                   borderRadius: "12px",
+                  color: tooltipText,
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
                 }}
+                itemStyle={{ color: tooltipText }}
+                labelStyle={{ color: tooltipText, fontWeight: 700 }}
               />
-              <Legend />
+              <Legend wrapperStyle={{ color: axisColor }} />
               <Bar
                 dataKey="likes"
                 name="Likes"

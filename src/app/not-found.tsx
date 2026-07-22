@@ -28,7 +28,7 @@ const NotFoundPage = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-50 via-white to-blue-50">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-500/5 via-base-100 to-sky-500/5">
       {/* Floating Background Icons */}
       {floatingIcons.map((item, i) => {
         const { Icon } = item;
@@ -65,7 +65,7 @@ const NotFoundPage = () => {
           {/* Floating Search Icon */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div
-              className={`flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-2xl border border-orange-100 transition-all duration-1000 delay-300 ${
+              className={`flex h-20 w-20 items-center justify-center rounded-full bg-base-100 shadow-2xl border border-orange-500/15 transition-all duration-1000 delay-300 ${
                 mounted ? "scale-100 rotate-0" : "scale-0 rotate-180"
               }`}
             >
@@ -76,10 +76,10 @@ const NotFoundPage = () => {
 
         {/* Message */}
         <div className="space-y-3">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+          <h2 className="text-2xl sm:text-3xl font-bold text-base-content">
             Oops! Page Not Found
           </h2>
-          <p className="text-gray-500 max-w-md mx-auto">
+          <p className="text-base-content/60 max-w-md mx-auto">
             The page you&apos;re looking for doesn&apos;t exist or has been moved.
             Let&apos;s get you back on track!
           </p>
@@ -89,14 +89,14 @@ const NotFoundPage = () => {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/"
-            className="btn bg-orange-500 hover:bg-orange-600 border-none text-white px-8 gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-200"
+            className="btn bg-orange-500 hover:bg-orange-600 border-none text-white px-8 gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/25"
           >
             <FaHome size={16} />
             Go Home
           </Link>
           <button
             onClick={() => window.history.back()}
-            className="btn btn-outline border-orange-300 hover:bg-orange-50 text-orange-600 px-8 gap-2 transition-all duration-300 hover:scale-105"
+            className="btn btn-outline border-orange-300 hover:bg-orange-500/10 text-orange-500 px-8 gap-2 transition-all duration-300 hover:scale-105"
           >
             <FaArrowLeft size={16} />
             Go Back
@@ -105,19 +105,19 @@ const NotFoundPage = () => {
 
         {/* Quick Links */}
         <div className="pt-4">
-          <p className="text-sm text-gray-400 mb-3">Or explore these pages:</p>
+          <p className="text-sm text-base-content/50 mb-3">Or explore these pages:</p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { label: "HTML Lessons", href: "/html", icon: FaHtml5, color: "hover:bg-orange-50 hover:border-orange-300 hover:text-orange-600" },
-              { label: "C Lessons", href: "/c", icon: FaCode, color: "hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600" },
-              { label: "AI Tutor", href: "/agent", icon: FaRobot, color: "hover:bg-purple-50 hover:border-purple-300 hover:text-purple-600" },
+              { label: "HTML Lessons", href: "/html", icon: FaHtml5, color: "hover:bg-orange-500/10 hover:border-orange-400 hover:text-orange-500" },
+              { label: "C Lessons", href: "/c", icon: FaCode, color: "hover:bg-sky-500/10 hover:border-sky-400 hover:text-sky-500" },
+              { label: "AI Tutor", href: "/agent", icon: FaRobot, color: "hover:bg-purple-500/10 hover:border-purple-400 hover:text-purple-500" },
             ].map((link) => {
               const Icon = link.icon;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`btn btn-sm btn-outline border-gray-200 text-gray-500 gap-2 transition-all duration-300 hover:scale-105 ${link.color}`}
+                  className={`btn btn-sm btn-outline border-base-300 text-base-content/60 gap-2 transition-all duration-300 hover:scale-105 ${link.color}`}
                 >
                   <Icon size={14} />
                   {link.label}

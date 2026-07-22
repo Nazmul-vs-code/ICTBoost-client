@@ -130,7 +130,7 @@ const CLessonDetails = ({ lesson }: { lesson: CLesson }) => {
       {/* Back Button */}
       <Link
         href="/c"
-        className="btn btn-ghost gap-2 text-gray-600 hover:text-blue-500"
+        className="btn btn-ghost gap-2 text-base-content/70 hover:text-blue-500"
       >
         <FaArrowLeft />
         Back to Lessons
@@ -140,7 +140,7 @@ const CLessonDetails = ({ lesson }: { lesson: CLesson }) => {
       <div className="grid gap-8 lg:grid-cols-5">
         {/* Left — Video */}
         <div className="lg:col-span-3 space-y-4">
-          <div className="card bg-white shadow-xl border border-blue-100 overflow-hidden">
+          <div className="card bg-base-100 shadow-xl border border-sky-500/15 overflow-hidden">
             {videoId && !videoError ? (
               <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                 <iframe
@@ -155,7 +155,7 @@ const CLessonDetails = ({ lesson }: { lesson: CLesson }) => {
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-gray-400 bg-gray-50">
                 <span className="mb-4 text-blue-400"><FaExclamationTriangle size={48} /></span>
-                <p className="text-lg font-medium text-gray-600">
+                <p className="text-lg font-medium text-base-content/70">
                   Video not available
                 </p>
                 <p className="text-sm mt-1">
@@ -182,10 +182,10 @@ const CLessonDetails = ({ lesson }: { lesson: CLesson }) => {
         {/* Right — Details */}
         <div className="lg:col-span-2 space-y-6">
           {/* Title + Like */}
-          <div className="card bg-white shadow-xl border border-blue-100">
+          <div className="card bg-base-100 shadow-xl border border-sky-500/15">
             <div className="card-body space-y-4">
               <div className="flex items-start justify-between gap-3">
-                <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">
+                <h1 className="text-2xl lg:text-3xl font-bold text-base-content">
                   {lesson.title}
                 </h1>
 
@@ -222,37 +222,37 @@ const CLessonDetails = ({ lesson }: { lesson: CLesson }) => {
           </div>
 
           {/* Description */}
-          <div className="card bg-white shadow-xl border border-blue-100">
+          <div className="card bg-base-100 shadow-xl border border-sky-500/15">
             <div className="card-body">
-              <h2 className="card-title text-gray-800 text-lg">
+              <h2 className="card-title text-base-content text-lg">
                 <span className="text-blue-500">
                   <FaLaptopCode />
                 </span>
                 Description
               </h2>
-              <p className="text-gray-600 leading-relaxed mt-2">
+              <p className="text-base-content/70 leading-relaxed mt-2">
                 {lesson.description}
               </p>
             </div>
           </div>
 
           {/* Author */}
-          <div className="card bg-white shadow-xl border border-blue-100">
+          <div className="card bg-base-100 shadow-xl border border-sky-500/15">
             <div className="card-body">
-              <h2 className="card-title text-gray-800 text-lg">
+              <h2 className="card-title text-base-content text-lg">
                 <span className="text-blue-500">
                   <FaUser />
                 </span>
                 Created By
               </h2>
-              <p className="text-gray-600 mt-2">{lesson.authorEmail}</p>
+              <p className="text-base-content/70 mt-2">{lesson.authorEmail}</p>
             </div>
           </div>
 
           {/* Reference Link */}
-          <div className="card bg-white shadow-xl border border-blue-100">
+          <div className="card bg-base-100 shadow-xl border border-sky-500/15">
             <div className="card-body">
-              <h2 className="card-title text-gray-800 text-lg">
+              <h2 className="card-title text-base-content text-lg">
                 <span className="text-blue-500">
                   <FaGlobe />
                 </span>

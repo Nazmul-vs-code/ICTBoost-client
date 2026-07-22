@@ -115,10 +115,10 @@ const HtmlLessonsContent = () => {
     <section className="max-w-6xl mx-auto px-4 py-10 space-y-8">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold text-gray-800">
+        <h1 className="text-4xl font-bold text-base-content">
           HTML Lessons
         </h1>
-        <p className="text-gray-500 max-w-2xl mx-auto">
+        <p className="text-base-content/60 max-w-2xl mx-auto">
           Explore our collection of HTML lessons created by expert teachers.
           Learn from video tutorials and W3Schools references.
         </p>
@@ -128,23 +128,23 @@ const HtmlLessonsContent = () => {
       {loading && (
         <>
           <div className="flex gap-4">
-            <div className="h-12 bg-gray-200 rounded flex-1 animate-pulse" />
-            <div className="h-12 bg-gray-200 rounded w-48 animate-pulse" />
+            <div className="h-12 bg-base-300/50 rounded flex-1 animate-pulse" />
+            <div className="h-12 bg-base-300/50 rounded w-48 animate-pulse" />
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
-                className="card bg-white shadow-xl border border-orange-100 animate-pulse"
+                className="card bg-base-100 shadow-xl border border-orange-500/15 animate-pulse"
               >
                 <div className="card-body space-y-4">
                   <div className="flex justify-between">
-                    <div className="h-5 bg-gray-200 rounded w-1/2" />
-                    <div className="h-8 w-8 bg-gray-200 rounded-full" />
+                    <div className="h-5 bg-base-300/50 rounded w-1/2" />
+                    <div className="h-8 w-8 bg-base-300/50 rounded-full" />
                   </div>
-                  <div className="h-4 bg-gray-200 rounded w-20" />
-                  <div className="h-4 bg-gray-200 rounded w-full" />
-                  <div className="h-4 bg-gray-200 rounded w-2/3" />
+                  <div className="h-4 bg-base-300/50 rounded w-20" />
+                  <div className="h-4 bg-base-300/50 rounded w-full" />
+                  <div className="h-4 bg-base-300/50 rounded w-2/3" />
                 </div>
               </div>
             ))}
@@ -165,7 +165,7 @@ const HtmlLessonsContent = () => {
 
           {/* Empty State — no lessons at all */}
           {lessons.length === 0 && (
-            <div className="card bg-white shadow-xl border border-orange-100">
+            <div className="card bg-base-100 shadow-xl border border-orange-500/15">
               <div className="card-body flex flex-col items-center py-16 text-gray-400">
                 <span className="mb-4"><FaBookOpen size={48} /></span>
                 <p className="text-lg font-medium">No lessons available yet</p>
@@ -178,7 +178,7 @@ const HtmlLessonsContent = () => {
 
           {/* No Results from Filter */}
           {lessons.length > 0 && filteredLessons.length === 0 && (
-            <div className="card bg-white shadow-xl border border-orange-100">
+            <div className="card bg-base-100 shadow-xl border border-orange-500/15">
               <div className="card-body flex flex-col items-center py-16 text-gray-400">
                 <span className="mb-4"><FaBookOpen size={48} /></span>
                 <p className="text-lg font-medium">No lessons found</p>
@@ -228,19 +228,19 @@ const HtmlLessonsPage = () => {
       fallback={
         <section className="max-w-6xl mx-auto px-4 py-10 space-y-8">
           <div className="text-center space-y-2">
-            <div className="h-10 bg-gray-200 rounded w-64 mx-auto animate-pulse" />
-            <div className="h-5 bg-gray-200 rounded w-96 mx-auto animate-pulse" />
+            <div className="h-10 bg-base-300/50 rounded w-64 mx-auto animate-pulse" />
+            <div className="h-5 bg-base-300/50 rounded w-96 mx-auto animate-pulse" />
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
-                className="card bg-white shadow-xl border border-orange-100 animate-pulse"
+                className="card bg-base-100 shadow-xl border border-orange-500/15 animate-pulse"
               >
                 <div className="card-body space-y-4">
-                  <div className="h-5 bg-gray-200 rounded w-1/2" />
-                  <div className="h-4 bg-gray-200 rounded w-20" />
-                  <div className="h-4 bg-gray-200 rounded w-full" />
+                  <div className="h-5 bg-base-300/50 rounded w-1/2" />
+                  <div className="h-4 bg-base-300/50 rounded w-20" />
+                  <div className="h-4 bg-base-300/50 rounded w-full" />
                 </div>
               </div>
             ))}

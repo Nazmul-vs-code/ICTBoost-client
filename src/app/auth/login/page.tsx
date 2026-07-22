@@ -60,8 +60,8 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-orange-50 px-4 py-10">
-      <div className="card w-full max-w-lg bg-white shadow-xl border border-orange-100">
+    <section className="min-h-screen flex items-center justify-center bg-orange-500/5 px-4 py-10">
+      <div className="card w-full max-w-lg bg-base-100 shadow-xl border border-base-300/50">
         <div className="card-body">
 
           {/* Heading */}
@@ -70,7 +70,7 @@ const LoginPage = () => {
               Welcome Back 👋
             </h1>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-base-content/60">
               Sign in to continue your learning journey with ICTBoost.
             </p>
           </div>

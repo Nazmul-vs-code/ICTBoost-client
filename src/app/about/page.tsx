@@ -51,17 +51,17 @@ const AboutPage = () => {
   return (
     <section className="space-y-0">
       {/* Hero */}
-      <section className="py-20 bg-gradient-to-br from-orange-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-orange-500/5 via-base-100 to-sky-500/5">
         <div className="max-w-5xl mx-auto px-4 text-center space-y-6">
-          <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
-            <span className="text-orange-500"><FaHeart size={14} /></span>
+          <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
+            <FaHeart size={14} />
             About ICTBoost
           </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-800">
+          <h1 className="text-4xl sm:text-5xl font-bold text-base-content">
             Learn to Code with{" "}
             <span className="text-orange-500">AI Guidance</span>
           </h1>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-base-content/60 max-w-2xl mx-auto text-lg leading-relaxed">
             ICTBoost is an AI-powered educational platform designed to help
             students master HTML and C Programming through expert-created
             lessons, interactive quizzes, and personalized AI tutoring.
@@ -70,18 +70,18 @@ const AboutPage = () => {
       </section>
 
       {/* Stats */}
-      <section className="py-12 bg-white border-y border-orange-100">
+      <section className="py-12 bg-base-100 border-y border-base-300/50">
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => {
               const Icon = stat.icon;
               return (
                 <div key={i} className="text-center space-y-2">
-                  <div className="flex h-12 w-12 mx-auto items-center justify-center rounded-xl bg-orange-100">
+                  <div className="flex h-12 w-12 mx-auto items-center justify-center rounded-xl bg-orange-500/10">
                     <span className="text-orange-500"><Icon size={20} /></span>
                   </div>
-                  <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
+                  <p className="text-3xl font-bold text-base-content">{stat.value}</p>
+                  <p className="text-sm text-base-content/60">{stat.label}</p>
                 </div>
               );
             })}
@@ -90,23 +90,23 @@ const AboutPage = () => {
       </section>
 
       {/* Mission */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-base-100">
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
-                <span className="text-orange-500"><FaRocket size={14} /></span>
+              <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
+                <FaRocket size={14} />
                 Our Mission
               </span>
-              <h2 className="text-3xl font-bold text-gray-800">
+              <h2 className="text-3xl font-bold text-base-content">
                 Making Programming Education Accessible to Everyone
               </h2>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-base-content/60 leading-relaxed">
                 We started ICTBoost with a simple belief: learning to code
                 should be engaging, personalized, and accessible. Traditional
                 tutorials are one-size-fits-all — we wanted something better.
               </p>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-base-content/60 leading-relaxed">
                 By combining expert-created lessons with AI-powered tutoring,
                 we give students the best of both worlds: structured curriculum
                 and on-demand, personalized help whenever they need it.
@@ -115,7 +115,7 @@ const AboutPage = () => {
             <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-2xl">
               <div className="card-body p-8 space-y-4">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20">
-                  <span className="text-white"><FaCode size={28} /></span>
+                  <FaCode size={28} />
                 </div>
                 <h3 className="text-2xl font-bold">Our Story</h3>
                 <p className="text-white/90 leading-relaxed">
@@ -149,14 +149,14 @@ const AboutPage = () => {
       </section>
 
       {/* Values */}
-      <section className="py-20 bg-orange-50">
+      <section className="py-20 bg-orange-500/5">
         <div className="max-w-5xl mx-auto px-4 space-y-12">
           <div className="text-center space-y-3">
-            <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
-              <span className="text-orange-500"><FaStar size={14} /></span>
+            <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
+              <FaStar size={14} />
               Our Values
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
+            <h2 className="text-3xl sm:text-4xl font-bold text-base-content">
               What We Stand For
             </h2>
           </div>
@@ -167,14 +167,14 @@ const AboutPage = () => {
               return (
                 <div
                   key={i}
-                  className="card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                  className="rounded-2xl bg-base-200/60 backdrop-blur-sm border border-base-300/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
                 >
-                  <div className="card-body space-y-3 py-6 px-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100">
+                  <div className="space-y-3 p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/10">
                       <span className="text-orange-500"><Icon size={20} /></span>
                     </div>
-                    <h3 className="font-bold text-gray-800 text-lg">{item.title}</h3>
-                    <p className="text-gray-500 text-sm">{item.description}</p>
+                    <h3 className="font-bold text-base-content text-lg">{item.title}</h3>
+                    <p className="text-base-content/55 text-sm">{item.description}</p>
                   </div>
                 </div>
               );
@@ -184,30 +184,30 @@ const AboutPage = () => {
       </section>
 
       {/* Subjects */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-base-100">
         <div className="max-w-5xl mx-auto px-4 space-y-12">
           <div className="text-center space-y-3">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
+            <h2 className="text-3xl sm:text-4xl font-bold text-base-content">
               What You Can Learn
             </h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
+            <p className="text-base-content/60 max-w-xl mx-auto">
               Two powerful subjects, endless possibilities.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             {/* HTML */}
-            <div className="card bg-gradient-to-br from-orange-50 to-orange-100/50 border border-orange-200 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body space-y-4 py-8 px-8">
+            <div className="rounded-3xl bg-gradient-to-br from-orange-500/5 to-orange-500/10 border border-orange-500/15 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+              <div className="space-y-4 p-8">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500">
                   <span className="text-white"><FaHtml5 size={32} /></span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800">HTML</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-base-content">HTML</h3>
+                <p className="text-base-content/60 leading-relaxed">
                   From basic tags to advanced semantics, forms, multimedia, and
                   responsive structures. Learn the foundation of every website.
                 </p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-sm text-base-content/60">
                   <li className="flex items-center gap-2">
                     <span className="text-orange-500"><FaRocket size={12} /></span>
                     13+ structured lessons
@@ -231,33 +231,33 @@ const AboutPage = () => {
             </div>
 
             {/* C */}
-            <div className="card bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-              <div className="card-body space-y-4 py-8 px-8">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500">
+            <div className="rounded-3xl bg-gradient-to-br from-sky-500/5 to-sky-500/10 border border-sky-500/15 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+              <div className="space-y-4 p-8">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-500">
                   <span className="text-white"><FaCode size={32} /></span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800">C Programming</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-base-content">C Programming</h3>
+                <p className="text-base-content/60 leading-relaxed">
                   Master the language that powers operating systems, databases,
                   and modern programming languages. Build a strong foundation.
                 </p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-sm text-base-content/60">
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-500"><FaRocket size={12} /></span>
+                    <span className="text-sky-500"><FaRocket size={12} /></span>
                     14+ structured lessons
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-500"><FaRocket size={12} /></span>
+                    <span className="text-sky-500"><FaRocket size={12} /></span>
                     Video tutorials + references
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-500"><FaRocket size={12} /></span>
+                    <span className="text-sky-500"><FaRocket size={12} /></span>
                     Beginner to Advanced
                   </li>
                 </ul>
                 <Link
                   href="/c"
-                  className="btn bg-blue-500 hover:bg-blue-600 border-none text-white gap-2 mt-2"
+                  className="btn bg-sky-500 hover:bg-sky-600 border-none text-white gap-2 mt-2"
                 >
                   Start Learning <FaArrowRight size={14} />
                 </Link>

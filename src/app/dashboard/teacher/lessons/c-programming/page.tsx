@@ -25,12 +25,12 @@ const CProgrammingLessonsPage = () => {
     <section className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">
-          C Programming Lessons
+        <h1 className="text-2xl md:text-3xl font-bold text-base-content">
+          💻 C Programming Lessons
         </h1>
 
-        <p className="mt-2 text-gray-500">
-          Manage your C programming lessons or create a new one.
+        <p className="mt-2 text-base-content/50 text-sm md:text-base">
+          Manage your C programming lessons or create a new one. 🛠️
         </p>
       </div>
 
@@ -61,7 +61,7 @@ const CProgrammingLessonsPage = () => {
                   {item.description}
                 </p>
 
-                <button className="btn mt-6 border-none bg-white text-black transition-all group-hover:translate-x-2">
+                <button className="btn mt-6 border-none bg-base-100 text-base-content transition-all group-hover:translate-x-2">
                   Open →
                 </button>
               </div>

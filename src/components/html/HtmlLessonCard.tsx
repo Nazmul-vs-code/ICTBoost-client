@@ -8,6 +8,7 @@ import {
   FaYoutube,
   FaGlobe,
   FaLayerGroup,
+  FaArrowRight,
 } from "react-icons/fa";
 
 type HtmlLesson = {
@@ -33,90 +34,209 @@ const difficultyBadge = (level: string) => {
   }
 };
 
-const HtmlLessonCard = ({ lesson }: { lesson: HtmlLesson }) => {
+export default function HtmlLessonCard({
+  lesson,
+}: {
+  lesson: HtmlLesson;
+}) {
   const [liked, setLiked] = useState(false);
 
   return (
-    <div className="card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-      <div className="card-body">
-        {/* Top Row: Title + Love Button */}
-        <div className="flex items-start justify-between gap-2">
-          <h2 className="card-title text-gray-800">
-            <span className="text-orange-500">
+    <div
+      className="
+        group
+        relative
+        overflow-hidden
+        rounded-3xl
+        bg-base-100/70
+        backdrop-blur-2xl
+        border
+        border-base-300/40
+        shadow-xl
+        transition-all
+        duration-500
+        hover:-translate-y-2
+        hover:shadow-2xl
+      "
+    >
+      {/* Orange Glow */}
+      <div
+        className="
+          absolute
+          -top-24
+          -right-24
+          h-56
+          w-56
+          rounded-full
+          bg-orange-400/25
+          blur-3xl
+          transition-all
+          duration-700
+          group-hover:scale-125
+        "
+      />
+
+      {/* Blue Glow */}
+      <div
+        className="
+          absolute
+          -bottom-24
+          -left-24
+          h-56
+          w-56
+          rounded-full
+          bg-sky-400/20
+          blur-3xl
+          transition-all
+          duration-700
+          group-hover:scale-125
+        "
+      />
+
+      <div className="relative z-10 p-7 space-y-6">
+        {/* Header */}
+        <div className="flex items-start justify-between">
+          <div className="flex gap-4">
+            <div
+              className="
+                h-14
+                w-14
+                rounded-2xl
+                bg-orange-500/10
+                flex
+                items-center
+                justify-center
+                text-orange-500
+                text-xl
+                transition-all
+                duration-300
+                group-hover:rotate-6
+                group-hover:scale-110
+              "
+            >
               <FaLayerGroup />
-            </span>
-            {lesson.title}
-          </h2>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-base-content">
+                {lesson.title}
+              </h2>
+
+              <div className="mt-2">
+                <span className={difficultyBadge(lesson.difficulty)}>
+                  {lesson.difficulty}
+                </span>
+              </div>
+            </div>
+          </div>
 
           <button
             onClick={() => setLiked(!liked)}
-            className="btn btn-ghost btn-sm"
+            className="
+              rounded-full
+              p-2
+              transition-all
+              duration-300
+              hover:bg-base-300/40
+            "
           >
             {liked ? (
-              <span className="text-red-500">
-                <FaHeart size={20} />
-              </span>
+              <FaHeart
+                size={20}
+                className="text-red-500 animate-pulse"
+              />
             ) : (
-              <span className="text-gray-400 hover:text-red-400">
-                <FaRegHeart size={20} />
-              </span>
+              <FaRegHeart
+                size={20}
+                className="text-base-content/40 hover:text-red-500"
+              />
             )}
           </button>
         </div>
 
-        {/* Difficulty Badge */}
-        <div>
-          <span className={difficultyBadge(lesson.difficulty)}>
-            {lesson.difficulty}
-          </span>
-        </div>
-
         {/* Description */}
-        <p className="text-gray-500 text-sm mt-2 line-clamp-3">
+        <p className="text-base-content/60 leading-7 line-clamp-3">
           {lesson.description}
         </p>
 
-        {/* Links */}
-        <div className="flex flex-col gap-2 mt-4 text-sm">
+        {/* Resources */}
+        <div className="space-y-3">
           <a
             href={lesson.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-red-500 hover:underline"
+            className="
+              flex
+              items-center
+              gap-3
+              rounded-2xl
+              bg-base-200/50
+              border
+              border-red-500/10
+              p-3
+              transition-all
+              duration-300
+              hover:bg-red-500/10
+              hover:translate-x-1
+            "
           >
-            <span>
-              <FaYoutube />
+            <FaYoutube className="text-red-500 text-lg" />
+
+            <span className="font-medium text-base-content/70">
+              Watch Video
             </span>
-            Watch Tutorial
           </a>
+
           <a
             href={lesson.referenceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-blue-500 hover:underline"
+            className="
+              flex
+              items-center
+              gap-3
+              rounded-2xl
+              bg-base-200/50
+              border
+              border-sky-500/10
+              p-3
+              transition-all
+              duration-300
+              hover:bg-sky-500/10
+              hover:translate-x-1
+            "
           >
-            <span>
-              <FaGlobe />
+            <FaGlobe className="text-sky-500 text-lg" />
+
+            <span className="font-medium text-base-content/70">
+              W3Schools Reference
             </span>
-            W3Schools Reference
           </a>
         </div>
 
-        {/* Divider */}
-        <div className="divider my-2" />
-
-        {/* View Details Button */}
-        <div className="card-actions justify-end">
-          <Link
-            href={`/html/${lesson._id}`}
-            className="btn btn-sm bg-orange-500 hover:bg-orange-600 border-none text-white"
-          >
-            View Details
-          </Link>
-        </div>
+        {/* Button */}
+        <Link
+          href={`/html/${lesson._id}`}
+          className="
+            btn
+            w-full
+            rounded-2xl
+            border-none
+            bg-gradient-to-r
+            from-orange-500
+            to-orange-600
+            text-white
+            shadow-lg
+            transition-all
+            duration-300
+            hover:scale-[1.03]
+            hover:shadow-orange-500/25
+          "
+        >
+          View Lesson
+          <FaArrowRight />
+        </Link>
       </div>
     </div>
   );
-};
-
-export default HtmlLessonCard;
+}

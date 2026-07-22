@@ -7,15 +7,15 @@ const ThemeToggle = () => {
 
   useEffect(() => {
     const saved = localStorage.getItem("ictboost-theme");
-    const dark = saved === "synthwave";
+    const dark = saved === "dark";
     setIsDark(dark);
-    document.documentElement.setAttribute("data-theme", dark ? "synthwave" : "light");
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
   }, []);
 
   const toggle = () => {
     const next = !isDark;
     setIsDark(next);
-    const theme = next ? "synthwave" : "light";
+    const theme = next ? "dark" : "light";
     localStorage.setItem("ictboost-theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
   };

@@ -16,6 +16,8 @@ import {
   FaEye,
   FaEyeSlash,
   FaLightbulb,
+  FaRocket,
+  FaStar,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -76,43 +78,54 @@ const ImportanceOfC = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <section className="py-20 bg-blue-50">
-      <div className="max-w-5xl mx-auto px-4 space-y-10">
+    <section className="relative py-24 overflow-hidden">
+      {/* Background decorations */}
+      <div className="pointer-events-none absolute -top-40 left-0 h-[500px] w-[500px] rounded-full bg-sky-400/10 blur-[160px]" />
+      <div className="pointer-events-none absolute bottom-0 right-1/3 h-[400px] w-[400px] rounded-full bg-blue-300/8 blur-[140px]" />
+      <div className="pointer-events-none absolute top-28 right-[10%] h-2.5 w-2.5 rounded-full bg-sky-400/30 animate-float" />
+      <div className="pointer-events-none absolute bottom-28 left-[14%] h-2 w-2 rounded-full bg-blue-400/25 animate-float-delay" />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 space-y-12">
         {/* Header */}
-        <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-2 bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
-            <FaLightbulb size={14} />
+        <div className="text-center space-y-5">
+          <div className="inline-flex items-center gap-2.5 bg-sky-500/10 backdrop-blur-sm border border-sky-400/20 text-sky-500 px-5 py-2.5 rounded-full text-sm font-semibold animate-slide-up opacity-0">
+            <FaLightbulb size={15} />
             Why C Matters
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
-            Importance of Learning C Programming
+            <FaStar size={10} className="opacity-50" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-base-content tracking-tight animate-slide-up opacity-0 delay-100">
+            Importance of Learning{" "}
+            <span className="text-sky-500">C Programming</span>
           </h2>
-          <p className="text-gray-500 max-w-xl mx-auto">
+          <p className="text-base-content/60 max-w-xl mx-auto text-lg leading-relaxed animate-slide-up opacity-0 delay-200">
             C is not just a language — it is the foundation of modern computing.
             Here is why mastering it matters.
           </p>
         </div>
 
         {/* Toggle Button */}
-        <div className="text-center">
+        <div className="text-center animate-fade-in">
           <button
             onClick={() => setShow(!show)}
-            className="group inline-flex items-center gap-3 btn bg-blue-500 hover:bg-blue-600 border-none text-white px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-200 active:scale-95"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg shadow-sky-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-sky-500/30 hover:-translate-y-0.5 active:scale-[0.98]"
           >
             {show ? (
-              <span className="transition-transform duration-300"><FaEyeSlash size={18} /></span>
+              <FaEyeSlash size={18} className="transition-transform duration-300" />
             ) : (
-              <span className="transition-transform duration-300 group-hover:scale-110"><FaEye size={18} /></span>
+              <FaEye size={18} className="transition-transform duration-300 group-hover:scale-110" />
             )}
             {show ? "Hide Importance" : "Show Importance"}
-            <span className={`transition-transform duration-300 ${show ? "rotate-180" : "group-hover:translate-y-0.5"}`}><FaChevronDown size={14} /></span>
+            <FaChevronDown
+              size={14}
+              className={`transition-transform duration-300 ${show ? "rotate-180" : "group-hover:translate-y-0.5"}`}
+            />
           </button>
         </div>
 
         {/* Importance List — Animated */}
         <div
-          className={`transition-all duration-500 ease-in-out ${
-            show ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          className={`transition-all duration-600 ease-in-out ${
+            show ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
           <div className="space-y-4 pt-2">
@@ -122,29 +135,29 @@ const ImportanceOfC = () => {
               return (
                 <div
                   key={index}
-                  className={`card bg-white shadow-xl border border-blue-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${
+                  className={`group rounded-2xl bg-base-200/60 backdrop-blur-sm border border-base-300/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 hover:border-sky-300/30 ${
                     show ? `animate-importance-${index}` : "opacity-0"
                   }`}
                 >
-                  <div className="card-body flex-row items-center gap-5 py-5 px-6">
+                  <div className="flex items-center gap-5 p-5 sm:p-6">
                     {/* Number Badge */}
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-500 text-white font-bold text-lg transition-all duration-300 hover:scale-110 hover:rotate-3 hover:shadow-lg hover:shadow-blue-300">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white font-bold text-lg shadow-md shadow-sky-500/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                       {index + 1}
                     </div>
 
                     {/* Icon */}
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 transition-all duration-300 hover:bg-blue-200 hover:scale-110 hover:-rotate-3">
-                      <span className="text-blue-500">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-500/10 transition-all duration-300 group-hover:bg-sky-500/20 group-hover:scale-110 group-hover:-rotate-3">
+                      <span className="text-sky-500">
                         <Icon size={20} />
                       </span>
                     </div>
 
                     {/* Text */}
-                    <div>
-                      <h3 className="font-bold text-gray-800 text-lg">
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-base-content text-lg">
                         {item.title}
                       </h3>
-                      <p className="text-gray-500 text-sm mt-1">
+                      <p className="text-base-content/55 text-sm mt-1">
                         {item.description}
                       </p>
                     </div>
@@ -156,11 +169,15 @@ const ImportanceOfC = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
+        <div className="text-center pt-4 animate-fade-in">
           <Link
             href="/c"
-            className="btn bg-blue-500 hover:bg-blue-600 border-none text-white px-8 gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-200"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg shadow-sky-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-sky-500/30 hover:-translate-y-0.5 active:scale-[0.98]"
           >
+            <FaRocket
+              size={16}
+              className="transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"
+            />
             Start Learning C Now
           </Link>
         </div>

@@ -15,6 +15,7 @@ import {
   FaChevronDown,
   FaEye,
   FaEyeSlash,
+  FaStar,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -75,43 +76,54 @@ const ImportanceOfHtml = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <section className="py-20 bg-orange-50">
-      <div className="max-w-5xl mx-auto px-4 space-y-10">
+    <section className="relative py-24 overflow-hidden">
+      {/* Background decorations */}
+      <div className="pointer-events-none absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-orange-400/10 blur-[160px]" />
+      <div className="pointer-events-none absolute bottom-0 left-1/4 h-[400px] w-[400px] rounded-full bg-amber-300/8 blur-[140px]" />
+      <div className="pointer-events-none absolute top-24 left-[10%] h-2.5 w-2.5 rounded-full bg-orange-400/30 animate-float" />
+      <div className="pointer-events-none absolute bottom-32 right-[12%] h-2 w-2 rounded-full bg-amber-400/25 animate-float-delay" />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 space-y-12">
         {/* Header */}
-        <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
-            <FaLightbulb size={14} />
+        <div className="text-center space-y-5">
+          <div className="inline-flex items-center gap-2.5 bg-orange-500/10 backdrop-blur-sm border border-orange-400/20 text-orange-500 px-5 py-2.5 rounded-full text-sm font-semibold animate-slide-up opacity-0">
+            <FaLightbulb size={15} />
             Why HTML Matters
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
-            Importance of Learning HTML
+            <FaStar size={10} className="opacity-50" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-base-content tracking-tight animate-slide-up opacity-0 delay-100">
+            Importance of Learning{" "}
+            <span className="text-orange-500">HTML</span>
           </h2>
-          <p className="text-gray-500 max-w-xl mx-auto">
+          <p className="text-base-content/60 max-w-xl mx-auto text-lg leading-relaxed animate-slide-up opacity-0 delay-200">
             HTML is not just a markup language — it is the foundation of the
             entire web. Here is why mastering it matters.
           </p>
         </div>
 
         {/* Toggle Button */}
-        <div className="text-center">
+        <div className="text-center animate-fade-in">
           <button
             onClick={() => setShow(!show)}
-            className="group inline-flex items-center gap-3 btn bg-orange-500 hover:bg-orange-600 border-none text-white px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-200 active:scale-95"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-0.5 active:scale-[0.98]"
           >
             {show ? (
-              <span className="transition-transform duration-300"><FaEyeSlash size={18} /></span>
+              <FaEyeSlash size={18} className="transition-transform duration-300" />
             ) : (
-              <span className="transition-transform duration-300 group-hover:scale-110"><FaEye size={18} /></span>
+              <FaEye size={18} className="transition-transform duration-300 group-hover:scale-110" />
             )}
             {show ? "Hide Importance" : "Show Importance"}
-            <span className={`transition-transform duration-300 ${show ? "rotate-180" : "group-hover:translate-y-0.5"}`}><FaChevronDown size={14} /></span>
+            <FaChevronDown
+              size={14}
+              className={`transition-transform duration-300 ${show ? "rotate-180" : "group-hover:translate-y-0.5"}`}
+            />
           </button>
         </div>
 
         {/* Importance List — Animated */}
         <div
-          className={`transition-all duration-500 ease-in-out ${
-            show ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          className={`transition-all duration-600 ease-in-out ${
+            show ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
           <div className="space-y-4 pt-2">
@@ -121,29 +133,29 @@ const ImportanceOfHtml = () => {
               return (
                 <div
                   key={index}
-                  className={`card bg-white shadow-xl border border-orange-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${
+                  className={`group rounded-2xl bg-base-200/60 backdrop-blur-sm border border-base-300/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 hover:border-orange-300/30 ${
                     show ? `animate-importance-${index}` : "opacity-0"
                   }`}
                 >
-                  <div className="card-body flex-row items-center gap-5 py-5 px-6">
+                  <div className="flex items-center gap-5 p-5 sm:p-6">
                     {/* Number Badge */}
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-white font-bold text-lg transition-all duration-300 hover:scale-110 hover:rotate-3 hover:shadow-lg hover:shadow-orange-300">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-lg shadow-md shadow-orange-500/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                       {index + 1}
                     </div>
 
                     {/* Icon */}
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 transition-all duration-300 hover:bg-orange-200 hover:scale-110 hover:-rotate-3">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 transition-all duration-300 group-hover:bg-orange-500/20 group-hover:scale-110 group-hover:-rotate-3">
                       <span className="text-orange-500">
                         <Icon size={20} />
                       </span>
                     </div>
 
                     {/* Text */}
-                    <div>
-                      <h3 className="font-bold text-gray-800 text-lg">
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-base-content text-lg">
                         {item.title}
                       </h3>
-                      <p className="text-gray-500 text-sm mt-1">
+                      <p className="text-base-content/55 text-sm mt-1">
                         {item.description}
                       </p>
                     </div>
@@ -155,11 +167,15 @@ const ImportanceOfHtml = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
+        <div className="text-center pt-4 animate-fade-in">
           <Link
             href="/html"
-            className="btn bg-orange-500 hover:bg-orange-600 border-none text-white px-8 gap-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-200"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-0.5 active:scale-[0.98]"
           >
+            <FaRocket
+              size={16}
+              className="transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"
+            />
             Start Learning HTML Now
           </Link>
         </div>

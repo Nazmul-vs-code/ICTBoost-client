@@ -17,7 +17,7 @@ import {
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-amber-50 min-h-[85vh] flex items-center">
+    <section className="relative overflow-hidden bg-gradient-to-br from-orange-500/5 via-base-100 to-amber-500/5 min-h-[85vh] flex items-center">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient Orbs */}
@@ -26,50 +26,50 @@ const Hero = () => {
 
         {/* Floating Code Symbols */}
         <div className="absolute top-20 left-[10%] animate-float">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
+          <div className="bg-base-100/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-500/15 p-4">
             <FaHtml5 size={32} />
           </div>
         </div>
 
         <div className="absolute top-32 right-[15%] animate-float-delay">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
+          <div className="bg-base-100/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-500/15 p-4">
             <FaCss3Alt size={32} />
           </div>
         </div>
 
         <div className="absolute bottom-32 left-[15%] animate-float-slow">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
+          <div className="bg-base-100/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-500/15 p-4">
             <FaJs size={32} />
           </div>
         </div>
 
         <div className="absolute bottom-40 right-[10%] animate-float">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-4">
+          <div className="bg-base-100/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-500/15 p-4">
             <FaCode size={32} />
           </div>
         </div>
 
         <div className="absolute top-[45%] left-[5%] animate-float-delay">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-3">
+          <div className="bg-base-100/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-500/15 p-3">
             <FaRobot size={24} />
           </div>
         </div>
 
         <div className="absolute top-[55%] right-[5%] animate-float-slow">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-100 p-3">
+          <div className="bg-base-100/80 backdrop-blur-sm rounded-2xl shadow-lg border border-orange-500/15 p-3">
             <FaGraduationCap size={24} />
           </div>
         </div>
 
         {/* Code Block Decoration */}
         <div className="absolute top-24 right-[30%] hidden xl:block animate-float-delay opacity-60">
-          <div className="bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 font-mono text-xs">
+          <div className="bg-base-content/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 font-mono text-xs">
             <div className="flex gap-1.5 mb-2">
               <div className="w-3 h-3 rounded-full bg-red-400" />
               <div className="w-3 h-3 rounded-full bg-yellow-400" />
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
-            <pre className="text-gray-300">
+            <pre className="text-base-100/70">
               <span className="text-purple-400">const</span>{" "}
               <span className="text-blue-400">learn</span> = () =&gt; {"{"}
               <br />
@@ -83,13 +83,13 @@ const Hero = () => {
         </div>
 
         <div className="absolute bottom-24 left-[25%] hidden xl:block animate-float opacity-60">
-          <div className="bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 font-mono text-xs">
+          <div className="bg-base-content/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 font-mono text-xs">
             <div className="flex gap-1.5 mb-2">
               <div className="w-3 h-3 rounded-full bg-red-400" />
               <div className="w-3 h-3 rounded-full bg-yellow-400" />
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
-            <pre className="text-gray-300">
+            <pre className="text-base-100/70">
               <span className="text-orange-400">&lt;h1&gt;</span>
               <span className="text-white">Hello World</span>
               <span className="text-orange-400">&lt;/h1&gt;</span>
@@ -105,14 +105,14 @@ const Hero = () => {
           <div className="space-y-8">
             {/* Badge */}
             <div className="animate-slide-up opacity-0">
-              <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
+              <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
                 <FaRobot size={14} />
                 AI-Powered Learning Platform
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight animate-slide-up opacity-0 delay-100">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-base-content leading-tight animate-slide-up opacity-0 delay-100">
               Master{" "}
               <span className="text-orange-500">HTML</span>{" "}
               &{" "}
@@ -137,7 +137,7 @@ const Hero = () => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg text-gray-500 max-w-lg leading-relaxed animate-slide-up opacity-0 delay-200">
+            <p className="text-lg text-base-content/60 max-w-lg leading-relaxed animate-slide-up opacity-0 delay-200">
               Your personalized coding journey starts here. Learn at your own pace
               with AI-generated lessons, hands-on practice, and expert-created
               content for HTML and C Programming.
@@ -154,7 +154,7 @@ const Hero = () => {
               </Link>
               <Link
                 href="/auth/register"
-                className="btn btn-outline border-orange-300 hover:bg-orange-50 text-orange-600 px-8 py-3 text-base gap-2"
+                className="btn btn-outline border-orange-300 hover:bg-orange-500/10 text-orange-500 px-8 py-3 text-base gap-2"
               >
                 Get Started Free
                 <FaArrowRight size={14} />
@@ -164,36 +164,36 @@ const Hero = () => {
             {/* Stats */}
             <div className="flex flex-wrap gap-8 pt-4 animate-slide-up opacity-0 delay-400">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
                   <span className="text-orange-500">
                     <FaBookOpen size={18} />
                   </span>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-gray-800">50+</p>
-                  <p className="text-xs text-gray-500">Lessons</p>
+                  <p className="text-xl font-bold text-base-content">50+</p>
+                  <p className="text-xs text-base-content/60">Lessons</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
                   <span className="text-orange-500">
                     <FaUsers size={18} />
                   </span>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-gray-800">1K+</p>
-                  <p className="text-xs text-gray-500">Students</p>
+                  <p className="text-xl font-bold text-base-content">1K+</p>
+                  <p className="text-xs text-base-content/60">Students</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
                   <span className="text-orange-500">
                     <FaStar size={18} />
                   </span>
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-gray-800">4.9</p>
-                  <p className="text-xs text-gray-500">Rating</p>
+                  <p className="text-xl font-bold text-base-content">4.9</p>
+                  <p className="text-xs text-base-content/60">Rating</p>
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@ const Hero = () => {
           <div className="hidden lg:flex justify-center items-center animate-slide-in-right opacity-0 delay-300">
             <div className="relative">
               {/* Main Code Card */}
-              <div className="bg-white rounded-3xl shadow-2xl border border-orange-100 p-6 w-80 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div className="bg-base-100 rounded-3xl shadow-2xl border border-orange-500/15 p-6 w-80 transform rotate-2 hover:rotate-0 transition-transform duration-500">
                 <div className="flex gap-1.5 mb-4">
                   <div className="w-3 h-3 rounded-full bg-red-400" />
                   <div className="w-3 h-3 rounded-full bg-yellow-400" />
@@ -212,7 +212,7 @@ const Hero = () => {
                 <div className="font-mono text-sm space-y-2">
                   <p>
                     <span className="text-purple-500">&lt;!</span>
-                    <span className="text-gray-400">DOCTYPE html</span>
+                    <span className="text-base-content/50">DOCTYPE html</span>
                     <span className="text-purple-500">&gt;</span>
                   </p>
                   <p>
@@ -226,7 +226,7 @@ const Hero = () => {
                   </p>
                   <p className="pl-4">
                     <span className="text-orange-500">&lt;title&gt;</span>
-                    <span className="text-white bg-gray-800 px-1 rounded">
+                    <span className="text-base-100 bg-base-content/80 px-1 rounded">
                       ICTBoost
                     </span>
                     <span className="text-orange-500">&lt;/title&gt;</span>
@@ -239,7 +239,7 @@ const Hero = () => {
                   </p>
                   <p className="pl-4">
                     <span className="text-orange-500">&lt;h1&gt;</span>
-                    <span className="text-white bg-orange-500/20 px-1 rounded">
+                    <span className="text-base-100 bg-orange-500/20 px-1 rounded">
                       Hello World
                     </span>
                     <span className="text-orange-500">&lt;/h1&gt;</span>
@@ -262,21 +262,21 @@ const Hero = () => {
               </div>
 
               {/* Floating Lesson Card */}
-              <div className="absolute -bottom-6 -left-8 bg-white rounded-2xl shadow-xl border border-orange-100 p-4 w-56 animate-float-delay">
+              <div className="absolute -bottom-6 -left-8 bg-base-100 rounded-2xl shadow-xl border border-orange-500/15 p-4 w-56 animate-float-delay">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
                     <span className="text-orange-500">
                       <FaGraduationCap size={18} />
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-800">
+                    <p className="text-sm font-bold text-base-content">
                       HTML Basics
                     </p>
-                    <p className="text-xs text-gray-500">Beginner</p>
+                    <p className="text-xs text-base-content/60">Beginner</p>
                   </div>
                 </div>
-                <div className="mt-3 bg-gray-100 rounded-full h-2 overflow-hidden">
+                <div className="mt-3 bg-base-300/50 rounded-full h-2 overflow-hidden">
                   <div className="bg-orange-500 h-full w-3/4 rounded-full" />
                 </div>
               </div>

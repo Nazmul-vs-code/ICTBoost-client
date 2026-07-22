@@ -71,15 +71,15 @@ const RegisterPage = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-orange-50 px-4 py-10">
-      <div className="card w-full max-w-lg bg-white shadow-xl border border-orange-100">
+    <section className="min-h-screen flex items-center justify-center bg-orange-500/5 px-4 py-10">
+      <div className="card w-full max-w-lg bg-base-100 shadow-xl border border-base-300/50">
         <div className="card-body">
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-orange-500">
               Create an Account 🚀
             </h1>
 
-            <p className="text-gray-500 mt-2">
+            <p className="text-base-content/60 mt-2">
               Join ICTBoost and start your programming journey today.
             </p>
           </div>

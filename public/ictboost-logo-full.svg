@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64">
+  <!-- Icon -->
+  <g transform="translate(0, 0)">
+    <rect x="2" y="2" width="60" height="60" rx="14" ry="14" fill="#F97316"/>
+    <polyline points="24,18 13,32 24,46" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <polygon points="32,11 41,24 35.5,24 35.5,42 28.5,42 28.5,24 23,24" fill="white"/>
+    <polygon points="32,42 35.5,42 34,48 32,45 30,48 28.5,42" fill="#3B82F6"/>
+    <polyline points="40,18 51,32 40,46" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- Text: ICT -->
+  <text x="76" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="700" fill="#F97316" letter-spacing="-0.5">ICT</text>
+  
+  <!-- Text: Boost -->
+  <text x="146" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="800" fill="#1F2937" letter-spacing="-0.5">Boost</text>
+</svg>
