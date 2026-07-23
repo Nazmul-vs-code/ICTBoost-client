@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
+import { toggleLikeC } from "@/lib/actions/like-c";
 import {
   FaHeart,
   FaRegHeart,
@@ -36,6 +39,65 @@ const difficultyBadge = (level: string) => {
 
 const CLessonCard = ({ lesson }: { lesson: CLesson }) => {
   const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [likeLoading, setLikeLoading] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const currentUserEmail = session?.user?.email;
+
+  useEffect(() => {
+    if (!lesson._id) return;
+
+    const fetchLikes = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+        const params = new URLSearchParams({ lessonId: lesson._id });
+
+        if (currentUserEmail) {
+          params.set("likedByEmail", currentUserEmail);
+        }
+
+        const res = await fetch(`${baseUrl}/lesson/c/like/${lesson._id}?${params}`);
+        const data = await res.json();
+
+        if (data.success) {
+          setLikeCount(data.likeCount);
+          setLiked(data.liked);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchLikes();
+  }, [lesson._id, currentUserEmail]);
+
+  const handleLike = async () => {
+    if (!currentUserEmail) {
+      toast.error("Please login to like this lesson.");
+      return;
+    }
+
+    if (likeLoading) return;
+
+    setLikeLoading(true);
+
+    try {
+      const result = await toggleLikeC(
+        lesson._id,
+        lesson.authorEmail,
+        currentUserEmail
+      );
+
+      setLiked(result.liked);
+      setLikeCount(result.likeCount);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLikeLoading(false);
+    }
+  };
 
   return (
     <div
@@ -127,26 +189,23 @@ const CLessonCard = ({ lesson }: { lesson: CLesson }) => {
           </div>
 
           <button
-            onClick={() => setLiked(!liked)}
-            className="
-              rounded-full
-              p-2
-              transition-all
-              duration-300
-              hover:bg-base-300/40
-            "
+            onClick={handleLike}
+            disabled={likeLoading}
+            className={`
+              flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-300
+              ${liked
+                ? "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                : "bg-base-200/50 text-base-content/40 hover:bg-base-300/60 hover:text-red-500"
+              }
+              ${likeLoading ? "opacity-50 cursor-not-allowed" : ""}
+            `}
           >
             {liked ? (
-              <FaHeart
-                size={20}
-                className="text-red-500 animate-pulse"
-              />
+              <FaHeart size={16} className="animate-pulse" />
             ) : (
-              <FaRegHeart
-                size={20}
-                className="text-base-content/40 hover:text-red-500"
-              />
+              <FaRegHeart size={16} />
             )}
+            <span>{likeCount}</span>
           </button>
         </div>
 
