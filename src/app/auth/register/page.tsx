@@ -23,13 +23,18 @@ const RegisterPage = () => {
     image: "",
     email: "",
     password: "",
-    role: "student",
+    role: "teacher",
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
+    if (name === "role" && value === "student") {
+      toast.error("Student authorization is not cooked yet.");
+      return;
+    }
 
     setFormData((prev) => ({
       ...prev,
@@ -185,19 +190,14 @@ const RegisterPage = () => {
                 onChange={handleChange}
                 className="select select-bordered w-full"
               >
-                <option value="student">
-                  🎓 Student
+                <option value="student" disabled>
+                  🎓 Student (Not Available)
                 </option>
 
                 <option value="teacher">
                   👨‍🏫 Teacher
                 </option>
               </select>
-
-              <p className="mt-2 text-xs text-orange-500">
-                Teacher accounts require admin approval before
-                gaining access.
-              </p>
             </div>
 
             <button
