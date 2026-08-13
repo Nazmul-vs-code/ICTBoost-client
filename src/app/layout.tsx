@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Lexend } from "next/font/google";
+import { Geologica } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/home page/Navbar";
 import Footer from "@/components/home page/Footer";
 import { Toaster } from "react-hot-toast";
 
-const lexend = Lexend({
+const geologica = Geologica({
   subsets: ["latin"],
-  variable: "--font-lexend",
-  display: "swap",
-});
+  variable: "--font-geologica"
+})
 
 export const metadata: Metadata = {
   title: "ICTBoost",
@@ -24,7 +23,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={lexend.variable}
+      className={geologica.className}
       suppressHydrationWarning
     >
       <head>
@@ -34,7 +33,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen font-sans antialiased">
+      <body className="min-h-screen antialiased">
         <Toaster
           position="top-center"
           reverseOrder={false}
