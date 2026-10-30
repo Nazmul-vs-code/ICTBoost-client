@@ -1,20 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("ictboost-theme");
-    const dark = saved === "dark";
-    setIsDark(dark);
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-  }, []);
+  const isDark = useSyncExternalStore(
+    (onStoreChange) => {
+      const observer = new MutationObserver(onStoreChange);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+      return () => observer.disconnect();
+    },
+    () => document.documentElement.getAttribute("data-theme") === "dark",
+    () => false,
+  );
 
   const toggle = () => {
-    const next = !isDark;
-    setIsDark(next);
+    const next = document.documentElement.getAttribute("data-theme") !== "dark";
     const theme = next ? "dark" : "light";
     localStorage.setItem("ictboost-theme", theme);
     document.documentElement.setAttribute("data-theme", theme);

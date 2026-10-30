@@ -35,16 +35,7 @@ const difficultyEmoji = (level: string) => {
 };
 
 const rankStyle = (rank: number) => {
-  switch (rank) {
-    case 0:
-      return "from-amber-400 to-orange-500 shadow-amber-400/30";
-    case 1:
-      return "from-gray-300 to-gray-400 shadow-gray-300/30";
-    case 2:
-      return "from-amber-600 to-amber-700 shadow-amber-600/30";
-    default:
-      return "from-orange-500 to-orange-600 shadow-orange-500/20";
-  }
+  return rank === 0 ? "bg-white text-black" : "border border-zinc-700 bg-zinc-800";
 };
 
 const rankEmoji = (rank: number) => {
@@ -107,27 +98,22 @@ const MostLikedLessons = () => {
   const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
   const axisColor = isDark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)";
   const radiusColor = isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.3)";
-  const tooltipBg = isDark ? "#1a1a2e" : "#ffffff";
-  const tooltipBorder = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)";
-  const tooltipText = isDark ? "#e2e8f0" : "#1e293b";
+  const tooltipBg = isDark ? "#18181b" : "#ffffff";
+  const tooltipBorder = isDark ? "#3f3f46" : "#d4d4d8";
+  const tooltipText = isDark ? "#f4f4f5" : "#18181b";
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="theme-adaptive relative overflow-hidden py-24">
       {/* Background glows */}
-      <div className="pointer-events-none absolute top-0 left-1/3 h-[500px] w-[500px] rounded-full bg-red-400/10 blur-[160px]" />
-      <div className="pointer-events-none absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-orange-300/10 blur-[140px]" />
-      <div className="pointer-events-none absolute top-32 right-[10%] h-3 w-3 rounded-full bg-red-400/30 animate-float" />
-      <div className="pointer-events-none absolute bottom-20 left-[15%] h-2 w-2 rounded-full bg-orange-400/25 animate-float-delay" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 space-y-14">
+      <div className="relative z-10 mx-auto max-w-7xl space-y-14 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center space-y-5">
-          <div className="inline-flex items-center gap-2 bg-red-500/10 backdrop-blur-sm border border-red-400/20 text-red-500 px-5 py-2.5 rounded-full text-sm font-semibold animate-slide-up opacity-0">
-            🔥 Community Favorites
+          <div className="inline-flex items-center gap-2 border border-zinc-700 bg-zinc-900 px-4 py-2 font-mono text-xs uppercase tracking-wider text-zinc-300 animate-slide-up opacity-0">
+            Community favorites
           </div>
           <h2 className="text-4xl sm:text-5xl font-extrabold text-base-content tracking-tight animate-slide-up opacity-0 delay-100">
             Most Liked{" "}
-            <span className="text-orange-500">Lessons</span>
+            <span className="text-zinc-400">Lessons</span>
           </h2>
           <p className="text-base-content/60 max-w-xl mx-auto text-lg leading-relaxed animate-slide-up opacity-0 delay-200">
             See which lessons the community loves the most. Top-ranked by
@@ -138,23 +124,23 @@ const MostLikedLessons = () => {
         {/* Skeleton Loader */}
         {loading && (
           <div className="grid gap-8 lg:grid-cols-5 items-start">
-            <div className="lg:col-span-3 rounded-3xl bg-base-200/80 backdrop-blur-sm border border-base-300/50 p-8 animate-pulse">
-              <div className="h-6 w-40 rounded-xl bg-base-300/60 mb-6" />
-              <div className="h-[400px] w-full rounded-2xl bg-base-300/30" />
+            <div className="lg:col-span-3 border border-zinc-800 bg-zinc-900 p-8 animate-pulse">
+              <div className="mb-6 h-6 w-40 bg-zinc-700" />
+              <div className="h-[400px] w-full bg-zinc-800" />
             </div>
             <div className="lg:col-span-2 space-y-4">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl bg-base-200/80 backdrop-blur-sm border border-base-300/50 p-5 animate-pulse"
+                  className="border border-zinc-800 bg-zinc-900 p-5 animate-pulse"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-xl bg-base-300/40 shrink-0" />
+                    <div className="h-10 w-10 shrink-0 bg-zinc-700" />
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 w-3/4 rounded-lg bg-base-300/50" />
-                      <div className="h-3 w-1/3 rounded-lg bg-base-300/30" />
+                      <div className="h-4 w-3/4 bg-zinc-700" />
+                      <div className="h-3 w-1/3 bg-zinc-800" />
                     </div>
-                    <div className="h-4 w-8 rounded bg-base-300/30" />
+                    <div className="h-4 w-8 bg-zinc-800" />
                   </div>
                 </div>
               ))}
@@ -164,12 +150,12 @@ const MostLikedLessons = () => {
 
         {/* Empty State */}
         {!loading && !hasData && (
-          <div className="rounded-3xl bg-base-200/60 backdrop-blur-sm border border-base-300/50 p-16 text-center">
+          <div className="border border-zinc-800 bg-zinc-900 p-10 text-center sm:p-16">
             <div className="text-5xl mb-5">📊</div>
-            <p className="text-lg font-semibold text-base-content/70">
+            <p className="text-lg font-semibold text-white">
               No likes yet
             </p>
-            <p className="text-sm text-base-content/50 mt-2 max-w-md mx-auto">
+            <p className="mx-auto mt-2 max-w-md text-sm text-zinc-400">
               Like some lessons to see analytics here. Explore our HTML and C
               Programming lessons and give them a heart!
             </p>
@@ -180,8 +166,8 @@ const MostLikedLessons = () => {
         {!loading && hasData && (
           <div className="grid gap-8 lg:grid-cols-5 items-start">
             {/* Radar Chart */}
-            <div className="lg:col-span-3 rounded-3xl bg-base-200/60 backdrop-blur-xl border border-base-300/50 shadow-xl p-6 sm:p-8 animate-slide-up opacity-0 delay-200">
-              <h3 className="text-lg font-bold text-base-content flex items-center gap-2.5">
+            <div className="lg:col-span-3 border border-zinc-800 bg-zinc-900 p-6 sm:p-8 animate-slide-up opacity-0 delay-200">
+              <h3 className="flex items-center gap-2.5 text-lg font-semibold text-white">
                 <span className="text-xl">❤️</span>
                 Likes Overview
               </h3>
@@ -209,10 +195,8 @@ const MostLikedLessons = () => {
                       contentStyle={{
                         backgroundColor: tooltipBg,
                         border: `1px solid ${tooltipBorder}`,
-                        borderRadius: "12px",
+                        borderRadius: "0",
                         color: tooltipText,
-                        backdropFilter: "blur(12px)",
-                        boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
                       }}
                       itemStyle={{ color: tooltipText }}
                       labelStyle={{ color: tooltipText, fontWeight: 700 }}
@@ -230,19 +214,19 @@ const MostLikedLessons = () => {
               {lessons.map((lesson, index) => (
                 <div
                   key={lesson._id}
-                  className="group rounded-2xl bg-base-200/60 backdrop-blur-sm border border-base-300/50 p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 hover:border-orange-300/30 animate-slide-up opacity-0"
+                  className="group border border-zinc-800 bg-zinc-900 p-4 transition-colors duration-200 hover:border-zinc-600 animate-slide-up opacity-0"
                   style={{ animationDelay: `${300 + index * 80}ms` }}
                 >
                   <div className="flex items-center gap-3">
                     {/* Rank Badge */}
-                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${rankStyle(index)} text-white font-bold text-sm shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center font-mono text-sm font-bold ${rankStyle(index)}`}>
                       {rankEmoji(index)}
                     </div>
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-base-content truncate text-sm">
+                        <h4 className="truncate text-sm font-medium text-white">
                           {lesson.title}
                         </h4>
                         <span className="shrink-0 text-sm">
@@ -251,7 +235,7 @@ const MostLikedLessons = () => {
                       </div>
                       <div className="flex items-center gap-1.5 mt-1">
                         <span className="text-xs">{difficultyEmoji(lesson.difficulty)}</span>
-                        <span className="text-xs text-base-content/50">{lesson.difficulty}</span>
+                        <span className="text-xs text-zinc-400">{lesson.difficulty}</span>
                       </div>
                     </div>
 

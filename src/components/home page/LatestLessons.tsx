@@ -25,33 +25,33 @@ type Lesson = {
 
 /* ──────────── Skeleton Card ──────────── */
 function SkeletonCard({ accent }: { accent: "orange" | "blue" }) {
-  const ring = accent === "orange" ? "bg-orange-400/20" : "bg-sky-400/20";
+  const ring = accent === "orange" ? "bg-zinc-700" : "bg-zinc-700";
   return (
-    <div className="rounded-3xl bg-base-200/80 backdrop-blur-sm border border-base-300/50 p-7 space-y-5 animate-pulse">
+    <div className="theme-adaptive flex h-[31rem] flex-col border border-zinc-800 bg-zinc-900 p-6 animate-pulse">
       {/* icon placeholder */}
       <div className="flex items-start justify-between">
         <div className="flex gap-4">
           <div className={`h-14 w-14 rounded-2xl ${ring}`} />
           <div className="space-y-3 pt-1">
-            <div className="h-5 w-40 rounded-xl bg-base-300/60" />
-            <div className="h-4 w-20 rounded-full bg-base-300/40" />
+            <div className="h-5 w-40 bg-zinc-700" />
+            <div className="h-4 w-20 bg-zinc-800" />
           </div>
         </div>
-        <div className="h-8 w-8 rounded-full bg-base-300/40" />
+        <div className="h-8 w-8 bg-zinc-800" />
       </div>
       {/* lines */}
       <div className="space-y-2.5">
-        <div className="h-3.5 w-full rounded-lg bg-base-300/40" />
-        <div className="h-3.5 w-5/6 rounded-lg bg-base-300/40" />
-        <div className="h-3.5 w-2/3 rounded-lg bg-base-300/30" />
+        <div className="h-3.5 w-full bg-zinc-800" />
+        <div className="h-3.5 w-5/6 bg-zinc-800" />
+        <div className="h-3.5 w-2/3 bg-zinc-800" />
       </div>
       {/* link bars */}
-      <div className="space-y-2.5">
-        <div className="h-11 w-full rounded-2xl bg-base-300/30" />
-        <div className="h-11 w-full rounded-2xl bg-base-300/30" />
+      <div className="mt-auto space-y-2.5">
+        <div className="h-11 w-full bg-zinc-800" />
+        <div className="h-11 w-full bg-zinc-800" />
       </div>
       {/* button */}
-      <div className="h-12 w-full rounded-2xl bg-base-300/40" />
+      <div className="h-12 w-full bg-zinc-800" />
     </div>
   );
 }
@@ -59,37 +59,11 @@ function SkeletonCard({ accent }: { accent: "orange" | "blue" }) {
 /* ──────────── Section Wrapper ──────────── */
 function SectionShell({
   children,
-  glowColor,
 }: {
   children: React.ReactNode;
-  glowColor: "orange" | "blue";
 }) {
   return (
-    <div className="relative">
-      {/* floating background glows */}
-      <div
-        className={`pointer-events-none absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full blur-[160px] opacity-30 ${
-          glowColor === "orange" ? "bg-orange-400" : "bg-sky-400"
-        }`}
-      />
-      <div
-        className={`pointer-events-none absolute -bottom-32 right-1/4 h-[400px] w-[400px] rounded-full blur-[140px] opacity-20 ${
-          glowColor === "orange" ? "bg-amber-300" : "bg-blue-300"
-        }`}
-      />
-      {/* small floating orbs */}
-      <div
-        className={`pointer-events-none absolute top-20 right-[12%] h-3 w-3 rounded-full opacity-40 animate-float ${
-          glowColor === "orange" ? "bg-orange-400" : "bg-sky-400"
-        }`}
-      />
-      <div
-        className={`pointer-events-none absolute bottom-24 left-[8%] h-2 w-2 rounded-full opacity-30 animate-float-delay ${
-          glowColor === "orange" ? "bg-amber-400" : "bg-blue-400"
-        }`}
-      />
-      <div className="relative z-10">{children}</div>
-    </div>
+    <div className="border-t border-zinc-800 pt-12">{children}</div>
   );
 }
 
@@ -123,26 +97,26 @@ const LatestLessons = () => {
   if (!loading && !hasLessons) return null;
 
   return (
-    <section className="relative py-24 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 space-y-28">
+    <section className="theme-adaptive relative overflow-hidden py-24">
+      <div className="mx-auto max-w-7xl space-y-20 px-4 sm:px-6 lg:px-8">
 
         {/* ════════════════════ HTML Section ════════════════════ */}
         {htmlLessons.length > 0 && (
-          <SectionShell glowColor="orange">
+          <SectionShell>
             <div className="space-y-12">
               {/* Header */}
-              <div className="text-center space-y-5">
-                <div className="inline-flex items-center gap-2.5 bg-orange-500/10 backdrop-blur-sm border border-orange-400/20 text-orange-500 px-5 py-2.5 rounded-full text-sm font-semibold animate-slide-up opacity-0">
+              <div className="space-y-5">
+                <div className="inline-flex items-center gap-2 border border-zinc-700 px-3 py-2 font-mono text-xs uppercase tracking-wider text-zinc-300 animate-slide-up opacity-0">
                   <FaHtml5 size={15} />
                   Fresh Content
                   <FaStar size={10} className="opacity-50" />
                 </div>
-                <h2 className="text-4xl sm:text-5xl font-extrabold text-base-content tracking-tight animate-slide-up opacity-0 delay-100">
+                <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl animate-slide-up opacity-0 delay-100">
                   Latest{" "}
-                  <span className="text-orange-500">HTML</span>{" "}
+                  <span className="text-zinc-400">HTML</span>{" "}
                   Lessons
                 </h2>
-                <p className="text-base-content/60 max-w-xl mx-auto text-lg leading-relaxed animate-slide-up opacity-0 delay-200">
+                <p className="max-w-2xl leading-7 text-zinc-400 animate-slide-up opacity-0 delay-200">
                   Jump into our newest HTML lessons crafted by expert teachers.
                   Start from scratch or level up your skills.
                 </p>
@@ -177,7 +151,7 @@ const LatestLessons = () => {
                 <div className="text-center pt-4 animate-fade-in">
                   <Link
                     href="/html"
-                    className="group inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="inline-flex min-h-12 items-center gap-3 bg-white px-6 py-3 font-medium text-black transition-all duration-200 hover:bg-zinc-200"
                   >
                     <FaRocket
                       size={16}
@@ -197,21 +171,21 @@ const LatestLessons = () => {
 
         {/* ════════════════════ C Programming Section ════════════════════ */}
         {cLessons.length > 0 && (
-          <SectionShell glowColor="blue">
+          <SectionShell>
             <div className="space-y-12">
               {/* Header */}
-              <div className="text-center space-y-5">
-                <div className="inline-flex items-center gap-2.5 bg-sky-500/10 backdrop-blur-sm border border-sky-400/20 text-sky-500 px-5 py-2.5 rounded-full text-sm font-semibold animate-slide-up opacity-0">
+              <div className="space-y-5">
+                <div className="inline-flex items-center gap-2 border border-zinc-700 px-3 py-2 font-mono text-xs uppercase tracking-wider text-zinc-300 animate-slide-up opacity-0">
                   <FaCode size={15} />
                   Programming
                   <FaStar size={10} className="opacity-50" />
                 </div>
-                <h2 className="text-4xl sm:text-5xl font-extrabold text-base-content tracking-tight animate-slide-up opacity-0 delay-100">
+                <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl animate-slide-up opacity-0 delay-100">
                   Latest{" "}
-                  <span className="text-sky-500">C Programming</span>{" "}
+                  <span className="text-zinc-400">C Programming</span>{" "}
                   Lessons
                 </h2>
-                <p className="text-base-content/60 max-w-xl mx-auto text-lg leading-relaxed animate-slide-up opacity-0 delay-200">
+                <p className="max-w-2xl leading-7 text-zinc-400 animate-slide-up opacity-0 delay-200">
                   Dive into our newest C programming lessons. Master fundamentals,
                   data structures, and algorithms from expert teachers.
                 </p>
@@ -246,7 +220,7 @@ const LatestLessons = () => {
                 <div className="text-center pt-4 animate-fade-in">
                   <Link
                     href="/c"
-                    className="group inline-flex items-center gap-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg shadow-sky-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-sky-500/30 hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="inline-flex min-h-12 items-center gap-3 bg-white px-6 py-3 font-medium text-black transition-all duration-200 hover:bg-zinc-200"
                   >
                     <FaRocket
                       size={16}

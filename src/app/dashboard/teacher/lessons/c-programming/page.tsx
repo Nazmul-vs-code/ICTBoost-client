@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaBookOpen, FaPlusCircle } from "react-icons/fa";
+import { FaArrowRight, FaBookOpen, FaPlusCircle } from "react-icons/fa";
 
 const actions = [
   {
@@ -9,14 +9,12 @@ const actions = [
     description: "View, edit and manage all your C programming lessons.",
     href: "/dashboard/teacher/lessons/c-programming/all-lessons",
     icon: FaBookOpen,
-    bg: "from-blue-500 to-indigo-500",
   },
   {
     title: "Create Lesson",
     description: "Create a brand new C programming lesson for your students.",
     href: "/dashboard/teacher/lessons/c-programming/create",
     icon: FaPlusCircle,
-    bg: "from-emerald-500 to-teal-500",
   },
 ];
 
@@ -43,13 +41,10 @@ const CProgrammingLessonsPage = () => {
             <Link
               key={item.title}
               href={item.href}
-              className={`group relative overflow-hidden rounded-2xl bg-gradient-to-r ${item.bg} p-7 text-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl`}
+              className="group border border-base-300 bg-base-100 p-7 text-base-content transition-colors duration-200 hover:border-base-content/40"
             >
-              {/* Decorative Circle */}
-              <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/10 transition-all duration-300 group-hover:scale-125" />
-
-              <div className="relative z-10">
-                <div className="mb-5 inline-flex rounded-xl bg-white/20 p-4 backdrop-blur-sm">
+              <div>
+                <div className="mb-5 inline-flex border border-base-300 bg-base-200 p-4">
                   <Icon size={34} />
                 </div>
 
@@ -57,13 +52,13 @@ const CProgrammingLessonsPage = () => {
                   {item.title}
                 </h2>
 
-                <p className="mt-2 text-white/90">
+                <p className="mt-2 text-base-content/70">
                   {item.description}
                 </p>
 
-                <button className="btn mt-6 border-none bg-base-100 text-base-content transition-all group-hover:translate-x-2">
-                  Open →
-                </button>
+                <span className="button-action mt-6 inline-flex min-h-10 items-center gap-2 bg-white px-4 font-medium text-black">
+                  Open <FaArrowRight aria-hidden="true" size={14} />
+                </span>
               </div>
             </Link>
           );

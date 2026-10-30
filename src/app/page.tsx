@@ -3,6 +3,7 @@ import LatestLessons from "@/components/home page/LatestLessons";
 import ImportanceOfHtml from "@/components/home page/ImportanceOfHtml";
 import ImportanceOfC from "@/components/home page/ImportanceOfC";
 import MostLikedLessons from "@/components/home page/MostLikedLessons";
+import ContactForm from "@/components/home page/ContactForm";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ImportanceOfHtml />
       <ImportanceOfC />
       <MostLikedLessons />
+      <ContactForm />
     </main>
   );
 }

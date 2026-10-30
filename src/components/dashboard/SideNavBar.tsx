@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -62,24 +62,31 @@ const sidebarItems: Record<UserRole, SidebarItem[]> = {
 
 const SideNavBar = () => {
   const [open, setOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const isDark = useSyncExternalStore(
+    (onStoreChange) => {
+      const observer = new MutationObserver(onStoreChange);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+      return () => observer.disconnect();
+    },
+    () => document.documentElement.getAttribute("data-theme") === "dark",
+    () => false,
+  );
   const pathname = usePathname();
   const router = useRouter();
 
   const { data: session } = authClient.useSession();
-  const user = session?.user as (Record<string, any> & { role?: string }) | undefined;
-  const role = (user?.role ?? "student") as UserRole;
+  const user = session?.user;
+  const role = (
+    (session?.user as { role?: string } | undefined)?.role ?? "student"
+  ) as UserRole;
   const navItems = sidebarItems[role];
   const [imageError, setImageError] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("ictboost-theme");
-    setIsDark(saved === "dark");
-  }, []);
-
   const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
+    const next = document.documentElement.getAttribute("data-theme") !== "dark";
     const theme = next ? "dark" : "light";
     localStorage.setItem("ictboost-theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
@@ -227,7 +234,7 @@ const SideNavBar = () => {
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40"
           />
           <aside className="relative h-full w-64 shadow-2xl bg-base-100">
             <button

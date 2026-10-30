@@ -10,6 +10,8 @@ import {
   FaGlobe,
   FaAlignLeft,
   FaLayerGroup,
+  FaUndo,
+  FaPlus,
 } from "react-icons/fa";
 
 const CreateHtmlLessonPage = () => {
@@ -209,6 +211,7 @@ const CreateHtmlLessonPage = () => {
               type="reset"
               className="btn btn-outline"
             >
+              <FaUndo aria-hidden="true" />
               Reset
             </button>
 
@@ -216,7 +219,8 @@ const CreateHtmlLessonPage = () => {
               type="submit"
               className="btn bg-orange-500 hover:bg-orange-600 border-none text-white"
             >
-              Create Lesson 🚀
+              <FaPlus aria-hidden="true" />
+              Create Lesson
             </button>
           </div>
 

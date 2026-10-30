@@ -29,7 +29,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('ictboost-theme');if(t){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('ictboost-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
           }}
         />
       </head>
@@ -37,6 +37,14 @@ export default function RootLayout({
         <Toaster
           position="top-center"
           reverseOrder={false}
+          toastOptions={{
+            style: {
+              border: "1px solid var(--app-border)",
+              borderRadius: 0,
+              background: "var(--app-surface)",
+              color: "var(--app-foreground)",
+            },
+          }}
         />
         <Navbar />
         {children}

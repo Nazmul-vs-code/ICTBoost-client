@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import {
   FaHome,
   FaArrowLeft,
@@ -21,23 +20,15 @@ const floatingIcons = [
 ];
 
 const NotFoundPage = () => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-500/5 via-base-100 to-sky-500/5">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-base-100">
       {/* Floating Background Icons */}
       {floatingIcons.map((item, i) => {
         const { Icon } = item;
         return (
           <div
             key={i}
-            className={`absolute opacity-20 pointer-events-none transition-all duration-1000 ${
-              mounted ? "opacity-20" : "opacity-0"
-            }`}
+            className="absolute opacity-20 pointer-events-none"
             style={{
               left: item.x,
               top: item.y,
@@ -53,21 +44,17 @@ const NotFoundPage = () => {
 
       {/* Main Content */}
       <div
-        className={`relative z-10 text-center space-y-8 px-4 transition-all duration-700 ${
-          mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
+        className="relative z-10 animate-slide-up space-y-8 px-4 text-center"
       >
         {/* 404 Number */}
         <div className="relative inline-block">
-          <h1 className="text-[10rem] sm:text-[14rem] font-black text-transparent bg-clip-text bg-gradient-to-br from-orange-400 via-orange-500 to-blue-500 leading-none select-none">
+          <h1 className="text-[10rem] sm:text-[14rem] font-black text-base-content leading-none select-none">
             404
           </h1>
           {/* Floating Search Icon */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div
-              className={`flex h-20 w-20 items-center justify-center rounded-full bg-base-100 shadow-2xl border border-orange-500/15 transition-all duration-1000 delay-300 ${
-                mounted ? "scale-100 rotate-0" : "scale-0 rotate-180"
-              }`}
+              className="flex h-20 w-20 items-center justify-center rounded-full border border-orange-500/15 bg-base-100 shadow-2xl"
             >
               <FaSearch size={32} className="text-orange-400" />
             </div>

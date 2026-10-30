@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaSignInAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 type LoginForm = {
@@ -137,6 +137,7 @@ const LoginPage = () => {
               type="submit"
               className="btn bg-orange-500 hover:bg-orange-600 border-none text-white w-full"
             >
+              <FaSignInAlt aria-hidden="true" />
               Login
             </button>
           </form>

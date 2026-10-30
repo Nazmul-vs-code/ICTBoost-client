@@ -51,7 +51,7 @@ const AboutPage = () => {
   return (
     <section className="space-y-0">
       {/* Hero */}
-      <section className="py-20 bg-gradient-to-br from-orange-500/5 via-base-100 to-sky-500/5">
+      <section className="py-20 bg-base-100">
         <div className="max-w-5xl mx-auto px-4 text-center space-y-6">
           <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
             <FaHeart size={14} />
@@ -112,13 +112,13 @@ const AboutPage = () => {
                 and on-demand, personalized help whenever they need it.
               </p>
             </div>
-            <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-2xl">
+            <div className="card border border-base-300 bg-base-200 text-base-content shadow-none">
               <div className="card-body p-8 space-y-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20">
+                <div className="flex h-14 w-14 items-center justify-center border border-base-300 bg-base-100">
                   <FaCode size={28} />
                 </div>
                 <h3 className="text-2xl font-bold">Our Story</h3>
-                <p className="text-white/90 leading-relaxed">
+                <p className="text-base-content/70 leading-relaxed">
                   Built as an Agentic AI project for SCIC, ICTBoost grew from a
                   simple lesson platform into a full AI-powered learning
                   ecosystem. What started as a class assignment became a real tool
@@ -134,13 +134,13 @@ const AboutPage = () => {
                     ].map((bg, i) => (
                       <div
                         key={i}
-                        className={`w-8 h-8 rounded-full ${bg} border-2 border-white flex items-center justify-center text-xs font-bold`}
+                        className={`w-8 h-8 rounded-full ${bg} border-2 border-base-100 flex items-center justify-center text-xs font-bold`}
                       >
                         {String.fromCharCode(65 + i)}
                       </div>
                     ))}
                   </div>
-                  <p className="text-sm text-white/80">Join our growing community</p>
+                  <p className="text-sm text-base-content/70">Join our growing community</p>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ const AboutPage = () => {
               return (
                 <div
                   key={i}
-                  className="rounded-2xl bg-base-200/60 backdrop-blur-sm border border-base-300/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5"
+                  className="border border-base-300 bg-base-200 transition-colors duration-200 hover:border-base-content/40"
                 >
                   <div className="space-y-3 p-6">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/10">
@@ -197,7 +197,7 @@ const AboutPage = () => {
 
           <div className="grid gap-8 md:grid-cols-2">
             {/* HTML */}
-            <div className="rounded-3xl bg-gradient-to-br from-orange-500/5 to-orange-500/10 border border-orange-500/15 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div className="border border-base-300 bg-base-200 transition-colors duration-200 hover:border-base-content/40">
               <div className="space-y-4 p-8">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500">
                   <span className="text-white"><FaHtml5 size={32} /></span>
@@ -231,7 +231,7 @@ const AboutPage = () => {
             </div>
 
             {/* C */}
-            <div className="rounded-3xl bg-gradient-to-br from-sky-500/5 to-sky-500/10 border border-sky-500/15 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div className="border border-base-300 bg-base-200 transition-colors duration-200 hover:border-base-content/40">
               <div className="space-y-4 p-8">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-500">
                   <span className="text-white"><FaCode size={32} /></span>
@@ -268,12 +268,12 @@ const AboutPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-orange-500 to-orange-600">
+      <section className="py-16 bg-base-200">
         <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold text-base-content">
             Ready to Start Learning?
           </h2>
-          <p className="text-white/90 text-lg max-w-xl mx-auto">
+          <p className="text-base-content/70 text-lg max-w-xl mx-auto">
             Join thousands of students mastering HTML and C Programming
             with AI-powered guidance.
           </p>

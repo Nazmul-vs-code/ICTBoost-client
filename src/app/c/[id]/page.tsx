@@ -5,7 +5,8 @@ import CLessonDetails from "@/components/c/CLessonDetails";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaLaptopCode } from "react-icons/fa";
+import Link from "next/link";
+import { FaArrowRight, FaLaptopCode } from "react-icons/fa";
 
 type CLesson = {
   _id: string;
@@ -98,12 +99,12 @@ const CLessonDetailsPage = () => {
             <p className="text-sm mt-1">
               The lesson you&apos;re looking for doesn&apos;t exist or has been removed.
             </p>
-            <a
+            <Link
               href="/c"
               className="btn bg-blue-500 hover:bg-blue-600 border-none text-white mt-4"
             >
-              Browse Lessons
-            </a>
+              Browse Lessons <FaArrowRight aria-hidden="true" size={14} />
+            </Link>
           </div>
         </div>
       </section>

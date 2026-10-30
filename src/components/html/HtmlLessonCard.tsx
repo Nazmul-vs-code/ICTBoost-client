@@ -27,13 +27,13 @@ type HtmlLesson = {
 const difficultyBadge = (level: string) => {
   switch (level) {
     case "Beginner":
-      return "badge badge-warning";
+      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
     case "Intermediate":
-      return "badge badge-info";
+      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
     case "Advanced":
-      return "badge badge-error";
+      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
     default:
-      return "badge badge-warning";
+      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
   }
 };
 
@@ -105,82 +105,18 @@ export default function HtmlLessonCard({
 
   return (
     <div
-      className="
-        group
-        relative
-        overflow-hidden
-        rounded-3xl
-        bg-base-100/70
-        backdrop-blur-2xl
-        border
-        border-base-300/40
-        shadow-xl
-        transition-all
-        duration-500
-        hover:-translate-y-2
-        hover:shadow-2xl
-      "
+      className="theme-adaptive group flex h-[31rem] w-full flex-col border border-zinc-800 bg-zinc-900 transition-colors hover:border-zinc-600"
     >
-      {/* Orange Glow */}
-      <div
-        className="
-          absolute
-          -top-24
-          -right-24
-          h-56
-          w-56
-          rounded-full
-          bg-orange-400/25
-          blur-3xl
-          transition-all
-          duration-700
-          group-hover:scale-125
-        "
-      />
-
-      {/* Blue Glow */}
-      <div
-        className="
-          absolute
-          -bottom-24
-          -left-24
-          h-56
-          w-56
-          rounded-full
-          bg-sky-400/20
-          blur-3xl
-          transition-all
-          duration-700
-          group-hover:scale-125
-        "
-      />
-
-      <div className="relative z-10 p-7 space-y-6">
+      <div className="flex h-full flex-col p-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex gap-4">
-            <div
-              className="
-                h-14
-                w-14
-                rounded-2xl
-                bg-orange-500/10
-                flex
-                items-center
-                justify-center
-                text-orange-500
-                text-xl
-                transition-all
-                duration-300
-                group-hover:rotate-6
-                group-hover:scale-110
-              "
-            >
+            <div className="grid size-12 shrink-0 place-items-center border border-zinc-700 text-zinc-200">
               <FaLayerGroup />
             </div>
 
-            <div>
-              <h2 className="text-xl font-bold text-base-content">
+            <div className="min-w-0">
+              <h2 className="line-clamp-2 text-lg font-semibold text-white">
                 {lesson.title}
               </h2>
 
@@ -214,34 +150,21 @@ export default function HtmlLessonCard({
         </div>
 
         {/* Description */}
-        <p className="text-base-content/60 leading-7 line-clamp-3">
+        <p className="mt-6 line-clamp-3 leading-7 text-zinc-400">
           {lesson.description}
         </p>
 
         {/* Resources */}
-        <div className="space-y-3">
+        <div className="mt-6 space-y-3">
           <a
             href={lesson.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="
-              flex
-              items-center
-              gap-3
-              rounded-2xl
-              bg-base-200/50
-              border
-              border-red-500/10
-              p-3
-              transition-all
-              duration-300
-              hover:bg-red-500/10
-              hover:translate-x-1
-            "
+            className="flex items-center gap-3 border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
           >
             <FaYoutube className="text-red-500 text-lg" />
 
-            <span className="font-medium text-base-content/70">
+            <span className="font-medium text-zinc-300">
               Watch Video
             </span>
           </a>
@@ -250,24 +173,11 @@ export default function HtmlLessonCard({
             href={lesson.referenceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="
-              flex
-              items-center
-              gap-3
-              rounded-2xl
-              bg-base-200/50
-              border
-              border-sky-500/10
-              p-3
-              transition-all
-              duration-300
-              hover:bg-sky-500/10
-              hover:translate-x-1
-            "
+            className="flex items-center gap-3 border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
           >
             <FaGlobe className="text-sky-500 text-lg" />
 
-            <span className="font-medium text-base-content/70">
+            <span className="font-medium text-zinc-300">
               W3Schools Reference
             </span>
           </a>
@@ -276,21 +186,7 @@ export default function HtmlLessonCard({
         {/* Button */}
         <Link
           href={`/html/${lesson._id}`}
-          className="
-            btn
-            w-full
-            rounded-2xl
-            border-none
-            bg-gradient-to-r
-            from-orange-500
-            to-orange-600
-            text-white
-            shadow-lg
-            transition-all
-            duration-300
-            hover:scale-[1.03]
-            hover:shadow-orange-500/25
-          "
+          className="btn mt-auto w-full"
         >
           View Lesson
           <FaArrowRight />

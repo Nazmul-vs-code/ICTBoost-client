@@ -1,7 +1,224 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark;
+  themes: dark --default, light;
 };
+
+:root {
+  color-scheme: dark;
+  --app-background: #09090b;
+  --app-foreground: #f4f4f5;
+  --app-surface: #18181b;
+  --app-border: #3f3f46;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --app-background: #09090b;
+  --app-foreground: #f4f4f5;
+  --app-surface: #18181b;
+  --app-border: #3f3f46;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --app-background: #fafafa;
+  --app-foreground: #18181b;
+  --app-surface: #fff;
+  --app-border: #d4d4d8;
+}
+
+body {
+  background-color: var(--app-background);
+  color: var(--app-foreground);
+}
+
+:where(
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  [role="button"],
+  summary,
+  a.btn,
+  a[class*="bg-gradient"],
+  a[class*="bg-white"]
+) {
+  border: 1px solid #fff !important;
+  border-radius: 0 !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  font-weight: 500;
+  transition: transform 200ms ease, background-color 200ms ease,
+    border-color 200ms ease, box-shadow 200ms ease, color 200ms ease;
+}
+
+:where(
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  [role="button"],
+  summary,
+  a.btn,
+  a[class*="bg-gradient"],
+  a[class*="bg-white"]
+):hover:not(:disabled) {
+  border-color: #e4e4e7 !important;
+  background-color: #e4e4e7 !important;
+  color: #000 !important;
+  box-shadow: 0 3px 0 rgb(63 63 70 / 18%);
+  transform: translateY(-2px);
+}
+
+:where(
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  [role="button"],
+  summary,
+  a.btn,
+  a[class*="bg-gradient"],
+  a[class*="bg-white"]
+):focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+:where(
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  [role="button"],
+  summary,
+  a.btn,
+  a[class*="bg-gradient"],
+  a[class*="bg-white"]
+):active:not(:disabled) {
+  box-shadow: none;
+  transform: translateY(0) scale(0.98);
+}
+
+html[data-theme="light"] .theme-adaptive.bg-zinc-950,
+html[data-theme="light"] .theme-adaptive .bg-zinc-950 {
+  background-color: #fafafa !important;
+}
+
+html[data-theme="light"] .theme-adaptive.bg-zinc-900,
+html[data-theme="light"] .theme-adaptive .bg-zinc-900 {
+  background-color: #fff !important;
+}
+
+html[data-theme="light"] .theme-adaptive.bg-zinc-800,
+html[data-theme="light"] .theme-adaptive .bg-zinc-800 {
+  background-color: #f4f4f5 !important;
+}
+
+html[data-theme="light"] .theme-adaptive.bg-zinc-700,
+html[data-theme="light"] .theme-adaptive .bg-zinc-700 {
+  background-color: #e4e4e7 !important;
+}
+
+html[data-theme="light"] .theme-adaptive .text-white,
+html[data-theme="light"] .theme-adaptive .text-zinc-100,
+html[data-theme="light"] .theme-adaptive.text-zinc-200,
+html[data-theme="light"] .theme-adaptive .text-zinc-200 {
+  color: #18181b !important;
+}
+
+html[data-theme="light"] .theme-adaptive.text-zinc-300,
+html[data-theme="light"] .theme-adaptive .text-zinc-300 {
+  color: #3f3f46 !important;
+}
+
+html[data-theme="light"] .theme-adaptive.text-zinc-400,
+html[data-theme="light"] .theme-adaptive .text-zinc-400 {
+  color: #52525b !important;
+}
+
+html[data-theme="light"] .theme-adaptive.text-zinc-500,
+html[data-theme="light"] .theme-adaptive .text-zinc-500 {
+  color: #71717a !important;
+}
+
+html[data-theme="light"] .theme-adaptive .text-cyan-400 {
+  color: #0e7490 !important;
+}
+
+html[data-theme="light"] .theme-adaptive .text-violet-300 {
+  color: #6b21a8 !important;
+}
+
+html[data-theme="light"] .theme-adaptive .text-amber-300 {
+  color: #a16207 !important;
+}
+
+html[data-theme="light"] .theme-adaptive .border-zinc-800,
+html[data-theme="light"] .theme-adaptive .border-zinc-700,
+html[data-theme="light"] .theme-adaptive .border-zinc-600 {
+  border-color: #d4d4d8 !important;
+}
+
+html[data-theme="light"] .theme-adaptive.border-zinc-800,
+html[data-theme="light"] .theme-adaptive.border-zinc-700,
+html[data-theme="light"] .theme-adaptive.border-zinc-600 {
+  border-color: #d4d4d8 !important;
+}
+
+.button-action {
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.group:hover .button-action {
+  background-color: #e4e4e7;
+  box-shadow: 0 3px 0 rgb(63 63 70 / 18%);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    [role="button"],
+    summary,
+    a.btn,
+    a[class*="bg-gradient"],
+    a[class*="bg-white"]
+  ) {
+    transition: none;
+  }
+
+  :where(
+    button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    [role="button"],
+    summary,
+    a.btn,
+    a[class*="bg-gradient"],
+    a[class*="bg-white"]
+  ):hover:not(:disabled),
+  :where(
+    button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    [role="button"],
+    summary,
+    a.btn,
+    a[class*="bg-gradient"],
+    a[class*="bg-white"]
+  ):active:not(:disabled) {
+    transform: none;
+  }
+}
 
 /* Hero Float Animations */
 @keyframes float {
@@ -275,65 +492,21 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  border-radius: 1.5rem;
-  transition: all .45s ease;
+  border: 1px solid #27272a;
+  border-radius: 0;
+  transition: border-color .2s ease;
 }
 
 .card-glow::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-
-  background: linear-gradient(
-    135deg,
-    rgba(249, 115, 22, .75),
-    rgba(59, 130, 246, .45),
-    rgba(255,255,255,.08)
-  );
-
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  pointer-events: none;
-  z-index: 1;
+  content: none;
 }
 
 .card-glow::after {
-  content: "";
-  position: absolute;
-  inset: -35%;
-  z-index: 0;
-
-  background:
-    radial-gradient(circle at top right,
-      rgba(249,115,22,.28),
-      transparent 42%),
-    radial-gradient(circle at bottom left,
-      rgba(59,130,246,.22),
-      transparent 42%);
-
-  filter: blur(70px);
-
-  opacity: 0;
-
-  transition: opacity .45s ease;
-}
-
-.card-glow:hover::after {
-  opacity: 1;
+  content: none;
 }
 
 .card-glow:hover {
-  transform: translateY(-10px);
-  box-shadow:
-    0 25px 60px rgba(249,115,22,.22),
-    0 10px 25px rgba(0,0,0,.18);
+  border-color: #52525b;
 }
 
 .card-glow .card-icon {
@@ -349,7 +522,7 @@
 }
 
 .card-glow:hover .card-button {
-  transform: translateY(-2px);
+  transform: none;
 }
 
 .card-glow .card-link {
@@ -357,7 +530,42 @@
 }
 
 .card-glow .card-link:hover {
-  transform: translateX(6px);
+  transform: none;
+}
+
+@keyframes learning-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.learning-marquee {
+  overflow: hidden;
+}
+
+.learning-marquee__track,
+.learning-marquee__group {
+  display: flex;
+  width: max-content;
+}
+
+.learning-marquee__track {
+  animation: learning-marquee 54s linear infinite;
+}
+
+.learning-marquee__group {
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.learning-marquee:hover .learning-marquee__track,
+.learning-marquee:focus-within .learning-marquee__track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-marquee__track {
+    animation: none;
+  }
 }
 
 /* ============================================
@@ -403,4 +611,3 @@
     animation: none !important;
   }
 }
-

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaUserPlus } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
@@ -204,6 +204,7 @@ const RegisterPage = () => {
               type="submit"
               className="btn bg-orange-500 hover:bg-orange-600 text-white border-none w-full"
             >
+              <FaUserPlus aria-hidden="true" />
               Create Account
             </button>
           </form>

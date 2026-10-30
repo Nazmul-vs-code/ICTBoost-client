@@ -5,7 +5,8 @@ import HtmlLessonDetails from "@/components/html/HtmlLessonDetails";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaBookOpen } from "react-icons/fa";
+import Link from "next/link";
+import { FaArrowRight, FaBookOpen } from "react-icons/fa";
 
 type HtmlLesson = {
   _id: string;
@@ -98,12 +99,12 @@ const HtmlLessonDetailsPage = () => {
             <p className="text-sm mt-1">
               The lesson you&apos;re looking for doesn&apos;t exist or has been removed.
             </p>
-            <a
+            <Link
               href="/html"
               className="btn bg-orange-500 hover:bg-orange-600 border-none text-white mt-4"
             >
-              Browse Lessons
-            </a>
+              Browse Lessons <FaArrowRight aria-hidden="true" size={14} />
+            </Link>
           </div>
         </div>
       </section>
