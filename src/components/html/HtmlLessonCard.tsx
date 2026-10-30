@@ -5,6 +5,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { toggleLike } from "@/lib/actions/like";
+import { GetApiFunctionWithParams } from "@/lib/api/get-api";
 import {
   FaHeart,
   FaRegHeart,
@@ -27,13 +28,13 @@ type HtmlLesson = {
 const difficultyBadge = (level: string) => {
   switch (level) {
     case "Beginner":
-      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
+      return "rounded-full border border-zinc-700 px-3 py-1 font-mono text-xs text-zinc-300";
     case "Intermediate":
-      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
+      return "rounded-full border border-zinc-700 px-3 py-1 font-mono text-xs text-zinc-300";
     case "Advanced":
-      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
+      return "rounded-full border border-zinc-700 px-3 py-1 font-mono text-xs text-zinc-300";
     default:
-      return "border border-zinc-700 px-2 py-1 font-mono text-xs text-zinc-300";
+      return "rounded-full border border-zinc-700 px-3 py-1 font-mono text-xs text-zinc-300";
   }
 };
 
@@ -55,15 +56,16 @@ export default function HtmlLessonCard({
 
     const fetchLikes = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-        const params = new URLSearchParams({ lessonId: lesson._id });
+        const params: Record<string, string> = { lessonId: lesson._id };
 
         if (currentUserEmail) {
-          params.set("likedByEmail", currentUserEmail);
+          params.likedByEmail = currentUserEmail;
         }
 
-        const res = await fetch(`${baseUrl}/lesson/html/like/${lesson._id}?${params}`);
-        const data = await res.json();
+        const data = await GetApiFunctionWithParams(
+          `/lesson/html/like/${lesson._id}`,
+          params
+        );
 
         if (data.success) {
           setLikeCount(data.likeCount);
@@ -106,13 +108,13 @@ export default function HtmlLessonCard({
 
   return (
     <div
-      className="theme-adaptive group flex h-[34rem] w-full flex-col border border-zinc-800 bg-zinc-900 transition-colors hover:border-zinc-600"
+      className="theme-adaptive glass-card group flex h-full min-h-[34rem] w-full flex-col transition-colors hover:border-zinc-600"
     >
       <div className="flex h-full flex-col gap-4 p-5 sm:p-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex gap-4">
-            <div className="grid size-12 shrink-0 place-items-center border border-zinc-700 text-zinc-200">
+            <div className="grid size-12 shrink-0 place-items-center rounded-2xl border border-zinc-700 text-zinc-200">
               <FaLayerGroup />
             </div>
 
@@ -130,21 +132,17 @@ export default function HtmlLessonCard({
           </div>
 
           <button
+            aria-label={`${liked ? "Unlike" : "Like"} ${lesson.title}; ${likeCount} likes`}
+            aria-pressed={liked}
             onClick={handleLike}
             disabled={likeLoading}
-            className={`
-              flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-300
-              ${liked
-                ? "bg-red-500/10 text-red-500 hover:bg-red-500/20"
-                : "bg-base-200/50 text-base-content/40 hover:bg-base-300/60 hover:text-red-500"
-              }
-              ${likeLoading ? "opacity-50 cursor-not-allowed" : ""}
-            `}
+            type="button"
+            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {liked ? (
-              <FaHeart size={16} className="animate-pulse" />
+              <FaHeart size={16} className="animate-pulse text-rose-500" />
             ) : (
-              <FaRegHeart size={16} />
+              <FaRegHeart size={16} className="text-rose-500" />
             )}
             <span>{likeCount}</span>
           </button>
@@ -152,7 +150,7 @@ export default function HtmlLessonCard({
 
         {/* Description */}
         {videoEmbedUrl ? (
-          <div className="aspect-video w-full shrink-0 overflow-hidden border border-zinc-800 bg-black">
+          <div className="aspect-video w-full shrink-0 overflow-hidden rounded-2xl border border-zinc-800 bg-black">
             <iframe
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -168,7 +166,7 @@ export default function HtmlLessonCard({
             href={lesson.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex aspect-video w-full shrink-0 items-center justify-center gap-3 border border-zinc-800 bg-zinc-950 font-medium text-zinc-300 transition-colors hover:border-zinc-600"
+            className="flex aspect-video w-full shrink-0 items-center justify-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950 font-medium text-zinc-300 transition-colors hover:border-zinc-600"
           >
             <span className="text-red-500">▶</span>
             Watch video
@@ -183,7 +181,7 @@ export default function HtmlLessonCard({
           href={lesson.referenceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex shrink-0 items-center gap-3 border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
+          className="flex shrink-0 items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
         >
           <FaGlobe className="text-sky-500 text-lg" />
           <span className="font-medium text-zinc-300">W3Schools Reference</span>

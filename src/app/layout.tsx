@@ -29,7 +29,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('ictboost-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('ictboost-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
           }}
         />
       </head>
@@ -40,7 +40,7 @@ export default function RootLayout({
           toastOptions={{
             style: {
               border: "1px solid var(--app-border)",
-              borderRadius: 0,
+              borderRadius: 16,
               background: "var(--app-surface)",
               color: "var(--app-foreground)",
             },

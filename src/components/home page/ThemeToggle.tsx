@@ -13,14 +13,18 @@ const ThemeToggle = () => {
       return () => observer.disconnect();
     },
     () => document.documentElement.getAttribute("data-theme") === "dark",
-    () => false,
+    () => true,
   );
 
   const toggle = () => {
     const next = document.documentElement.getAttribute("data-theme") !== "dark";
     const theme = next ? "dark" : "light";
-    localStorage.setItem("ictboost-theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("ictboost-theme", theme);
+    } catch (error) {
+      console.error("Unable to save the theme preference.", error);
+    }
   };
 
   return (

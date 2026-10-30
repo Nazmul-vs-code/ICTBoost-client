@@ -27,7 +27,7 @@ type Lesson = {
 function SkeletonCard({ accent }: { accent: "orange" | "blue" }) {
   const ring = accent === "orange" ? "bg-zinc-700" : "bg-zinc-700";
   return (
-    <div className="theme-adaptive flex h-[31rem] flex-col border border-zinc-800 bg-zinc-900 p-6 animate-pulse">
+    <div className="theme-adaptive glass-card flex h-[31rem] flex-col border border-zinc-800 bg-zinc-900 p-6 animate-pulse">
       {/* icon placeholder */}
       <div className="flex items-start justify-between">
         <div className="flex gap-4">

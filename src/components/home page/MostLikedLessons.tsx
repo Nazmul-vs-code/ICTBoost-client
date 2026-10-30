@@ -124,7 +124,7 @@ const MostLikedLessons = () => {
         {/* Skeleton Loader */}
         {loading && (
           <div className="grid gap-8 lg:grid-cols-5 items-start">
-            <div className="lg:col-span-3 border border-zinc-800 bg-zinc-900 p-8 animate-pulse">
+            <div className="glass-card lg:col-span-3 border border-zinc-800 bg-zinc-900 p-8 animate-pulse">
               <div className="mb-6 h-6 w-40 bg-zinc-700" />
               <div className="h-[400px] w-full bg-zinc-800" />
             </div>
@@ -132,7 +132,7 @@ const MostLikedLessons = () => {
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="border border-zinc-800 bg-zinc-900 p-5 animate-pulse"
+                  className="glass-card border border-zinc-800 bg-zinc-900 p-5 animate-pulse"
                 >
                   <div className="flex items-center gap-4">
                     <div className="h-10 w-10 shrink-0 bg-zinc-700" />
@@ -150,7 +150,7 @@ const MostLikedLessons = () => {
 
         {/* Empty State */}
         {!loading && !hasData && (
-          <div className="border border-zinc-800 bg-zinc-900 p-10 text-center sm:p-16">
+          <div className="glass-card border border-zinc-800 bg-zinc-900 p-10 text-center sm:p-16">
             <div className="text-5xl mb-5">📊</div>
             <p className="text-lg font-semibold text-white">
               No likes yet
@@ -166,7 +166,7 @@ const MostLikedLessons = () => {
         {!loading && hasData && (
           <div className="grid gap-8 lg:grid-cols-5 items-start">
             {/* Radar Chart */}
-            <div className="lg:col-span-3 border border-zinc-800 bg-zinc-900 p-6 sm:p-8 animate-slide-up opacity-0 delay-200">
+            <div className="glass-card lg:col-span-3 border border-zinc-800 bg-zinc-900 p-6 sm:p-8 animate-slide-up opacity-0 delay-200">
               <h3 className="flex items-center gap-2.5 text-lg font-semibold text-white">
                 <span className="text-xl">❤️</span>
                 Likes Overview
@@ -214,7 +214,7 @@ const MostLikedLessons = () => {
               {lessons.map((lesson, index) => (
                 <div
                   key={lesson._id}
-                  className="group border border-zinc-800 bg-zinc-900 p-4 transition-colors duration-200 hover:border-zinc-600 animate-slide-up opacity-0"
+                  className="glass-card group border border-zinc-800 bg-zinc-900 p-4 transition-colors duration-200 hover:border-zinc-600 animate-slide-up opacity-0"
                   style={{ animationDelay: `${300 + index * 80}ms` }}
                 >
                   <div className="flex items-center gap-3">
