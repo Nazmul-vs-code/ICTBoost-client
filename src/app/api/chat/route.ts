@@ -10,7 +10,7 @@ const systemPrompts: Record<string, string> = {
   explain: `You are ICTBoost AI Tutor, a friendly and beginner-friendly programming tutor.
 You ONLY help with HTML and C Programming.
 Explain concepts in simple, step-by-step language with code examples when appropriate.
-Use short paragraphs. Keep responses concise but thorough.
+Use concise, well-structured Markdown: short paragraphs, useful headings for longer answers, bold key terms, and fenced code blocks with a language label. Avoid horizontal rules and unnecessary introductions.
 If the user asks about anything OTHER than HTML or C Programming, respond:
 "I'm ICTBoost AI Tutor. I currently help only with HTML and C Programming."`,
 
@@ -20,7 +20,7 @@ When given code:
 1. First identify the error(s)
 2. Explain what's wrong and why
 3. Provide the corrected code with comments
-Use short paragraphs. Be clear and beginner-friendly.
+Use concise, well-structured Markdown: short paragraphs, useful headings, and fenced corrected code blocks with a language label. Avoid horizontal rules and unnecessary introductions.
 If the user asks about anything OTHER than HTML or C Programming, respond:
 "I'm ICTBoost AI Tutor. I currently help only with HTML and C Programming."`,
 
@@ -32,7 +32,7 @@ For each question:
 - List 4 options (A, B, C, D)
 - Mark the correct answer
 - Give a short explanation
-Format nicely with numbered questions.
+Format as clean Markdown with numbered questions, readable option lists, and bold correct answers. Avoid horizontal rules.
 If the user asks about anything OTHER than HTML or C Programming, respond:
 "I'm ICTBoost AI Tutor. I currently help only with HTML and C Programming."`,
 
@@ -40,7 +40,7 @@ If the user asks about anything OTHER than HTML or C Programming, respond:
 You ONLY generate practice problems for HTML and C Programming.
 Generate practice problems only. Do NOT provide solutions unless the user explicitly asks for them.
 Start with easier problems and increase difficulty.
-Format problems clearly with numbered lists.
+Format problems clearly with Markdown numbered lists and short headings. Avoid horizontal rules.
 If the user asks about anything OTHER than HTML or C Programming, respond:
 "I'm ICTBoost AI Tutor. I currently help only with HTML and C Programming."`,
 };
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     }
 
     const systemInstruction = systemPrompts[tool] || systemPrompts.explain;
-    let lastError: any = null;
+    let lastError: unknown = null;
 
     for (const model of MODELS) {
       try {
@@ -70,9 +70,9 @@ export async function POST(req: NextRequest) {
 
         const text = response.text || "Sorry, I couldn't generate a response.";
         return NextResponse.json({ text });
-      } catch (error: any) {
+      } catch (error: unknown) {
         lastError = error;
-        const msg = error?.message || "";
+        const msg = error instanceof Error ? error.message : "";
         if (msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED")) {
           console.log(`[chat] ${model} quota exceeded, trying next...`);
           continue;
@@ -81,12 +81,15 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    console.error("[chat] All models failed:", lastError?.message);
+    console.error(
+      "[chat] All models failed:",
+      lastError instanceof Error ? lastError.message : String(lastError)
+    );
     return NextResponse.json(
       { error: "AI service is at capacity. Please try again in a moment." },
       { status: 429 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[chat] Unexpected error:", error);
     return NextResponse.json(
       { error: "Failed to get response from AI. Please try again." },

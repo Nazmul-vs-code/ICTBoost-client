@@ -369,6 +369,27 @@ body:has(#agent-workspace) {
     var(--app-glass);
 }
 
+#agent-workspace .agent-sidebar {
+  max-width: min(232px, 42vw);
+  background: color-mix(in srgb, var(--app-surface) 52%, transparent);
+}
+
+#agent-workspace .agent-sidebar-toggle {
+  --app-button-background: transparent;
+  --app-button-hover: color-mix(in srgb, var(--app-accent) 12%, var(--app-glass));
+  --app-button-border: transparent;
+  --app-button-foreground: var(--app-foreground);
+  box-shadow: none;
+}
+
+#agent-workspace .agent-sidebar-toggle:hover {
+  transform: none;
+}
+
+#agent-workspace .agent-sidebar-note {
+  background: color-mix(in srgb, var(--app-glass) 70%, transparent);
+}
+
 #agent-workspace .agent-orb,
 #agent-workspace .agent-avatar {
   color: white;
@@ -394,8 +415,6 @@ body:has(#agent-workspace) {
 
 #agent-workspace .agent-message-assistant {
   color: var(--app-foreground);
-  border: 1px solid var(--app-glass-border);
-  background: color-mix(in srgb, var(--app-surface) 88%, transparent);
 }
 
 #agent-workspace .agent-message-user {
@@ -412,21 +431,159 @@ html[data-theme="light"] #agent-workspace .agent-message-user {
 }
 
 #agent-workspace .agent-composer {
-  min-height: 3rem;
+  min-height: 2.5rem;
   max-height: 8rem;
-  border: 1px solid var(--app-glass-border);
-  background: var(--app-field) !important;
+  border: 0 !important;
+  background: transparent !important;
   color: var(--app-foreground) !important;
   line-height: 1.5rem;
+  box-shadow: none !important;
+}
+
+#agent-workspace .agent-composer-shell {
+  border-color: var(--app-glass-border);
+  background: var(--app-field);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+#agent-workspace .agent-composer-shell:focus-within {
+  border-color: color-mix(in srgb, var(--app-accent) 55%, var(--app-glass-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-accent) 12%, transparent);
 }
 
 #agent-workspace .agent-composer::placeholder {
   color: color-mix(in srgb, var(--app-foreground) 45%, transparent);
 }
 
-#agent-workspace .agent-composer:focus {
-  border-color: color-mix(in srgb, var(--app-accent) 55%, var(--app-glass-border));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-accent) 12%, transparent);
+#agent-workspace .agent-markdown-heading {
+  margin: 1.5rem 0 0.65rem;
+  color: var(--app-foreground) !important;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+#agent-workspace .agent-markdown-subheading {
+  margin: 1.15rem 0 0.5rem;
+  color: var(--app-foreground) !important;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+#agent-workspace .agent-markdown-paragraph {
+  margin: 0 0 0.9rem;
+  color: var(--app-foreground);
+  font-size: 0.925rem;
+  line-height: 1.8;
+}
+
+#agent-workspace .agent-markdown-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+#agent-workspace .agent-markdown-list {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.5rem;
+  color: var(--app-foreground);
+  font-size: 0.925rem;
+  line-height: 1.8;
+  list-style: disc;
+}
+
+#agent-workspace .agent-markdown-ordered {
+  list-style: decimal;
+}
+
+#agent-workspace .agent-markdown-list li {
+  padding-left: 0.25rem;
+}
+
+#agent-workspace .agent-markdown-list li + li {
+  margin-top: 0.25rem;
+}
+
+#agent-workspace .agent-markdown-list li::marker {
+  color: var(--app-accent);
+}
+
+#agent-workspace .agent-markdown-quote {
+  margin: 0.75rem 0;
+  border-left: 2px solid var(--app-accent);
+  padding-left: 1rem;
+  color: color-mix(in srgb, var(--app-foreground) 76%, transparent);
+}
+
+#agent-workspace .agent-markdown-rule {
+  margin: 1rem 0;
+  border-color: var(--app-glass-border);
+}
+
+#agent-workspace .agent-markdown-link {
+  color: var(--app-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#agent-workspace .agent-code-inline {
+  border: 1px solid var(--app-glass-border);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--app-accent) 10%, var(--app-surface));
+  padding: 0.12rem 0.35rem;
+  color: var(--app-accent);
+  font-family: var(--font-geologica), monospace;
+  font-size: 0.88em;
+}
+
+#agent-workspace .agent-code-block {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1rem 0 1.2rem;
+  border: 1px solid var(--app-glass-border);
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, #09090b 92%, transparent);
+  padding: 1rem 1.1rem;
+  color: #e4e4e7;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  tab-size: 2;
+}
+
+#agent-workspace .agent-code-block .agent-code-fenced {
+  padding: 0;
+  color: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: inherit;
+}
+
+#agent-workspace .agent-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid var(--app-glass-border);
+  border-radius: 0.75rem;
+}
+
+#agent-workspace .agent-markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+#agent-workspace .agent-markdown-table th,
+#agent-workspace .agent-markdown-table td {
+  border-bottom: 1px solid var(--app-glass-border);
+  padding: 0.65rem 0.8rem;
+  text-align: left;
+}
+
+#agent-workspace .agent-markdown-table th {
+  background: color-mix(in srgb, var(--app-accent) 8%, var(--app-surface));
+  font-weight: 650;
+}
+
+html[data-theme="light"] #agent-workspace .agent-code-block {
+  border-color: rgb(255 255 255 / 12%);
+  background: #18181b;
 }
 
 #agent-workspace .agent-send-btn {
@@ -508,6 +665,10 @@ html[data-theme="light"] #agent-workspace .agent-message-user {
 }
 
 @media (max-height: 520px) {
+  #agent-workspace .agent-page-header {
+    display: none;
+  }
+
   #agent-workspace .agent-hint {
     display: none;
   }
