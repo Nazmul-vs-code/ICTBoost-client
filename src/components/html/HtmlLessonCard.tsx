@@ -8,11 +8,11 @@ import { toggleLike } from "@/lib/actions/like";
 import {
   FaHeart,
   FaRegHeart,
-  FaYoutube,
   FaGlobe,
   FaLayerGroup,
   FaArrowRight,
 } from "react-icons/fa";
+import { getYouTubeEmbedUrl } from "@/lib/youtube";
 
 type HtmlLesson = {
   _id: string;
@@ -48,6 +48,7 @@ export default function HtmlLessonCard({
 
   const { data: session } = authClient.useSession();
   const currentUserEmail = session?.user?.email;
+  const videoEmbedUrl = getYouTubeEmbedUrl(lesson.videoUrl);
 
   useEffect(() => {
     if (!lesson._id) return;
@@ -105,9 +106,9 @@ export default function HtmlLessonCard({
 
   return (
     <div
-      className="theme-adaptive group flex h-[31rem] w-full flex-col border border-zinc-800 bg-zinc-900 transition-colors hover:border-zinc-600"
+      className="theme-adaptive group flex h-[34rem] w-full flex-col border border-zinc-800 bg-zinc-900 transition-colors hover:border-zinc-600"
     >
-      <div className="flex h-full flex-col p-6">
+      <div className="flex h-full flex-col gap-4 p-5 sm:p-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex gap-4">
@@ -150,38 +151,43 @@ export default function HtmlLessonCard({
         </div>
 
         {/* Description */}
-        <p className="mt-6 line-clamp-3 leading-7 text-zinc-400">
-          {lesson.description}
-        </p>
-
-        {/* Resources */}
-        <div className="mt-6 space-y-3">
+        {videoEmbedUrl ? (
+          <div className="aspect-video w-full shrink-0 overflow-hidden border border-zinc-800 bg-black">
+            <iframe
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="size-full"
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              src={videoEmbedUrl}
+              title={`${lesson.title} video`}
+            />
+          </div>
+        ) : (
           <a
             href={lesson.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
+            className="flex aspect-video w-full shrink-0 items-center justify-center gap-3 border border-zinc-800 bg-zinc-950 font-medium text-zinc-300 transition-colors hover:border-zinc-600"
           >
-            <FaYoutube className="text-red-500 text-lg" />
-
-            <span className="font-medium text-zinc-300">
-              Watch Video
-            </span>
+            <span className="text-red-500">▶</span>
+            Watch video
           </a>
+        )}
 
-          <a
-            href={lesson.referenceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
-          >
-            <FaGlobe className="text-sky-500 text-lg" />
+        <p className="line-clamp-2 leading-7 text-zinc-400">
+          {lesson.description}
+        </p>
 
-            <span className="font-medium text-zinc-300">
-              W3Schools Reference
-            </span>
-          </a>
-        </div>
+        <a
+          href={lesson.referenceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex shrink-0 items-center gap-3 border border-zinc-800 bg-zinc-950 p-3 transition-colors hover:border-zinc-600"
+        >
+          <FaGlobe className="text-sky-500 text-lg" />
+          <span className="font-medium text-zinc-300">W3Schools Reference</span>
+        </a>
 
         {/* Button */}
         <Link
