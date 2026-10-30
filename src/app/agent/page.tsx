@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { authClient } from "@/lib/auth-client";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   FaBook,
   FaBug,
@@ -10,7 +11,6 @@ import {
   FaPaperPlane,
   FaRobot,
   FaUser,
-  FaSpinner,
   FaEraser,
 } from "react-icons/fa";
 
@@ -19,6 +19,14 @@ const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || "https://ict-boost-server
 type Message = {
   role: "user" | "assistant";
   content: string;
+};
+
+type ChatHistoryResponse = {
+  success: boolean;
+  data?: Array<{
+    role: string;
+    content: string;
+  }>;
 };
 
 type Tool = {
@@ -62,50 +70,56 @@ const tools: Tool[] = [
 
 const AgentPage = () => {
   const { data: session } = authClient.useSession();
+  const shouldReduceMotion = useReducedMotion();
   const [activeTool, setActiveTool] = useState("explain");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [historyError, setHistoryError] = useState("");
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const userEmail = session?.user?.email;
   const currentTool = tools.find((t) => t.id === activeTool)!;
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    const container = messagesContainerRef.current;
+    if (!container) return;
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: shouldReduceMotion ? "instant" : "smooth",
+    });
+  }, [messages, loading, shouldReduceMotion]);
 
   // Load chat history on mount
   useEffect(() => {
-    console.log("[chat] Session email:", userEmail);
-
     if (!userEmail) {
-      setHistoryLoading(false);
       return;
     }
 
     const fetchHistory = async () => {
       try {
-        console.log("[chat] Fetching history for:", userEmail);
         const res = await fetch(`${BASE_URL}/chat/history?email=${encodeURIComponent(userEmail)}`);
-        const data = await res.json();
-        console.log("[chat] History response:", data);
+        if (!res.ok) {
+          throw new Error(`Unable to load chat history (${res.status}).`);
+        }
 
-        if (data.success && data.data.length > 0) {
-          const loaded: Message[] = data.data.map((msg: any) => ({
-            role: msg.role,
-            content: msg.content,
-          }));
+        const data: ChatHistoryResponse = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          const loaded = data.data.filter(
+            (msg): msg is { role: Message["role"]; content: string } =>
+              (msg.role === "user" || msg.role === "assistant") &&
+              typeof msg.content === "string"
+          );
           setMessages(loaded);
         }
       } catch (error) {
-        console.log("[chat] History error:", error);
+        console.error("[chat] History error:", error);
+        setHistoryError(
+          error instanceof Error ? error.message : "Unable to load chat history."
+        );
       } finally {
         setHistoryLoading(false);
       }
@@ -118,11 +132,8 @@ const AgentPage = () => {
   const saveMessage = useCallback(
     async (role: "user" | "assistant", content: string) => {
       if (!userEmail) {
-        console.log("[chat] No user email, skipping save");
         return;
       }
-
-      console.log("[chat] Saving message:", { email: userEmail, role, content: content.substring(0, 50) });
 
       try {
         const res = await fetch(`${BASE_URL}/chat/save`, {
@@ -135,10 +146,11 @@ const AgentPage = () => {
             tool: activeTool,
           }),
         });
-        const data = await res.json();
-        console.log("[chat] Save response:", data);
+        if (!res.ok) {
+          throw new Error(`Unable to save chat message (${res.status}).`);
+        }
       } catch (error) {
-        console.log("[chat] Save error:", error);
+        console.error("[chat] Save error:", error);
       }
     },
     [userEmail, activeTool]
@@ -147,8 +159,6 @@ const AgentPage = () => {
   const handleSend = async () => {
     const trimmed = input.trim();
     if (!trimmed || loading) return;
-
-    console.log("[chat] handleSend called, userEmail:", userEmail);
 
     const userMessage: Message = { role: "user", content: trimmed };
     setMessages((prev) => [...prev, userMessage]);
@@ -181,7 +191,7 @@ const AgentPage = () => {
       // Save assistant message
       saveMessage("assistant", data.text);
     } catch (error) {
-      console.log(error);
+      console.error("[chat] Response error:", error);
       const errorMessage: Message = {
         role: "assistant",
         content: error instanceof Error ? error.message : "Sorry, something went wrong. Please try again.",
@@ -218,7 +228,7 @@ const AgentPage = () => {
           method: "DELETE",
         });
       } catch (error) {
-        console.log(error);
+        console.error("[chat] Clear error:", error);
       }
     }
   };
@@ -230,111 +240,134 @@ const AgentPage = () => {
   };
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-10 space-y-8">
+    <section
+      className="agent-workspace mx-auto flex h-[calc(100dvh-4rem)] min-h-0 max-w-7xl flex-col gap-3 overflow-hidden px-3 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-8"
+      id="agent-workspace"
+    >
       {/* Header */}
-      <div className="text-center space-y-3">
-        <span className="inline-flex items-center gap-2 bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-semibold border border-orange-500/15">
-          <FaRobot size={14} />
-          AI Powered
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-bold text-base-content">
-          ICTBoost AI Tutor
-        </h1>
-        <p className="text-base-content/60 max-w-xl mx-auto">
-          Learn HTML and C Programming with your AI learning assistant.
-        </p>
-      </div>
+      <motion.div
+        className="flex shrink-0 items-center justify-between gap-4"
+        initial={shouldReduceMotion ? false : { opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+      >
+        <div className="min-w-0">
+          <div className="mb-1 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-orange-500">
+            <span className="agent-status-dot" />
+            AI learning system / online
+          </div>
+          <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+            ICTBoost AI Tutor
+          </h1>
+          <p className="hidden text-sm text-base-content/60 sm:block">
+            Your focused companion for HTML and C programming.
+          </p>
+        </div>
+        <div className="hidden items-center gap-2 rounded-full border border-base-300/60 bg-base-100/60 px-3 py-2 font-mono text-[10px] tracking-wide text-base-content/50 sm:flex">
+          <span className="size-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgb(52_211_153_/_70%)]" />
+          SESSION READY
+        </div>
+      </motion.div>
 
-      {/* Tool Selection */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {tools.map((tool) => {
+      <div className="grid shrink-0 grid-cols-4 gap-1.5 sm:gap-3">
+        {tools.map((tool, index) => {
           const Icon = tool.icon;
           const isActive = activeTool === tool.id;
 
           return (
-            <button
+            <motion.button
               key={tool.id}
+              type="button"
+              aria-pressed={isActive}
               onClick={() => switchTool(tool.id)}
-              className={`card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer text-left ${
-                isActive
-                  ? "bg-orange-500 text-white shadow-xl border border-orange-500"
-                  : "bg-base-100 shadow-lg border border-base-300/50 hover:border-orange-300/50"
-              }`}
+              className="agent-tool group relative flex min-h-16 flex-col items-center justify-center gap-1 rounded-2xl border px-1 py-2 text-center transition-colors sm:min-h-[4.25rem] sm:flex-row sm:justify-start sm:gap-3 sm:px-4 sm:text-left"
+              data-active={isActive}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.06, duration: 0.35 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
             >
-              <div className="card-body py-5 px-5 space-y-2">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
-                      isActive ? "bg-white/20" : "bg-orange-500/10"
-                    }`}
-                  >
-                    <span className={isActive ? "text-white" : "text-orange-500"}>
-                      <Icon size={18} />
-                    </span>
-                  </div>
-                  <h3 className={`font-bold text-sm ${isActive ? "text-white" : "text-base-content"}`}>
-                    {tool.title}
-                  </h3>
-                </div>
-                <p className={`text-xs ${isActive ? "text-white/80" : "text-base-content/60"}`}>
+              <span className="agent-tool-icon grid size-7 shrink-0 place-items-center rounded-lg sm:size-9 sm:rounded-xl">
+                <Icon size={14} />
+              </span>
+              <span className="min-w-0 max-w-full">
+                <span className="block truncate text-[9px] font-semibold sm:text-xs md:text-sm">
+                  {tool.title}
+                </span>
+                <span className="mt-0.5 hidden truncate text-[11px] text-base-content/50 md:block">
                   {tool.description}
-                </p>
-              </div>
-            </button>
+                </span>
+              </span>
+              {isActive && <span className="agent-tool-indicator absolute right-2 top-2 hidden sm:block" />}
+            </motion.button>
           );
         })}
       </div>
 
       {/* Chat Section */}
-      <div className="bg-base-100 shadow-xl border border-base-300/50 rounded-2xl">
+      <div className="agent-chat-panel glass-card flex min-h-0 flex-1 flex-col overflow-hidden">
         {/* Chat Header */}
-        <div className="border-b border-base-300/50 py-4 px-6">
-          <div className="flex items-center justify-between">
+        <div className="flex shrink-0 items-center justify-between border-b border-base-300/50 px-4 py-3 sm:px-5">
+          <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500">
-                <span className="text-white">
-                  <FaRobot size={18} />
-                </span>
+              <div className="agent-orb grid size-10 place-items-center rounded-xl">
+                <FaRobot size={17} />
               </div>
               <div>
-                <h3 className="font-bold text-base-content">Chat with AI Tutor</h3>
-                <p className="text-xs text-base-content/50">
-                  Currently in: <span className="text-orange-500 font-semibold">{currentTool.title}</span> mode
+                <h2 className="text-sm font-semibold text-base-content sm:text-base">
+                  Chat with AI Tutor
+                </h2>
+                <p className="text-[11px] text-base-content/50">
+                  Active mode: <span className="font-semibold text-orange-500">{currentTool.title}</span>
                 </p>
               </div>
             </div>
             {messages.length > 0 && (
               <button
                 onClick={clearChat}
-                className="btn btn-sm btn-ghost text-base-content/40 hover:text-red-500 gap-2"
+                className="agent-clear-btn btn btn-sm gap-2 text-base-content/60"
+                type="button"
               >
                 <FaEraser size={14} />
-                Clear
+                <span className="hidden sm:inline">Clear chat</span>
               </button>
             )}
           </div>
         </div>
 
         {/* Messages */}
-        <div className="h-[450px] overflow-y-auto px-6 py-4 space-y-4">
+        <div
+          aria-live="polite"
+          className="agent-messages min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-3 py-4 sm:px-5"
+          ref={messagesContainerRef}
+          role="log"
+        >
           {/* History loading */}
-          {historyLoading && (
-            <div className="flex flex-col items-center justify-center h-full text-base-content/40">
+          {historyLoading && userEmail && (
+            <div className="flex h-full flex-col items-center justify-center text-base-content/50">
               <span className="loading loading-spinner loading-lg text-orange-500" />
               <p className="mt-4 text-sm">Loading chat history...</p>
             </div>
           )}
 
+          {!historyLoading && historyError && (
+            <div className="mx-auto max-w-lg rounded-2xl border border-rose-500/20 bg-rose-500/5 px-4 py-3 text-center text-sm text-rose-500">
+              {historyError}
+            </div>
+          )}
+
           {/* Empty state */}
-          {!historyLoading && messages.length === 0 && !loading && (
-            <div className="flex flex-col items-center justify-center h-full text-base-content/40 space-y-4">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-500/10">
-                <span className="text-orange-400">
-                  <FaRobot size={40} />
-                </span>
+          {(!historyLoading || !userEmail) &&
+            !historyError &&
+            messages.length === 0 &&
+            !loading && (
+            <div className="flex h-full flex-col items-center justify-center space-y-4 text-base-content/50">
+              <div className="agent-empty-orb grid size-16 place-items-center rounded-full sm:size-[4.5rem]">
+                <FaRobot className="text-orange-500" size={30} />
               </div>
               <div className="text-center">
-                <p className="text-lg font-medium text-base-content/60">
+                <p className="text-base font-medium text-base-content sm:text-lg">
                   Ask me anything about{" "}
                   {currentTool.title === "Explain Concept"
                     ? "HTML and C Programming"
@@ -345,69 +378,70 @@ const AgentPage = () => {
                     : "practice problems"}
                   !
                 </p>
-                <p className="text-sm text-base-content/40 mt-1">{currentTool.placeholder}</p>
+                <p className="mt-1 max-w-md text-xs text-base-content/50 sm:text-sm">{currentTool.placeholder}</p>
               </div>
             </div>
           )}
 
           {/* Messages */}
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              {msg.role === "assistant" && (
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500 mt-1">
-                  <span className="text-white">
-                    <FaRobot size={14} />
-                  </span>
-                </div>
-              )}
-
-              <div
-                className={`max-w-[75%] rounded-2xl px-5 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
-                  msg.role === "user"
-                    ? "bg-orange-500 text-white rounded-br-md"
-                    : "bg-base-200 text-base-content rounded-bl-md"
-                }`}
+          <AnimatePresence initial={false}>
+            {messages.map((msg, index) => (
+              <motion.div
+                key={`${index}-${msg.role}`}
+                className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                {msg.content}
-              </div>
+                {msg.role === "assistant" && (
+                  <div className="agent-avatar mt-1 grid size-8 shrink-0 place-items-center rounded-full">
+                    <FaRobot size={13} />
+                  </div>
+                )}
 
-              {msg.role === "user" && (
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-base-300 mt-1">
-                  <span className="text-base-content/60">
-                    <FaUser size={14} />
-                  </span>
+                <div
+                  className={`agent-message max-w-[88%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[75%] sm:px-5 ${
+                    msg.role === "user"
+                      ? "agent-message-user rounded-br-md"
+                      : "agent-message-assistant rounded-bl-md"
+                  }`}
+                >
+                  {msg.content}
                 </div>
-              )}
-            </div>
-          ))}
+
+                {msg.role === "user" && (
+                  <div className="agent-user-avatar mt-1 grid size-8 shrink-0 place-items-center rounded-full">
+                    <FaUser size={12} />
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
 
           {/* Loading Indicator */}
           {loading && (
-            <div className="flex gap-3 justify-start">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500 mt-1">
-                <span className="text-white">
-                  <FaRobot size={14} />
-                </span>
+            <motion.div
+              className="flex justify-start gap-3"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="agent-avatar mt-1 grid size-8 shrink-0 place-items-center rounded-full">
+                <FaRobot size={13} />
               </div>
-              <div className="bg-base-200 rounded-2xl rounded-bl-md px-5 py-4">
-                <span className="flex items-center gap-2 text-base-content/50 text-sm">
-                  <span className="animate-spin">
-                    <FaSpinner size={14} />
-                  </span>
-                  Thinking...
+              <div className="agent-message-assistant flex items-center gap-2 rounded-2xl rounded-bl-md px-4 py-3 text-sm text-base-content/60">
+                <span className="agent-thinking-dots" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
                 </span>
+                Thinking
               </div>
-            </div>
+            </motion.div>
           )}
-
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Section */}
-        <div className="border-t border-base-300/50 px-6 py-4">
+        <div className="shrink-0 border-t border-base-300/50 px-3 py-3 sm:px-5 sm:py-4">
           <div className="flex items-end gap-3">
             <textarea
               ref={textareaRef}
@@ -416,17 +450,20 @@ const AgentPage = () => {
               onKeyDown={handleKeyDown}
               placeholder={currentTool.placeholder}
               rows={1}
-              className="textarea textarea-bordered w-full resize-none focus:outline-orange-400 min-h-[48px] max-h-[150px]"
+              aria-label="Message the AI tutor"
+              className="agent-composer textarea w-full resize-none focus:outline-none"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className="btn bg-orange-500 hover:bg-orange-600 border-none text-white shrink-0 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105"
+              aria-label="Send message"
+              className="agent-send-btn grid size-12 shrink-0 place-items-center rounded-2xl text-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
+              type="button"
             >
               <FaPaperPlane size={16} />
             </button>
           </div>
-          <p className="text-xs text-base-content/40 mt-2">
+          <p className="agent-hint mt-2 text-[10px] text-base-content/40 sm:text-xs">
             Press <kbd className="kbd kbd-xs">Enter</kbd> to send,{" "}
             <kbd className="kbd kbd-xs">Shift+Enter</kbd> for new line
           </p>

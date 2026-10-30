@@ -309,6 +309,222 @@ html[data-theme="light"] textarea {
   }
 }
 
+#agent-workspace {
+  color: var(--app-foreground);
+}
+
+html:has(#agent-workspace),
+body:has(#agent-workspace) {
+  overflow: hidden;
+}
+
+#agent-workspace :is(h1, h2, h3) {
+  color: var(--app-foreground) !important;
+  animation: none !important;
+}
+
+#agent-workspace h1 {
+  color: var(--app-accent) !important;
+}
+
+#agent-workspace .agent-tool {
+  --app-button-background: var(--app-glass);
+  --app-button-hover: color-mix(in srgb, var(--app-accent) 12%, var(--app-glass));
+  --app-button-border: var(--app-glass-border);
+  --app-button-foreground: var(--app-foreground);
+  box-shadow: inset 0 1px rgb(255 255 255 / 5%);
+}
+
+#agent-workspace .agent-tool[aria-pressed="true"] {
+  --app-button-background: color-mix(in srgb, var(--app-accent) 14%, var(--app-glass));
+  --app-button-hover: color-mix(in srgb, var(--app-accent) 20%, var(--app-glass));
+  --app-button-border: color-mix(in srgb, var(--app-accent) 42%, var(--app-glass-border));
+  --app-button-foreground: var(--app-accent);
+  box-shadow: inset 0 0 24px color-mix(in srgb, var(--app-accent) 8%, transparent);
+}
+
+#agent-workspace .agent-tool-icon {
+  color: var(--app-accent);
+  background: color-mix(in srgb, var(--app-accent) 12%, transparent);
+}
+
+#agent-workspace .agent-tool-indicator,
+#agent-workspace .agent-status-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: 0 0 auto;
+  border-radius: 9999px;
+  background: var(--app-accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--app-accent) 70%, transparent);
+}
+
+#agent-workspace .agent-status-dot {
+  animation: agent-status-pulse 2s ease-in-out infinite;
+}
+
+#agent-workspace .agent-chat-panel {
+  min-height: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--app-accent) 6%, transparent), transparent 28rem),
+    var(--app-glass);
+}
+
+#agent-workspace .agent-orb,
+#agent-workspace .agent-avatar {
+  color: white;
+  background: linear-gradient(145deg, #fb923c, #ea580c);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--app-accent) 28%, transparent);
+}
+
+#agent-workspace .agent-empty-orb {
+  color: var(--app-accent);
+  border: 1px solid color-mix(in srgb, var(--app-accent) 32%, var(--app-glass-border));
+  background: color-mix(in srgb, var(--app-accent) 9%, var(--app-glass));
+  box-shadow:
+    0 0 0 8px color-mix(in srgb, var(--app-accent) 4%, transparent),
+    0 0 40px color-mix(in srgb, var(--app-accent) 18%, transparent);
+  animation: agent-orb-float 5s ease-in-out infinite;
+}
+
+#agent-workspace .agent-user-avatar {
+  color: var(--app-foreground);
+  border: 1px solid var(--app-glass-border);
+  background: var(--app-surface);
+}
+
+#agent-workspace .agent-message-assistant {
+  color: var(--app-foreground);
+  border: 1px solid var(--app-glass-border);
+  background: color-mix(in srgb, var(--app-surface) 88%, transparent);
+}
+
+#agent-workspace .agent-message-user {
+  color: #fff;
+  border: 1px solid color-mix(in srgb, var(--app-accent) 56%, transparent);
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  box-shadow: 0 8px 24px rgb(194 65 12 / 16%);
+}
+
+html[data-theme="light"] #agent-workspace .agent-message-user {
+  color: #7c2d12;
+  border-color: rgb(194 65 12 / 18%);
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+}
+
+#agent-workspace .agent-composer {
+  min-height: 3rem;
+  max-height: 8rem;
+  border: 1px solid var(--app-glass-border);
+  background: var(--app-field) !important;
+  color: var(--app-foreground) !important;
+  line-height: 1.5rem;
+}
+
+#agent-workspace .agent-composer::placeholder {
+  color: color-mix(in srgb, var(--app-foreground) 45%, transparent);
+}
+
+#agent-workspace .agent-composer:focus {
+  border-color: color-mix(in srgb, var(--app-accent) 55%, var(--app-glass-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-accent) 12%, transparent);
+}
+
+#agent-workspace .agent-send-btn {
+  --app-button-background: color-mix(in srgb, var(--app-accent) 12%, var(--app-glass));
+  --app-button-hover: color-mix(in srgb, var(--app-accent) 22%, var(--app-glass));
+  --app-button-border: color-mix(in srgb, var(--app-accent) 30%, var(--app-glass-border));
+  --app-button-foreground: var(--app-accent);
+}
+
+#agent-workspace .agent-clear-btn {
+  --app-button-background: var(--app-glass);
+  --app-button-hover: color-mix(in srgb, var(--app-accent) 10%, var(--app-glass));
+  --app-button-border: var(--app-glass-border);
+  --app-button-foreground: var(--app-foreground);
+}
+
+#agent-workspace .agent-messages {
+  scrollbar-color: color-mix(in srgb, var(--app-foreground) 18%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+#agent-workspace .agent-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#agent-workspace .agent-messages::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--app-foreground) 18%, transparent);
+}
+
+#agent-workspace .agent-thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+#agent-workspace .agent-thinking-dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--app-accent);
+  animation: agent-thinking 1s ease-in-out infinite;
+}
+
+#agent-workspace .agent-thinking-dots i:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+#agent-workspace .agent-thinking-dots i:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+@keyframes agent-status-pulse {
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 4px color-mix(in srgb, var(--app-accent) 40%, transparent);
+  }
+}
+
+@keyframes agent-orb-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes agent-thinking {
+  0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+@media (max-width: 639px) {
+  #agent-workspace {
+    height: calc(100dvh - 4rem);
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  #agent-workspace .agent-composer {
+    max-height: 6rem;
+  }
+}
+
+@media (max-height: 520px) {
+  #agent-workspace .agent-hint {
+    display: none;
+  }
+
+  #agent-workspace .agent-messages {
+    padding-block: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #agent-workspace .agent-status-dot,
+  #agent-workspace .agent-empty-orb,
+  #agent-workspace .agent-thinking-dots i {
+    animation: none;
+  }
+}
+
 /* Hero Float Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }

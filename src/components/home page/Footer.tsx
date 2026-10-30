@@ -16,7 +16,7 @@ import {
 const Footer = () => {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/dashboard")) return null;
+  if (pathname.startsWith("/dashboard") || pathname === "/agent") return null;
 
   const footerLink =
     "text-sm text-zinc-400 transition-colors hover:text-white";
