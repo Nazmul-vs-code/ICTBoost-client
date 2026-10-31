@@ -41,9 +41,9 @@ export default function Navbar() {
   };
 
   const linkClass = (href: string) =>
-    `border-b px-1 py-2 text-sm transition-colors ${
+    `site-nav-link border-b px-1 py-2 text-sm transition-colors ${
       pathname === href
-        ? "border-white text-white"
+        ? ""
         : "border-transparent text-zinc-400 hover:border-zinc-600 hover:text-white"
     }`;
 
@@ -165,7 +165,7 @@ export default function Navbar() {
               <Link
                 key={route.href}
                 aria-current={pathname === route.href ? "page" : undefined}
-                className="border-b border-zinc-800 py-3 text-sm text-zinc-300 hover:text-white"
+                className="mobile-nav-link border-b border-zinc-800 py-3 text-sm text-zinc-300 hover:text-white"
                 href={route.href}
                 onClick={() => setMobileOpen(false)}
               >
