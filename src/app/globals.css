@@ -265,6 +265,111 @@ html body :is(
   transform: translateY(0) scale(0.98);
 }
 
+#home-hero {
+  background:
+    radial-gradient(ellipse at 18% 24%, rgb(249 115 22 / 18%), transparent 38%),
+    radial-gradient(ellipse at 82% 76%, rgb(124 58 237 / 16%), transparent 40%),
+    #09090b;
+}
+
+#home-hero .hero-title {
+  color: #fff !important;
+  animation: slide-up 800ms ease-out both;
+  animation-delay: 100ms;
+}
+
+#home-hero .hero-accent {
+  color: #fb923c !important;
+}
+
+#home-hero .text-white {
+  color: #fff !important;
+}
+
+#home-hero .text-zinc-200 {
+  color: #e4e4e7 !important;
+}
+
+#home-hero .text-zinc-300,
+#home-hero .text-zinc-400 {
+  color: #d4d4d8 !important;
+}
+
+html body a.button-action.hero-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #ffc45b !important;
+  border-radius: 9999px !important;
+  background:
+    linear-gradient(180deg, #ffbd43 0%, #ff8b18 40%, #f45116 100%) !important;
+  color: #fff !important;
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 55%),
+    inset 0 -4px 0 rgb(198 53 13 / 48%),
+    0 7px 0 #c84916,
+    0 12px 24px rgb(249 85 22 / 28%) !important;
+  text-shadow: 0 1px 2px rgb(130 42 13 / 35%);
+  transform: translateY(0);
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
+}
+
+html body a.button-action.hero-cta::before {
+  position: absolute;
+  z-index: 0;
+  inset: 5px 12px auto;
+  height: 42%;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 48%), rgb(255 255 255 / 7%));
+  content: "";
+  pointer-events: none;
+}
+
+html body a.button-action.hero-cta::after {
+  position: absolute;
+  z-index: 0;
+  right: 12%;
+  bottom: 7px;
+  width: 30px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 28%);
+  content: "";
+  pointer-events: none;
+  transform: rotate(-18deg);
+}
+
+html body a.button-action.hero-cta:hover {
+  border-color: #ffda7d !important;
+  background:
+    linear-gradient(180deg, #ffd05c 0%, #ff991d 42%, #f45a18 100%) !important;
+  color: #fff !important;
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 62%),
+    inset 0 -4px 0 rgb(198 53 13 / 42%),
+    0 9px 0 #c84916,
+    0 16px 30px rgb(249 85 22 / 38%) !important;
+  filter: saturate(1.08);
+  transform: translateY(-2px);
+}
+
+html body a.button-action.hero-cta:active {
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 45%),
+    inset 0 -2px 0 rgb(198 53 13 / 40%),
+    0 2px 0 #c84916,
+    0 5px 12px rgb(249 85 22 / 22%) !important;
+  transform: translateY(4px) scale(0.99);
+}
+
+#home-hero a.button-action.hero-cta:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 5px;
+}
+
 .btn-circle,
 button.rounded-full,
 a.rounded-full {
@@ -305,6 +410,29 @@ html[data-theme="light"] textarea {
 
   html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]):hover:not(:disabled),
   html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]):active:not(:disabled) {
+    transform: none;
+  }
+
+  #home-hero video {
+    display: none;
+  }
+
+  #home-hero .animate-float,
+  #home-hero .animate-float-delay,
+  #home-hero .animate-float-slow,
+  #home-hero .animate-slide-up,
+  #home-hero .animate-slide-in-right,
+  #home-hero .animate-fade-in,
+  #home-hero .hero-title {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  html body a.button-action.hero-cta,
+  html body a.button-action.hero-cta:hover,
+  html body a.button-action.hero-cta:active {
+    transition: none;
     transform: none;
   }
 }
