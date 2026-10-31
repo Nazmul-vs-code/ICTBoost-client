@@ -193,22 +193,23 @@ html body :is(
   input[type="reset"],
   [role="button"],
   summary,
+  .btn,
   a.btn,
   a.button-action,
   a[class*="bg-gradient"],
   a[class*="bg-white"]
 ) {
-  border: 1px solid var(--app-button-border) !important;
-  border-radius: 0.75rem !important;
-  background-color: var(--app-button-background) !important;
-  color: var(--app-button-foreground) !important;
+  border: 1px solid var(--button-border, var(--app-button-border)) !important;
+  border-radius: var(--button-radius, 0.75rem) !important;
+  background: var(--button-background, var(--app-button-background)) !important;
+  color: var(--button-foreground, var(--app-button-foreground)) !important;
   font-weight: 500;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+  box-shadow: var(--button-shadow, 0 8px 24px rgb(0 0 0 / 10%));
   transition:
     transform 200ms ease,
-    background-color 200ms ease,
+    background 200ms ease,
     border-color 200ms ease,
     box-shadow 200ms ease,
     color 200ms ease;
@@ -221,16 +222,17 @@ html body :is(
   input[type="reset"],
   [role="button"],
   summary,
+  .btn,
   a.btn,
   a.button-action,
   a[class*="bg-gradient"],
   a[class*="bg-white"]
 ):hover:not(:disabled) {
-  border-color: var(--app-button-border) !important;
-  background-color: var(--app-button-hover) !important;
-  color: var(--app-button-foreground) !important;
-  box-shadow: 0 12px 30px rgb(0 0 0 / 14%);
-  transform: translateY(-1px);
+  border-color: var(--button-hover-border, var(--button-border, var(--app-button-border))) !important;
+  background: var(--button-hover-background, var(--app-button-hover)) !important;
+  color: var(--button-foreground, var(--app-button-foreground)) !important;
+  box-shadow: var(--button-hover-shadow, 0 12px 30px rgb(0 0 0 / 14%));
+  transform: var(--button-hover-transform, translateY(-1px));
 }
 
 html body :is(
@@ -240,6 +242,7 @@ html body :is(
   input[type="reset"],
   [role="button"],
   summary,
+  .btn,
   a.btn,
   a.button-action,
   a[class*="bg-gradient"],
@@ -256,13 +259,14 @@ html body :is(
   input[type="reset"],
   [role="button"],
   summary,
+  .btn,
   a.btn,
   a.button-action,
   a[class*="bg-gradient"],
   a[class*="bg-white"]
 ):active:not(:disabled) {
-  box-shadow: none;
-  transform: translateY(0) scale(0.98);
+  box-shadow: var(--button-active-shadow, none);
+  transform: var(--button-active-transform, translateY(0) scale(0.98));
 }
 
 #home-hero {
@@ -274,8 +278,6 @@ html body :is(
 
 #home-hero .hero-title {
   color: #fff !important;
-  animation: slide-up 800ms ease-out both;
-  animation-delay: 100ms;
 }
 
 #home-hero .hero-accent {
@@ -295,29 +297,43 @@ html body :is(
   color: #d4d4d8 !important;
 }
 
-html body a.button-action.hero-cta {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border: 1px solid #ffc45b !important;
-  border-radius: 9999px !important;
-  background:
-    linear-gradient(180deg, #ffbd43 0%, #ff8b18 40%, #f45116 100%) !important;
-  color: #fff !important;
-  box-shadow:
+.btn-orange {
+  --button-background: linear-gradient(180deg, #ffbd43 0%, #ff8b18 40%, #f45116 100%);
+  --button-hover-background: linear-gradient(180deg, #ffd05c 0%, #ff991d 42%, #f45a18 100%);
+  --button-border: #ffc45b;
+  --button-hover-border: #ffda7d;
+  --button-foreground: #fff;
+  --button-radius: 9999px;
+  --button-shadow:
     inset 0 2px 0 rgb(255 255 255 / 55%),
     inset 0 -4px 0 rgb(198 53 13 / 48%),
     0 7px 0 #c84916,
-    0 12px 24px rgb(249 85 22 / 28%) !important;
+    0 12px 24px rgb(249 85 22 / 28%);
+  --button-hover-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 62%),
+    inset 0 -4px 0 rgb(198 53 13 / 42%),
+    0 9px 0 #c84916,
+    0 16px 30px rgb(249 85 22 / 38%);
+  --button-active-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 45%),
+    inset 0 -2px 0 rgb(198 53 13 / 40%),
+    0 2px 0 #c84916,
+    0 5px 12px rgb(249 85 22 / 22%);
+  --button-hover-transform: translateY(-2px);
+  --button-active-transform: translateY(4px) scale(0.99);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   text-shadow: 0 1px 2px rgb(130 42 13 / 35%);
-  transform: translateY(0);
-  transition:
-    transform 180ms ease,
-    filter 180ms ease,
-    box-shadow 180ms ease;
 }
 
-html body a.button-action.hero-cta::before {
+.btn-orange > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-orange::before {
   position: absolute;
   z-index: 0;
   inset: 5px 12px auto;
@@ -328,7 +344,7 @@ html body a.button-action.hero-cta::before {
   pointer-events: none;
 }
 
-html body a.button-action.hero-cta::after {
+.btn-orange::after {
   position: absolute;
   z-index: 0;
   right: 12%;
@@ -342,31 +358,8 @@ html body a.button-action.hero-cta::after {
   transform: rotate(-18deg);
 }
 
-html body a.button-action.hero-cta:hover {
-  border-color: #ffda7d !important;
-  background:
-    linear-gradient(180deg, #ffd05c 0%, #ff991d 42%, #f45a18 100%) !important;
-  color: #fff !important;
-  box-shadow:
-    inset 0 2px 0 rgb(255 255 255 / 62%),
-    inset 0 -4px 0 rgb(198 53 13 / 42%),
-    0 9px 0 #c84916,
-    0 16px 30px rgb(249 85 22 / 38%) !important;
-  filter: saturate(1.08);
-  transform: translateY(-2px);
-}
-
-html body a.button-action.hero-cta:active {
-  box-shadow:
-    inset 0 2px 0 rgb(255 255 255 / 45%),
-    inset 0 -2px 0 rgb(198 53 13 / 40%),
-    0 2px 0 #c84916,
-    0 5px 12px rgb(249 85 22 / 22%) !important;
-  transform: translateY(4px) scale(0.99);
-}
-
-#home-hero a.button-action.hero-cta:focus-visible {
-  outline: 3px solid #fff;
+.btn-orange:focus-visible {
+  outline: 3px solid var(--button-foreground);
   outline-offset: 5px;
 }
 
@@ -403,13 +396,13 @@ html[data-theme="light"] textarea {
 
 @media (prefers-reduced-motion: reduce) {
   html[data-theme] :is(h1, h2, h3),
-  html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]) {
+  html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, .btn, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]) {
     animation: none;
     transition: none;
   }
 
-  html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]):hover:not(:disabled),
-  html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]):active:not(:disabled) {
+  html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, .btn, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]):hover:not(:disabled),
+  html body :is(button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], summary, .btn, a.btn, a.button-action, a[class*="bg-gradient"], a[class*="bg-white"]):active:not(:disabled) {
     transform: none;
   }
 
@@ -417,24 +410,6 @@ html[data-theme="light"] textarea {
     display: none;
   }
 
-  #home-hero .animate-float,
-  #home-hero .animate-float-delay,
-  #home-hero .animate-float-slow,
-  #home-hero .animate-slide-up,
-  #home-hero .animate-slide-in-right,
-  #home-hero .animate-fade-in,
-  #home-hero .hero-title {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  html body a.button-action.hero-cta,
-  html body a.button-action.hero-cta:hover,
-  html body a.button-action.hero-cta:active {
-    transition: none;
-    transform: none;
-  }
 }
 
 #agent-workspace {
